@@ -1,24 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter} from "react-router-dom";
+import {Routes, Route} from "react-router";
+import FeedPage from './pages/feedPage';
+import GroupsPage from './pages/groupsPage';
+import GroupPage from './pages/groupPage';
+import SearchPage from './pages/searchPage';
+import BookmarksPage from './pages/bookmarksPage';
+import ProfilePage from './pages/profilePage';
+import RecipePage from './pages/recipePage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route index path="/"
+          element={<FeedPage/>}/>
+        <Route path="/feed"
+          element={<FeedPage/>}/>
+        <Route path="/groups"
+          element={<GroupsPage/>}/>
+        <Route path="/group/:id"
+          element={<GroupPage/>}/>
+        <Route path="/recipe/:id"
+          element={<RecipePage/>}/>
+        <Route path="/group/:id"
+          element={<SearchPage/>}/>
+        <Route path="/bookmarks"
+          element={<BookmarksPage/>}/>
+        <Route path="/profile"
+          element={<ProfilePage/>}/>
+        <Route path="/profile/:id"
+          element={<ProfilePage/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
