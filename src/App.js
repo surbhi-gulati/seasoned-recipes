@@ -1,24 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter} from "react-router-dom";
+import {Routes, Route} from "react-router";
+import LoginPage from './pages/loginPage.tsx';
+import FeedPage from './pages/feedPage.tsx';
+import GroupsPage from './pages/groupsPage.tsx';
+import GroupPage from './pages/groupPage.tsx';
+import SearchPage from './pages/searchPage.tsx';
+import BookmarksPage from './pages/bookmarksPage.tsx';
+import ProfilePage from './pages/profilePage.tsx';
+import RecipePage from './pages/recipePage.tsx';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route index path="/"
+          element={<FeedPage/>}/>
+        <Route path="/feed"
+          element={<FeedPage/>}/>
+        <Route index path="/login"
+          element={<LoginPage/>}/>
+        <Route path="/groups"
+          element={<GroupsPage/>}/>
+        <Route path="/group/:id"
+          element={<GroupPage/>}/>
+        <Route path="/recipe/:id"
+          element={<RecipePage/>}/>
+        <Route path="/search"
+          element={<SearchPage/>}/>
+        <Route path="/bookmarks"
+          element={<BookmarksPage/>}/>
+        <Route path="/profile"
+          element={<ProfilePage/>}/>
+        <Route path="/profile/:id"
+          element={<ProfilePage/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
