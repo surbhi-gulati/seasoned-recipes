@@ -1,20 +1,21 @@
 import './App.css';
 import {BrowserRouter} from "react-router-dom";
 import {Routes, Route} from "react-router";
-import FeedPage from './pages/feedPage';
-import GroupsPage from './pages/groupsPage';
-import GroupPage from './pages/groupPage';
-import SearchPage from './pages/searchPage';
-import BookmarksPage from './pages/bookmarksPage';
-import ProfilePage from './pages/profilePage';
-import RecipePage from './pages/recipePage';
+import LoginPage from './pages/loginPage.tsx';
+import FeedPage from './pages/feedPage.tsx';
+import GroupsPage from './pages/groupsPage.tsx';
+import GroupPage from './pages/groupPage.tsx';
+import SearchPage from './pages/searchPage.tsx';
+import BookmarksPage from './pages/bookmarksPage.tsx';
+import ProfilePage from './pages/profilePage.tsx';
+import RecipePage from './pages/recipePage.tsx';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route index path="/"
-          element={<FeedPage/>}/>
+          element={<LoginPage/>}/>
         <Route path="/feed"
           element={<FeedPage/>}/>
         <Route path="/groups"
@@ -23,7 +24,7 @@ function App() {
           element={<GroupPage/>}/>
         <Route path="/recipe/:id"
           element={<RecipePage/>}/>
-        <Route path="/group/:id"
+        <Route path="/search"
           element={<SearchPage/>}/>
         <Route path="/bookmarks"
           element={<BookmarksPage/>}/>
