@@ -1,0 +1,12 @@
+[
+    {
+      "_id": 1,
+      "name": "Vegan",
+      "image": "vegan.jpg"
+    }, 
+    {
+        "_id": 1,
+        "name": "Pasta Lovers",
+        "image": "pastaLovers.jpg"
+    }
+]
