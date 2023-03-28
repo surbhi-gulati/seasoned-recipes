@@ -15,9 +15,11 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route index path="/"
-          element={<LoginPage/>}/>
+          element={<FeedPage/>}/>
         <Route path="/feed"
           element={<FeedPage/>}/>
+        <Route index path="/login"
+          element={<LoginPage/>}/>
         <Route path="/groups"
           element={<GroupsPage/>}/>
         <Route path="/group/:id"

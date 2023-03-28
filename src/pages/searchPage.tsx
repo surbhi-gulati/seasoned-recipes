@@ -3,7 +3,7 @@ import React from "react";
 const SearchPage = () => {    
     return (
         <div>
-            <p> Dummy content! </p>
+            <p> SEARCH: Dummy content! </p>
         </div>
     );
 };

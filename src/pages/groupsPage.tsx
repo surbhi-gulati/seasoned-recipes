@@ -3,7 +3,7 @@ import React from "react";
 const GroupsPage = () => {    
     return (
         <div>
-            <p> Dummy content! </p>
+            <p> GROUP: Dummy content! </p>
         </div>
     );
 };
