@@ -3,8 +3,9 @@ import Group from "../modules/groupType";
 
 const GroupPage = (props: Group) => {    
     return (
-    <div>
-      <div className="card py-2 my-3" key={props._id}> 
+    <div className="card my-3"
+          key={props._id}>
+      <div className="my-2"> 
       <img 
         className="card-img mt-2" 
         src={require(`../data/groups/${props.image}`)} 
