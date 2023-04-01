@@ -1,9 +1,19 @@
 import React from "react";
 
-const GroupsPage = () => {    
+import groups from "../data/groups/groups";
+import Group from "../modules/groupType";
+import GroupPage from "./groupPage";
+
+const GroupsPage = () => {
     return (
-        <div>
-            <p> GROUP: Dummy content! </p>
+        <div className="card-deck row mx-5">
+            {
+              groups.map((group : Group) => {
+                return (
+                <GroupPage {...group}></GroupPage>                
+                );
+              })
+            }
         </div>
     );
 };
