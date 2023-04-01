@@ -1,4 +1,4 @@
-export default interface Group {
+export default interface GroupType {
   _id: number,
   name: string,
   image: string,

@@ -1,6 +1,6 @@
-import Group from '../../modules/groupType';
+import GroupType from '../../modules/groupType';
 
-const groups : Array<Group> = [
+const groups : Array<GroupType> = [
     {
       "_id": 1,
       "name": "Vegan",

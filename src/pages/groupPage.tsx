@@ -1,26 +1,10 @@
 import React from "react";
-import Group from "../modules/groupType";
+import GroupType from "../modules/groupType";
+import { Link } from "react-router-dom";
 
-const GroupPage = (props: Group) => {    
+const GroupPage = () => {    
     return (
-    <div className="card my-3"
-          key={props._id}>
-      <div className="my-2"> 
-      <img 
-        className="card-img mt-2" 
-        src={require(`../data/groups/${props.image}`)} 
-        alt="Card image cap" />
-      </div>
-      <div className="row">
-        <div className="card-body col-9 float">
-          <h5 className="card-title">{props.name}</h5>
-          <p className="card-text">{props.description}</p>
-        </div>
-        <div className="float-end col-2" >
-          <button className="btn btn-lg btn-primary mt-4 rounded-pill">Join</button>
-        </div>
-      </div>
-    </div>
+      <div className="header">Group Page Dummy </div>
     );
 };
 

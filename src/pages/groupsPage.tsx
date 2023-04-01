@@ -1,21 +1,8 @@
 import React from "react";
-
-import groups from "../data/groups/groups";
-import Group from "../modules/groupType";
-import GroupPage from "./groupPage";
+import GroupsList from "../components/groups/groupsList";
 
 const GroupsPage = () => {
-    return (
-        <div className="card-deck row mx-5">
-            {
-              groups.map((group : Group) => {
-                return (
-                <GroupPage {...group}></GroupPage>                
-                );
-              })
-            }
-        </div>
-    );
+  return <GroupsList/>
 };
 
 export default GroupsPage;
