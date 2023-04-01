@@ -1,11 +1,8 @@
 import React from "react";
+import GroupsList from "../components/groups/groupsList";
 
-const GroupsPage = () => {    
-    return (
-        <div>
-            <p> GROUP: Dummy content! </p>
-        </div>
-    );
+const GroupsPage = () => {
+  return <GroupsList/>
 };
 
 export default GroupsPage;
