@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 
 const GroupCard = (props: GroupType) => {    
     return (
-    <div className="card my-3"
-          key={props._id}>
+    <div className="card my-3">
       <div className="my-2"> 
         <img 
           className="card-img mt-2" 

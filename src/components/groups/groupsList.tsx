@@ -10,7 +10,7 @@ const GroupsList = () => {
             {
               groups.map((group : GroupType) => {
                 return (
-                <GroupCard {...group}></GroupCard>                
+                  <GroupCard key={group._id} {...group}></GroupCard>                
                 );
               })
             }
