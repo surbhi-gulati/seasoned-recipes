@@ -1,9 +1,12 @@
 import React from "react";
+import RecipeList from "../components/recipes/recipe-list";
+import NewPostSrc from "../components/new-post-src";
 
 const SearchPage = () => {    
     return (
         <div>
-            <p> SEARCH: Dummy content! </p>
+          <RecipeList/>
+          <NewPostSrc/>
         </div>
     );
 };
