@@ -63,7 +63,7 @@ function random3Tags(recipe: any) {
       <div>
         {
           threeTags.map(tag =>
-              <span className="badge rounded-pill bg-info">{tag}</span>
+              <span key={tag} className="badge rounded-pill bg-info">{tag}</span>
           )
         }
       </div>);

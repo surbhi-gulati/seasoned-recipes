@@ -8,7 +8,7 @@ const RecipeList = () => {
       <ul className="list-group">
         {
           recipesArray.results.map((recipe : any) =>
-              <RecipeCard {...recipe}></RecipeCard>)
+              <RecipeCard key={recipe.id} {...recipe}></RecipeCard>)
         }
       </ul>
   );
