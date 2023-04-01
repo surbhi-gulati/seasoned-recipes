@@ -1,8 +1,7 @@
 import React from "react";
-import RecipeType from "../../modules/recipeType";
-
 const savesArray = require("../../data/recipes/saves.json");
-const RecipeCard = (props: RecipeType) => {
+
+const RecipeCard = (props: any) => {
   return (
       <div className="card mb-3" style ={{width: "50rem"}}>
         <div className="row">
@@ -46,7 +45,7 @@ function findSavesByRecipe(recipe_id: number) {
 }
 
 
-function random3Tags(recipe: RecipeType) {
+function random3Tags(recipe: any) {
   const tagsOfInterest = ["vegetarian", "vegan", "glutenFree", "dairyFree", "veryHealthy", "cheap", "veryPopular", "sustainable"];
   const categoriesOfInterest = ["cuisines", "dishTypes", "diets", "occasions"];
   let allTags : string[] = [];
