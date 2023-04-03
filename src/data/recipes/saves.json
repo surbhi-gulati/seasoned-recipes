@@ -1,0 +1,16 @@
+{
+  "saves": [
+    {"recipe_id": 715467,
+     "user_id": 1},
+    {"recipe_id": 715467,
+      "user_id": 2},
+    {"recipe_id": 715467,
+      "user_id": 3},
+    {"recipe_id": 715467,
+      "user_id": 4},
+    {"recipe_id": 664058,
+      "user_id": 3},
+    {"recipe_id": 664058,
+      "user_id": 4}
+  ]
+}
