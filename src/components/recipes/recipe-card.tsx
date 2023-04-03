@@ -1,7 +1,7 @@
 import React from "react";
 const savesArray = require("../../data/recipes/saves.json");
 
-const RecipeCard = (props: any) => {
+export const RecipeCard = (props: any) => {
   return (
       <div className="card mb-3" style ={{width: "50rem"}}>
         <div className="row">
