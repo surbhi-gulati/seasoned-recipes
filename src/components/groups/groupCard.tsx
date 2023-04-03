@@ -9,7 +9,7 @@ const GroupCard = (props: GroupType) => {
         <img 
           className="card-img mt-2" 
           src={require(`../../data/groups/${props.image}`)} 
-          alt="Card image cap" />
+          alt={props.name} />
       </div>
       <div className="row">
         <div className="card-body col-9 float">
