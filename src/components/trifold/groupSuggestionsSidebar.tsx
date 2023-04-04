@@ -1,7 +1,7 @@
 import React from "react";
 import groups from "../../data/groups/groupsData";
 import GroupType from "../../modules/groupType";
-import GroupSuggestionItem from "./groups-suggestion-item";
+import GroupSuggestionsItem from "./groupSuggestionsItem";
 
 const GroupSuggestionsSidebar = () => {
   return (
@@ -9,7 +9,7 @@ const GroupSuggestionsSidebar = () => {
       {
         groups.map((group : GroupType) => {
         return (
-          <GroupSuggestionItem {...group} />                
+          <GroupSuggestionsItem {...group} />                
         );
       })}
       <a href="/groups">See All Groups</a>

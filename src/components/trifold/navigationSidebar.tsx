@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 const NavigationSidebar = ({active = 'feed'}) => {
   return (
-    <div  className="list-group mb-1">
+    <div className="list-group mb-1">
       <Link 
         to="/feed" 
         className={`list-group-item ${active === 'feed' ? 'active' : ''}`}>

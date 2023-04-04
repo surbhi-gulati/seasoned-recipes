@@ -1,8 +1,8 @@
 import React from "react";
 import {useParams} from "react-router";
 import { Outlet } from "react-router";
-import NavigationSidebar from "../components/navigation-sidebar";
-import GroupSuggestionsSidebar from "../components/groups-suggestions-sidebar";
+import NavigationSidebar from "../components/trifold/navigationSidebar";
+import GroupSuggestionsSidebar from "../components/trifold/groupSuggestionsSidebar";
 
 function TrifoldPage() {
   const { path } = useParams();
