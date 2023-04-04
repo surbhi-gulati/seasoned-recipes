@@ -8,7 +8,7 @@ const GroupCard = (props: GroupType) => {
       <div className="my-2"> 
         <img 
           className="card-img mt-2" 
-          src={require(`../../data/groups/${props.image}`)} 
+          src={`${props.image}`} 
           alt={props.name} />
       </div>
       <div className="row">

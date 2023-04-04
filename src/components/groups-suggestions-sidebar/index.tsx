@@ -6,15 +6,13 @@ import GroupSuggestionItem from "./groups-suggestion-item";
 const GroupSuggestionsSidebar = () => {
   return (
     <div className="list-group mb-1">
-      <ul className="list-group">
-        {
-          groups.map((group : GroupType) => {
-          return (
-            <GroupSuggestionItem {...group} />                
-          );
-        })}
-      </ul>
-      <a href="../../pages/groupsPage">See All Groups</a>
+      {
+        groups.map((group : GroupType) => {
+        return (
+          <GroupSuggestionItem {...group} />                
+        );
+      })}
+      <a href="/groups">See All Groups</a>
     </div>
   );
 };

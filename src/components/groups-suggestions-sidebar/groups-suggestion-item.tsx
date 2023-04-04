@@ -5,7 +5,7 @@ const GroupSuggestionItem = (group: GroupType) => {
     return (
         <span>
             <img className="rounded-circle" height={48} 
-                src={`/data/groups/images/${group.image}`}
+                src={`${group.image}`}
                 alt={group.name}
             />
             <p> {group.name} </p>
