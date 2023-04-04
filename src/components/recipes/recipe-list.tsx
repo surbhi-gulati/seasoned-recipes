@@ -1,13 +1,12 @@
 import React from "react";
 import RecipeCard from "./recipe-card";
-
-const recipesArray = [] /* require('../../data/recipes/potpie'); */
+import recipesArray from "../../data/recipes/potpie.json";
 
 const RecipeList = () => {
   return(
       <ul className="list-group">
         {
-          recipesArray.map((recipe : any) =>
+          recipesArray.results.map((recipe : any) =>
               <RecipeCard key={recipe.id} {...recipe}></RecipeCard>)
         }
       </ul>
