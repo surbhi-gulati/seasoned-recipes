@@ -1,5 +1,5 @@
 import React from "react";
-import groups from "../../data/groups/groupsData"
+import groups from "../../data/groupsData"
 import GroupType from "../../modules/groupType";
 import GroupCard from "./groupCard";
 

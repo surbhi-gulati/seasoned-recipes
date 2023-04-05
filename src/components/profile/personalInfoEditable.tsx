@@ -1,10 +1,10 @@
 import React from "react";
 
-const FollowingPeople = () => {    
+const PersonalInfoEditable = () => {    
     return (
         <>
         </>
     );
 };
 
-export default FollowingPeople;
+export default PersonalInfoEditable;
