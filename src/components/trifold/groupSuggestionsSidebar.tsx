@@ -9,7 +9,7 @@ const GroupSuggestionsSidebar = () => {
       {
         groups.map((group : GroupType) => {
         return (
-          <GroupSuggestionsItem {...group} />                
+          <GroupSuggestionsItem key={group._id} {...group} />                
         );
       })}
       <a href="/groups">See All Groups</a>
