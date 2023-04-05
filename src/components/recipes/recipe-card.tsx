@@ -44,7 +44,6 @@ function findSavesByRecipe(recipe_id: number) {
   return count;
 }
 
-
 function random3Tags(recipe: any) {
   const tagsOfInterest = ["vegetarian", "vegan", "glutenFree", "dairyFree", "veryHealthy", "cheap", "veryPopular", "sustainable"];
   const categoriesOfInterest = ["cuisines", "dishTypes", "diets", "occasions"];
