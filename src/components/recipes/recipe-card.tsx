@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 const savesArray = require("../../data/recipes/saves.json");
 
 export const RecipeCard = (props: any) => {
@@ -13,7 +14,9 @@ export const RecipeCard = (props: any) => {
               <h5 className="card-title">{props.title}</h5>
               <span className="card-text">Cook time: {props.readyInMinutes} minutes</span>
               <div className="card-text"><small className="text-muted">Tags:</small>{random3Tags(props)}</div>
-              <button type="button" className="btn btn-success">Make a Post</button>
+              <Link to={`/newPost/${props.id}`}>
+                <button type="button" className="btn btn-success">Make a Post</button>
+              </Link>
             </div>
           </div>
           <div className="col-1">
