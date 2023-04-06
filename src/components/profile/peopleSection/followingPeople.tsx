@@ -6,7 +6,7 @@ import users from "../../../data/usersData";
 const FollowingPeople = ({ user }) => {  
     return (
         <>
-            <h2> Who {user.name} follows </h2>
+            <h2> Who {user.username} follows </h2>
             <div className="d-flex ">
                 <i className="bi bi-lock me-2"></i>
                 <p>This section is only visible to you.</p>

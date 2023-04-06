@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProfileHeader = ({user}) => {    
+const ProfileHeader = ({user}) => {
     return (
         <div className="bg-light">
             <h1 className="display-4 text-success"> {user.username} </h1>

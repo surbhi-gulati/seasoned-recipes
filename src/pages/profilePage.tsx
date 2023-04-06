@@ -12,8 +12,25 @@ const ProfilePage = (user: UserType = {
     "avatar": "/userImages/belle.jpg",
     "phone": "234-456-7880",
     "email": "lim.i@northeastern.edu"
-  }) => {    
-    console.log("User username: " + user.username)
+  }) => {  
+    user = {
+        "id": 3,
+        "username": "mostlyHereForRamen",
+        "name": "Belle Lim",
+        "avatar": "/userImages/belle.jpg",
+        "phone": "234-456-7880",
+        "email": "lim.i@northeastern.edu"
+    }  
+    // if (!user.username) {
+    //     return <div>
+    //         <h1> Invalid account requested </h1>
+    //         <p>
+    //             You are attempting to view an invalid profile.
+    //             Want to create a profile? Please create an account!
+    //         </p>
+    //         <button> Create account </button>
+    //     </div>;
+    // }
     return (
         <div className="container-fluid">
             <ProfileHeader user={user} />
