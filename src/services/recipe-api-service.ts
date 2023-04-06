@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 const API_URL = "https://api.spoonacular.com";
 const API_KEY = "07e783078cc34026b5f88a12375c5e0c";
 
