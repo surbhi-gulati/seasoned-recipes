@@ -1,24 +1,30 @@
-import GroupType from '../modules/groupType';
+import UserType from '../modules/userType';
 
-const groups : Array<GroupType> = [
+const sampleUsers : Array<UserType> = [
     {
-      "_id": 1,
-      "name": "Vegan",
-      "image": "/groupImages/vegan.jpg",
-      "description": "This is a group for those that are interested in Vegetarian and Vegan recipes or who are looking for good healthy recipes."
+      "id": 1,
+      "username": "apastafan",
+      "name": "Surbhi Gulati",
+      "avatar": "/userImages/surbhi.jpg",
+      "phone": "123-456-7890",
+      "email": "gulati.su@northeastern.edu"
     }, 
     {
-        "_id": 2,
-        "name": "Pasta Lovers",
-        "image": "/groupImages/pastaLovers.jpg",
-        "description": "This a group created by pasta lovers for pasta lovers! Here you will find delicious and yummy pictures, recipes and more!"
+        "id": 2,
+        "username": "Luca2001",
+        "name": "Luca Sharbani",
+        "avatar": "/userImages/luca.jpg",
+        "phone": "234-456-7890",
+        "email": "sharbani.l@northeastern.edu"
     },
     {
-      "_id": 3,
-      "name": "Subtle Asian Eats",
-      "image": "/groupImages/subtleAsianEats.jpg",
-      "description": "You've laughed at the memes, you've found love, but let's be honest, food is one of the most pivotal parts of Asian Culture. Post up our favorite Asian food pics and invite any other Asian foodies you know!!"
+      "id": 3,
+      "username": "mostlyHereForRamen",
+      "name": "Belle Lim",
+      "avatar": "/userImages/belle.jpg",
+      "phone": "234-456-7880",
+      "email": "lim.i@northeastern.edu"
     }
 ]
 
-export default groups;
+export default sampleUsers;

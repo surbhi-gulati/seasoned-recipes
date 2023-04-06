@@ -1,12 +1,12 @@
 import React from "react";
 
-const ProfileHeader = () => {    
+const ProfileHeader = ({user}) => {    
     return (
-        <>
-            <p> Username </p>
-            <button type="button" className="btn btn-primary"> Follow </button>
-            <button type="button" className="btn btn-secondary"> Unfollow </button>
-        </>
+        <div className="bg-light">
+            <h1 className="display-4 text-success"> {user.username} </h1>
+            <button type="button" className="btn btn-sm btn-primary"> Follow </button>
+            <button type="button" className="btn btn-sm btn-secondary"> Unfollow </button>
+        </div>
     );
 };
 
