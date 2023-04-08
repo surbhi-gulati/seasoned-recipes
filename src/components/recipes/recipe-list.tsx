@@ -3,7 +3,6 @@ import RecipeCard from "./recipe-card";
 
 const RecipeList = (props) => {
   let recipesArray : Array<any> = props.recipesArray;
-  console.log(recipesArray);
   return(
       <div className="mx-5">
         {

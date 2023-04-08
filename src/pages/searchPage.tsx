@@ -1,18 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import RecipeList from "../components/recipes/recipe-list";
 import { searchRecipes } from "../services/recipe-api-service";
+import { useNavigate, useParams } from "react-router";
 
 const SearchPage = () => {  
+
+  let {searchTerm} = useParams();
+
+  console.log(searchTerm);
+
+  let navigate = useNavigate();
+
   let [search, setSearch] = React.useState<string>("");
 
   let [recipeList, setRecipeList] = React.useState<any>([])
 
-  const handleSearchButton = async () => {
+  const handleSearchButton = async (searchQuery) => {
     console.log("handleSearchButton");
-    const response = await searchRecipes(search);
-    console.log(response.results);
+    const response = await searchRecipes(searchQuery);
     setRecipeList(response.results);
+    navigate(`/search/${searchQuery}`);
   }
+
+  useEffect(() => {
+    if(searchTerm) {
+      setSearch(searchTerm);
+      handleSearchButton(searchTerm);
+    }
+  }, [searchTerm]);
+
+
   return (
     <div>
       <div className="row p-3">
@@ -26,7 +43,7 @@ const SearchPage = () => {
         </div>
         
         <button className="col-2 rounded-pill btn btn-primary float-end mt-2 ps-3 pe-3 fw-bold"
-                onClick={() => handleSearchButton()}>
+                onClick={() => handleSearchButton(search)}>
             Search Recipe
         </button>
         

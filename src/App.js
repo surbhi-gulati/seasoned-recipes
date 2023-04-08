@@ -30,6 +30,8 @@ function App() {
             element={<RecipePage/>}/>
           <Route path="search"
             element={<SearchPage/>}/>
+          <Route path="search/:searchTerm"
+            element={<SearchPage/>}/>
           <Route path="bookmarks"
             element={<BookmarksPage/>}/>
           <Route path="profile"
