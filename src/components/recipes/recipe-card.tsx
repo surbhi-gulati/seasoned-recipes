@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import RecipeType from "../../modules/recipeType";
 const savesArray = require("../../data/recipes/saves.json");
 
-export const RecipeCard = (props: any) => {
+export const RecipeCard = (props: RecipeType) => {
   return (
-      <div className="card mb-3" style ={{width: "50rem"}}>
+      <div className="card mb-3">
         <div className="row">
           <div className="col-4 ">
             <img src={props.thumbnail_url} className="card-img" alt="..."/>
