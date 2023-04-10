@@ -10,6 +10,7 @@ import SearchPage from './pages/searchPage.tsx';
 import BookmarksPage from './pages/bookmarksPage.tsx';
 import ProfilePage from './pages/profilePage.tsx';
 import RecipePage from './pages/recipePage.tsx';
+import NewPostPage from './pages/newPostPage.tsx';
 
 function App() {
   return (
@@ -29,12 +30,16 @@ function App() {
             element={<RecipePage/>}/>
           <Route path="search"
             element={<SearchPage/>}/>
+          <Route path="search/:searchTerm"
+            element={<SearchPage/>}/>
           <Route path="bookmarks"
             element={<BookmarksPage/>}/>
           <Route path="profile"
             element={<ProfilePage/>}/>
           <Route path="profile/:id"
             element={<ProfilePage/>}/>
+          <Route path="newPost/:recipe_id"
+            element={<NewPostPage/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

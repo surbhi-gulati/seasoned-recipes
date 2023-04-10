@@ -1,15 +1,15 @@
 import React from "react";
 import RecipeCard from "./recipe-card";
-import recipesArray from "../../data/recipes/potpie.json";
 
-const RecipeList = () => {
+const RecipeList = (props) => {
+  let recipesArray : Array<any> = props.recipesArray;
   return(
-      <ul className="list-group">
+      <div className="mx-5">
         {
-          recipesArray.results.map((recipe : any) =>
+          recipesArray.map((recipe : any) =>
               <RecipeCard key={recipe.id} {...recipe}></RecipeCard>)
         }
-      </ul>
+      </div>
   );
 };
 export default RecipeList;
