@@ -1,4 +1,4 @@
-import GroupType from '../../modules/groupType';
+import GroupType from '../modules/groupType';
 
 const groups : Array<GroupType> = [
     {

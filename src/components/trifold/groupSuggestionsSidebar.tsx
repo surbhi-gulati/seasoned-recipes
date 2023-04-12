@@ -1,7 +1,7 @@
 import React from "react";
-import groups from "../../data/groups/groupsData";
+import groups from "../../data/groupsData";
 import GroupType from "../../modules/groupType";
-import GroupSuggestionsItem from "./groupSuggestionsItem";
+import GroupSuggestionsItem from "../groups/groupSuggestionsItem";
 
 const GroupSuggestionsSidebar = () => {
   return (
