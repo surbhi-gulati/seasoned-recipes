@@ -5,12 +5,13 @@ const savesArray = require("../../data/recipes/saves.json");
 
 export const RecipeCard = (props: RecipeType) => {
   return (
-      <div className="card mb-3">
+      <div className="row card mb-3">
         <div className="row">
           <div className="col-4 ">
             <img src={props.thumbnail_url} className="card-img" alt="..."/>
           </div>
-          <div className="col-7">
+          <div className="col-auto">
+
             <div className="card-body">
               <h5 className="card-title">{props.name}</h5>
               <span className="card-text">{`${props.yields}`}</span>
@@ -20,10 +21,6 @@ export const RecipeCard = (props: RecipeType) => {
                 <button type="button" className="btn btn-success">Make a Post</button>
               </Link>
             </div>
-          </div>
-          <div className="col-1">
-            <button className='btn bi bi-bookmark pull-right'/>
-            <p className="card-text">{findSavesByRecipe(props.id)}</p>
           </div>
         </div>
       </div>
@@ -58,27 +55,3 @@ const getTags = (tags: Array<any>) => {
     );
   }
 }
-
-// function random3Tags(recipe: any) {
-//   const tagsOfInterest = ["vegetarian", "vegan", "glutenFree", "dairyFree", "veryHealthy", "cheap", "veryPopular", "sustainable"];
-//   const categoriesOfInterest = ["cuisines", "dishTypes", "diets", "occasions"];
-//   let allTags : string[] = [];
-//   for (const key in recipe) {
-//     if (tagsOfInterest.includes(key)) {
-//       allTags.push(fixFormatting(key));
-//     }
-//     if (categoriesOfInterest.includes(key)) {
-//       allTags = allTags.concat(recipe[key]);
-//     }
-//   }
-//   allTags.sort(() => Math.random() - Math.random());
-//   const threeTags = allTags.slice(0, 3);
-//   return (
-//       <div>
-//         {
-//           threeTags.map(tag =>
-//               <span key={tag} className="badge rounded-pill bg-info">{tag}</span>
-//           )
-//         }
-//       </div>);
-// }

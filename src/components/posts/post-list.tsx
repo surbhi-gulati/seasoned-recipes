@@ -1,13 +1,15 @@
 import React from "react";
-import posts from "../../data/posts/postsData";
 import PostCard from "./post-card";
 import PostType from "../../modules/postType";
+import {useSelector} from "react-redux";
 
 const PostList = () => {
+  // @ts-ignore
+  const postsArray = useSelector(state => state.posts)
   return(
       <ul className="list-group">
         {
-          posts.map((post : PostType) =>
+          postsArray.map((post : PostType) =>
               <PostCard key={post._id} {...post}></PostCard>)
         }
       </ul>

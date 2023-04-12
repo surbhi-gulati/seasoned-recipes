@@ -4,21 +4,30 @@ import { Outlet } from "react-router";
 import NavigationSidebar from "../components/trifold/navigationSidebar";
 import GroupSuggestionsSidebar from "../components/trifold/groupSuggestionsSidebar";
 
+import postsReducer from "../reducers/posts-reducer";
+import { configureStore } from '@reduxjs/toolkit';
+import {Provider} from "react-redux";
+
+
+const store = configureStore(
+    {reducer: {posts: postsReducer}});
 function TrifoldPage() {
   const { path } = useParams();
   return (
-    <div className="row mt-2">
-        <div className="col-2 col-md-2 col-lg-1 col-xl-2">
-            <NavigationSidebar active={ path || 'find' }/>
+      <Provider store={store}>
+        <div className="row mt-2">
+            <div className="col-2 col-md-2 col-lg-1 col-xl-2">
+                <NavigationSidebar active={ path || 'find' }/>
+            </div>
+            <div className="col-10 col-md-10 col-lg-7 col-xl-6"
+                style={{"position": "relative"}}>
+                <Outlet />
+            </div>
+            <div className="d-sm-none d-md-none d-lg-block col-lg-4 col-xl-4">
+                <GroupSuggestionsSidebar/>
+            </div>
         </div>
-        <div className="col-10 col-md-10 col-lg-7 col-xl-6" 
-            style={{"position": "relative"}}>
-            <Outlet />   
-        </div>
-        <div className="d-sm-none d-md-none d-lg-block col-lg-4 col-xl-4">
-            <GroupSuggestionsSidebar/>
-        </div>
-    </div>
+      </Provider>
   );
 }
 

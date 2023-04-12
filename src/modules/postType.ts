@@ -5,6 +5,7 @@ export default interface PostType {
   recipe_id: number,
   user_id: number,
   caption: string,
+  date: string,
   likes: number,
   liked: boolean
 }
