@@ -1,11 +1,4 @@
-export interface RecipeType {
-  results: Results[]
-  offset: number
-  number: number
-  totalResults: number
-}
-
-export default interface Results {
+export default interface RecipeType {
   vegetarian: boolean
   vegan: boolean
   glutenFree: boolean

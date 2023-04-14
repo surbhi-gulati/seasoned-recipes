@@ -1,5 +1,3 @@
-import UserType from "./userType";
-
 export default interface PostType {
   _id: number,
   recipe_id: number,

@@ -1,5 +1,6 @@
-{
-  "results": [
+import RecipeType from "../../modules/recipeType";
+
+const recipeResults : Array<RecipeType> = [
       {
           "vegetarian": false,
           "vegan": false,
@@ -624,9 +625,6 @@
               }
           ],
           "spoonacularSourceUrl": "https://spoonacular.com/easy-chicken-pot-pie-641901"
-      }
-  ],
-  "offset": 0,
-  "number": 3,
-  "totalResults": 11
-}
+      },
+]
+export default recipeResults;

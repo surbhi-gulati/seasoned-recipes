@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import NewPostSrc from "../components/new-post-src";
 import { useParams } from "react-router";
 import { getRecipeInfoByID } from "../services/recipe-api-service";
 import RecipeCard from "../components/recipes/recipe-card";
 import { useSelector } from "react-redux";
+import NewPostWindow from "../components/posts/new-post-window";
 
 const NewPostPage = () => {   
 
@@ -35,9 +35,7 @@ const NewPostPage = () => {
   return (
     <div>
         <span>{JSON.stringify(user)}</span>
-        <p> PROFILE: Dummy content! </p>
-        <RecipeCard {...recipeInfo}></RecipeCard>
-        <NewPostSrc/>
+        <NewPostWindow {...recipeInfo}></NewPostWindow>
     </div>
   );
 };

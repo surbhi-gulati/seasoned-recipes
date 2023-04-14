@@ -1,5 +1,5 @@
 import React from "react";
-import groups from "../../data/groupsData";
+import groups from "../../data/users/groupsData";
 import GroupType from "../../modules/groupType";
 import GroupSuggestionsItem from "../groups/groupSuggestionsItem";
 

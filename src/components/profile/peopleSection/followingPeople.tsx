@@ -1,7 +1,7 @@
 import React from "react";
 import UserType from "../../../modules/userType";
 import PersonCard from "./personCard";
-import users from "../../../data/usersData";
+import users from "../../../data/users/usersData";
 
 const FollowingPeople = ({ user }) => {  
     return (

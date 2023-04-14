@@ -1,6 +1,6 @@
 import React from "react";
 import GroupSuggestionsItem from "../../groups/groupSuggestionsItem";
-import groups from "../../../data/groupsData";
+import groups from "../../../data/users/groupsData";
 import GroupType from "../../../modules/groupType";
 
 const FollowingGroups = ({user}) => {    

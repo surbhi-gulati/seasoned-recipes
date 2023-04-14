@@ -1,26 +1,40 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import RecipeType from "../../modules/recipeType";
-const savesArray = require("../../data/recipes/saves.json");
+import {useDispatch} from "react-redux";
+import {updateRecipeSaves} from "../../reducers/recipe-reducer";
+const savesArray = require("../../data/recipes/saves");
 
 export const RecipeCard = (props: RecipeType) => {
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const showMakePostButton = location.pathname.includes("/search/");
+
+  const updateRecipeSavesHandler = (id) => {
+    dispatch(updateRecipeSaves(id));
+  }
+
+  const numberOfSaves = findSavesByRecipe(props.id)
   return (
       <div className="row card mb-3">
         <div className="row">
           <div className="col-4 ">
             <img src={props.thumbnail_url} className="card-img" alt="..."/>
           </div>
-          <div className="col-auto">
-
+          <div className="col-7">
             <div className="card-body">
               <h5 className="card-title">{props.name}</h5>
               <span className="card-text">{`${props.yields}`}</span>
               {props.total_time_minutes && <div className="card-text">{`Cook time: ${props.total_time_minutes} minutes`}</div>}
               <div className="card-text mb-1"><small className="text-muted">Tags: </small>{getTags(props.tags)}</div>
-              <Link to={`/newPost/${props.id}`}>
-                <button type="button" className="btn btn-success">Make a Post</button>
-              </Link>
+              {showMakePostButton ? <div><Link to={`/newPost/${props.id}`}><button type="button" className="btn btn-success">Make a Post</button></Link></div> : <i/>}
             </div>
+          </div>
+          <div className="col-1">
+            {numberOfSaves > 2 ?
+                <p onClick = {() => updateRecipeSavesHandler(props.id)} className="bi bi-bookmark-fill float-end">{numberOfSaves}</p> :
+                <p onClick = {() => updateRecipeSavesHandler(props.id)} className="bi bi-bookmark float-end">{numberOfSaves}</p>
+            }
           </div>
         </div>
       </div>

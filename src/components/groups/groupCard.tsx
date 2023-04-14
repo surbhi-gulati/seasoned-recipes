@@ -12,7 +12,7 @@ const GroupCard = (props: GroupType) => {
           alt={props.name} />
       </div>
       <div className="row">
-        <div className="card-body col-9 float">
+        <div className="card-body col-9">
           <h5 className="card-title">{props.name}</h5>
           <p className="card-text">{props.description}</p>
         </div>

@@ -7,10 +7,11 @@ import GroupSuggestionsSidebar from "../components/trifold/groupSuggestionsSideb
 import postsReducer from "../reducers/posts-reducer";
 import { configureStore } from '@reduxjs/toolkit';
 import {Provider} from "react-redux";
+import recipeReducer from "../reducers/recipe-reducer";
 
 
 const store = configureStore(
-    {reducer: {posts: postsReducer}});
+    {reducer: {posts: postsReducer, recipes: recipeReducer}});
 function TrifoldPage() {
   const { path } = useParams();
   return (

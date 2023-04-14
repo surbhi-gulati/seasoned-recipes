@@ -4,7 +4,7 @@ import {deletePost, updatePostLikes} from "../../reducers/posts-reducer";
 
 import RecipeCard from "../recipes/recipe-card";
 import PostType from "../../modules/postType";
-import recipesArray from "../../data/recipes/potpie.json";
+import recipesArray from "../../data/recipes/receipeResults";
 import sampleUsers from "../../data/users/usersData";
 
 export const PostCard = (props: PostType) => {
@@ -16,8 +16,9 @@ export const PostCard = (props: PostType) => {
     dispatch(updatePostLikes(id))
   }
 
-  let user = sampleUsers.find(user => user.id == props.user_id);
-  let recipe = recipesArray.results[1];
+  let user = sampleUsers.find(user => user.id === props.user_id);
+  let recipe = recipesArray.find(recipe => recipe.id === props.recipe_id);
+
   return (
       <div className="media border p-3">
           <div className="media-body">
@@ -27,7 +28,7 @@ export const PostCard = (props: PostType) => {
             <i>@{user?.username}</i>
             <p>{props.caption}</p>
             <div className="media p-3">
-              <RecipeCard key={props.recipe_id} {...recipe}></RecipeCard>
+              <RecipeCard key={props.recipe_id} {...recipe!}></RecipeCard>
             </div>
             {props.liked ?
                 <div onClick={() => updatePostLikesHandler(props._id)} className="bi-hand-thumbs-up-fill float-start">&nbsp;{props.likes}</div> :
