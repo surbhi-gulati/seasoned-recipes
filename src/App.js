@@ -11,38 +11,50 @@ import BookmarksPage from './pages/bookmarksPage.tsx';
 import ProfilePage from './pages/profilePage.tsx';
 import RecipePage from './pages/recipePage.tsx';
 import NewPostPage from './pages/newPostPage.tsx';
+import CurrentUserContext from './components/current-user-context.tsx';
+import { configureStore }
+  from '@reduxjs/toolkit';
+import {Provider} from "react-redux";
+import authReducer from './reducers/auth-reducer';
+const store = configureStore(
+  {reducer: {auth: authReducer}});
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route index path="login"
-            element={<LoginPage/>}/>
-        <Route path="/"
-          element={<TrifoldPage/>}>
-          <Route path="feed"
-            element={<FeedPage/>}/>
-          <Route path="groups"
-            element={<GroupsPage/>}/>
-          <Route path="group/:id"
-            element={<GroupPage/>}/>
-          <Route path="recipe/:id"
-            element={<RecipePage/>}/>
-          <Route path="search"
-            element={<SearchPage/>}/>
-          <Route path="search/:searchTerm"
-            element={<SearchPage/>}/>
-          <Route path="bookmarks"
-            element={<BookmarksPage/>}/>
-          <Route path="profile"
-            element={<ProfilePage/>}/>
-          <Route path="profile/:id"
-            element={<ProfilePage/>}/>
-          <Route path="newPost/:recipe_id"
-            element={<NewPostPage/>}/>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <CurrentUserContext>
+        <BrowserRouter>
+          <Routes>
+            <Route index path="login"
+                element={<LoginPage/>}/>
+            <Route path="/"
+              element={<TrifoldPage/>}>
+            <Route path="feed"
+              element={<FeedPage/>}/>
+            <Route path="groups"
+              element={<GroupsPage/>}/>
+            <Route path="group/:id"
+              element={<GroupPage/>}/>
+            <Route path="recipe/:id"
+              element={<RecipePage/>}/>
+            <Route path="search"
+              element={<SearchPage/>}/>
+            <Route path="search/:searchTerm"
+              element={<SearchPage/>}/>
+            <Route path="bookmarks"
+              element={<BookmarksPage/>}/>
+            <Route path="profile"
+              element={<ProfilePage/>}/>
+            <Route path="profile/:id"
+              element={<ProfilePage/>}/>
+            <Route path="newPost/:recipe_id"
+              element={<NewPostPage/>}/>
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </CurrentUserContext>
+    </Provider>
+    
   );
 }
 

@@ -6,8 +6,9 @@ const RecipeList = (props) => {
   return(
       <div className="mx-5">
         {
-          recipesArray.map((recipe : any) =>
-              <RecipeCard key={recipe.id} {...recipe}></RecipeCard>)
+          recipesArray.map((recipe : any) => {
+            return <RecipeCard key={recipe.id} {...recipe}></RecipeCard>
+          })
         }
       </div>
   );
