@@ -3,7 +3,6 @@ import RecipeCard from "../recipes/recipe-card";
 import RecipeType from "../../modules/recipeType";
 import {useDispatch} from "react-redux";
 import {createPost} from "../../reducers/posts-reducer";
-import {addRecipe} from "../../reducers/recipe-reducer";
 
 const NewPostWindow = (props : RecipeType) => {
   let [postCaption, setPostCaption] = useState('');
@@ -15,22 +14,14 @@ const NewPostWindow = (props : RecipeType) => {
       caption: postCaption,
       recipe_id: props.id,
       recipe: props,
-      date: Date()
+      date: new Date().toLocaleDateString('en-US')
     }
-    const newStoredRecipe = {
-      id: props.id,
-      image: props.image,
-      title: props.title,
-      readyInMinutes: props.readyInMinutes
-    }
-    // console.log(newStoredRecipe);
-    // dispatch((addRecipe(newStoredRecipe)));
     dispatch((createPost(newPost)));
   }
   return (
       <div className="row">
         <div className="col-auto">
-          <img src={props.image} className="rounded-circle" height={48} width={48}/>
+          <img src={props.image} alt={props.title} className="rounded-circle" height={48} width={48}/>
         </div>
         <div className="col-10 media border p-3">
           <div className="media-body">

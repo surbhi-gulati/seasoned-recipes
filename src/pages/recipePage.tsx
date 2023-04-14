@@ -19,7 +19,7 @@ const RecipePage = () => {
       getRecipeInfoHandler(parseInt(recipe_id));
     }
 
-  }, []);
+  }, [recipe_id]);
 
   return (
       <div>
