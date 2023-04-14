@@ -6,4 +6,11 @@ export default interface PostType {
   date: string,
   likes: number,
   liked: boolean
+  postedIn: FoodGroup
 }
+
+export enum FoodGroup {
+  vegan = "Vegan",
+  pastaLovers = "Pasta Lovers",
+  subleAsianEats = "Subtle Asian Eats"
+};

@@ -1,4 +1,4 @@
-import PostType from "../../modules/postType";
+import PostType, {FoodGroup} from "../../modules/postType";
 
 const posts : Array<PostType> = [
   {
@@ -8,7 +8,8 @@ const posts : Array<PostType> = [
     "caption": "10/10 would make again!",
     "date": "January 1, 2021",
     "likes": 13,
-    "liked": true
+    "liked": true,
+    "postedIn": FoodGroup.pastaLovers
   },
   {
     "_id": 20,
@@ -17,7 +18,8 @@ const posts : Array<PostType> = [
     "caption": "10/10 would make again!",
     "date": "January 1, 2021",
     "likes": 13,
-    "liked": true
+    "liked": true,
+    "postedIn": FoodGroup.pastaLovers
   },
   {
     "_id": 30,
@@ -26,7 +28,8 @@ const posts : Array<PostType> = [
     "caption": "10/10 would make again!",
     "date": "January 1, 2021",
     "likes": 13,
-    "liked": true
+    "liked": true,
+    "postedIn": FoodGroup.pastaLovers
   },
 ]
 

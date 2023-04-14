@@ -1,5 +1,5 @@
 import React from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {deletePost, updatePostLikes} from "../../reducers/posts-reducer";
 
 import RecipeCard from "../recipes/recipe-card";
@@ -27,6 +27,7 @@ export const PostCard = (props: PostType) => {
             <h5 className="fw-bolder">&nbsp;{user?.name}</h5>
             <i>@{user?.username}</i>
             <p>{props.caption}</p>
+            <p className="badge rounded-pill bg-dark">{props.postedIn}</p>
             <div className="media p-3">
               <RecipeCard key={props.recipe_id} {...recipe!}></RecipeCard>
             </div>

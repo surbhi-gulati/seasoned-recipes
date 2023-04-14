@@ -8,15 +8,17 @@ const savesArray = require("../../data/recipes/saves");
 export const RecipeCard = (props: RecipeType) => {
   const dispatch = useDispatch()
   const location = useLocation()
-  const showMakePostButton = location.pathname.includes("/search/");
-
+  console.log(location.pathname);
+  const showMakePostButton = location.pathname.includes("/search") || location.pathname.includes("/recipe");
+  // const showMakePostButton = true
   const updateRecipeSavesHandler = (id) => {
     dispatch(updateRecipeSaves(id));
   }
 
   const numberOfSaves = findSavesByRecipe(props.id)
   return (
-      <div className="row card mb-3">
+      <div className="row card">
+        <Link to={`/recipe/${props.id}`} style={{color: 'black', textDecoration: 'none' }}>
         <div className="row">
           <div className="col-4 ">
             <img src={props.thumbnail_url} className="card-img" alt="..."/>
@@ -37,6 +39,7 @@ export const RecipeCard = (props: RecipeType) => {
             }
           </div>
         </div>
+        </Link>
       </div>
   );
 };

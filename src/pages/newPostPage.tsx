@@ -4,6 +4,7 @@ import { getRecipeInfoByID } from "../services/recipe-api-service";
 import RecipeCard from "../components/recipes/recipe-card";
 import { useSelector } from "react-redux";
 import NewPostWindow from "../components/posts/new-post-window";
+import RecipePage from "./recipePage";
 
 const NewPostPage = () => {   
 
