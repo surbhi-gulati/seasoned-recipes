@@ -7,8 +7,6 @@ const SearchPage = () => {
 
   let {searchTerm} = useParams();
 
-  console.log(searchTerm);
-
   let navigate = useNavigate();
 
   let [search, setSearch] = React.useState<string>("");
@@ -18,7 +16,11 @@ const SearchPage = () => {
   const handleSearchButton = async (searchQuery) => {
     console.log("handleSearchButton");
     const response = await searchRecipes(searchQuery);
-    setRecipeList(response.results);
+    if(response) {
+      setRecipeList(response.results);
+    } else {
+      setRecipeList([]);
+    }
     navigate(`/search/${searchQuery}`);
   }
 
