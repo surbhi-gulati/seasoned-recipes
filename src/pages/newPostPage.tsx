@@ -13,6 +13,7 @@ const NewPostPage = () => {
 
   const getRecipeInfoHandler = async (recipe_id: number) => {
     const response = await getRecipeInfoByID(recipe_id);
+    console.log(response);
     setRecipeInfo(response);
   }
 
