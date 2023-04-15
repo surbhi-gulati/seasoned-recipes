@@ -5,7 +5,7 @@ import {useDispatch} from "react-redux";
 import {updateRecipeSaves} from "../../reducers/recipe-reducer";
 const savesArray = require("../../data/recipes/saves");
 
-export const RecipeCard = (props: RecipeType) => {
+export const RecipeCard = (props: any) => {
   const dispatch = useDispatch()
   const location = useLocation()
   const showMakePostButton = location.pathname.includes("/search") || location.pathname.includes("/recipe");

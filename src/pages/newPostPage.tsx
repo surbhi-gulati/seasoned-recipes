@@ -29,7 +29,7 @@ const NewPostPage = () => {
       console.log("recipe_id: " + recipe_id);
       getRecipeInfoHandler(parseInt(recipe_id));
     }
-  });
+  }, [recipe_id]);
 
   return (
     <div>
