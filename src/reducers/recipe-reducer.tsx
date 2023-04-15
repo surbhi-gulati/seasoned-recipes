@@ -12,15 +12,6 @@ const recipesSlice = createSlice({
   name: 'recipes',
   initialState: recipes,
   reducers: {
-    //for sake of testing
-    addRecipe(state, action) {
-      state.unshift({
-        ...templateRecipe,
-        ...action.payload,
-        _id: (new Date()).getTime(),
-      });
-    },
-
     updateRecipeSaves(state, action) {
       console.log("tapped");
       const index = state.findIndex(save => save.id === action.payload);
@@ -29,5 +20,5 @@ const recipesSlice = createSlice({
   }
 });
 
-export const {addRecipe, updateRecipeSaves} = recipesSlice.actions;
+export const {updateRecipeSaves} = recipesSlice.actions;
 export default recipesSlice.reducer;

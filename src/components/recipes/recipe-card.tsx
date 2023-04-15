@@ -8,9 +8,7 @@ const savesArray = require("../../data/recipes/saves");
 export const RecipeCard = (props: RecipeType) => {
   const dispatch = useDispatch()
   const location = useLocation()
-  console.log(location.pathname);
   const showMakePostButton = location.pathname.includes("/search") || location.pathname.includes("/recipe");
-  // const showMakePostButton = true
   const updateRecipeSavesHandler = (id) => {
     dispatch(updateRecipeSaves(id));
   }
