@@ -45,13 +45,6 @@ export const RecipeCard = (props: any) => {
 export default RecipeCard;
 
 
-function fixFormatting(str: string) {
-  str = str.replace(/[A-Z]/g, (c) => {
-    return " " + c.toLowerCase();
-  });
-  return str;
-}
-
 function findSavesByRecipe(recipe_id: number) {
   let count = 0;
   for (let i = 0; i < savesArray.saves.length; i++) {
