@@ -16,8 +16,10 @@ import { configureStore }
   from '@reduxjs/toolkit';
 import {Provider} from "react-redux";
 import authReducer from './reducers/auth-reducer';
+import postsReducer from './reducers/posts-reducer';
+import recipeReducer from './reducers/recipe-reducer';
 const store = configureStore(
-  {reducer: {auth: authReducer}});
+  {reducer: {auth: authReducer, posts: postsReducer, recipes: recipeReducer}});
 
 function App() {
   return (
