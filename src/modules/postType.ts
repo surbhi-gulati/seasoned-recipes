@@ -7,7 +7,7 @@ export default interface PostType {
   likes: number,
   liked: boolean,
   userId: string,
-  groupId: string,
+  groupId?: string,
   groupName: string,
   recipeId?: string,
   

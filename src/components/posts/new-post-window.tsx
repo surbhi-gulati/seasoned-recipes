@@ -3,11 +3,8 @@ import RecipeCard from "../recipes/recipe-card";
 import RecipeType from "../../modules/recipeType";
 import {useDispatch, useSelector} from "react-redux";
 import {createPost} from "../../reducers/posts-reducer";
-<<<<<<< HEAD
-import Dropdown from "react-bootstrap/Dropdown";
 import PostType, {FoodGroup} from "../../modules/postType";
 import { createPostWithRecipe } from "../../services/post-services";
-=======
 import Select from 'react-select';
 import groups from "../../data/users/groupsData";
 
@@ -15,7 +12,6 @@ interface GroupOption {
   value: number,
   label: string
 }
->>>>>>> bl-authenticated-user-view
 
 const NewPostWindow = ({recipeInfo, recipeResponse}) => {
   let [postCaption, setPostCaption] = useState('');
@@ -33,8 +29,12 @@ const NewPostWindow = ({recipeInfo, recipeResponse}) => {
 
   // This creates a new post and sends it to the backend
   const {currentUser} = useSelector((state: any) => state.auth);
->>>>>>> bl-authenticated-user-view
+
   const clickPostHandler = () => {
+    if(!postCaption) {
+      alert("Please enter a caption");
+      return;
+    }
     console.log(recipeResponse.recipeId);
     const newPost: PostType = {
       text: postCaption,
@@ -42,7 +42,6 @@ const NewPostWindow = ({recipeInfo, recipeResponse}) => {
       likes: 0,
       liked: false,
       userId: currentUser._id,
-      groupId: "643b65cbc011ab1c347eadd4",
       groupName: postGroup
     }
     createPostWithRecipe({
@@ -55,7 +54,7 @@ const NewPostWindow = ({recipeInfo, recipeResponse}) => {
   return (
       <div className="row">
         <div className="col-auto">
-          <img src={currentUser?.avatar} alt={props.title} className="rounded-circle" height={48} width={48}/>
+          <img src={currentUser?.avatar} alt={recipeInfo.title} className="rounded-circle" height={48} width={48}/>
         </div>
         <div className="col-10 media border p-3">
           <div className="media-body">
