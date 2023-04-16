@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { useNavigate } from "react-router";
-import { profileThunk, logoutThunk, updateUserThunk } from "../services/auth-thunks";
+import { profileThunk, logoutThunk } from "../services/auth-thunks";
 import ProfileHeader from "../components/profile/profileHeader";
 import PersonalInfo from "../components/profile/personalInfoSection/personalInfo";
 import FollowingGroups from "../components/profile/groupSection/followingGroups";
@@ -49,23 +49,30 @@ const ProfilePage = (user: UserType = {
         "phone": "234-456-7880",
         "email": "lim.i@northeastern.edu"
     }  
-    // if (!user.username) {
-    //     return <div>
-    //         <h1> Invalid account requested </h1>
-    //         <p>
-    //             You are attempting to view an invalid profile.
-    //             Want to create a profile? Please create an account!
-    //         </p>
-    //         <button> Create account </button>
-    //     </div>;
-    // }
+
     return (
         <div className="container-fluid">
-            <span>{JSON.stringify(profile)}</span>
             <ProfileHeader user={user} />
-            <PersonalInfo user={user} />
-            <FollowingGroups user={user} />
-            <FollowingPeople user={user} />
+            <ul className="nav nav-pills">
+              <li className="active"><a data-toggle="pill" href="#personalInfo">Home</a></li>
+              <li><a data-toggle="pill" href="#followingGroups">Groups</a></li>
+              <li><a data-toggle="pill" href="#followingPeople">Following</a></li>
+              <li><a data-toggle="pill" href="#followers">Followers</a></li>
+            </ul>
+            <div className="tab-content">
+              <div id="personalInfo" className="tab-pane fade in active">
+                <PersonalInfo user={user} />
+              </div>
+              <div id="followingGroups" className="tab-pane fade">
+                <FollowingGroups user={user} />
+              </div>
+              <div id="followingPeople" className="tab-pane fade">
+                <FollowingPeople user={user} />
+              </div>
+              <div id="followers" className="tab-pane fade">
+                <p> Followers! </p>
+              </div>
+            </div>
             <button onClick={() => handleLogout() }>
               Logout
             </button>
