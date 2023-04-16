@@ -40,7 +40,7 @@ const NewPostWindow = (props : RecipeType) => {
   return (
       <div className="row">
         <div className="col-auto">
-          <img src={currentUser.avatar} alt={props.title} className="rounded-circle" height={48} width={48}/>
+          <img src={currentUser?.avatar} alt={props.title} className="rounded-circle" height={48} width={48}/>
         </div>
         <div className="col-10 media border p-3">
           <div className="media-body">

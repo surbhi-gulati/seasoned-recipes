@@ -17,14 +17,17 @@ export const RecipeCard = (props: any) => {
   const numberOfSaves = findSavesByRecipe(props.id)
   return (
       <div className="row card">
-        <Link to={`/recipe/${props.id}`} style={{color: 'black', textDecoration: 'none' }}>
         <div className="row">
           <div className="col-4 ">
-            <img src={props.thumbnail_url} className="card-img" alt="..."/>
+            <Link to={`/recipe/${props.id}`} style={{color: 'black', textDecoration: 'none' }}>
+              <img src={props.thumbnail_url} className="card-img" alt="..."/>
+            </Link>
           </div>
           <div className="col-7">
             <div className="card-body">
-              <h5 className="card-title">{props.name}</h5>
+              <Link to={`/recipe/${props.id}`} style={{color: 'black', textDecoration: 'none' }}>
+                <h5 className="card-title">{props.name}</h5>
+              </Link>
               <span className="card-text">{`${props.yields}`}</span>
               {props.total_time_minutes && <div className="card-text">{`Cook time: ${props.total_time_minutes} minutes`}</div>}
               <div className="card-text mb-1"><small className="text-muted">Tags: </small>{getTags(props.tags)}</div>
@@ -38,7 +41,6 @@ export const RecipeCard = (props: any) => {
             }
           </div>
         </div>
-        </Link>
       </div>
   );
 };
