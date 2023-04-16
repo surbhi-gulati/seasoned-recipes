@@ -1,12 +1,16 @@
+import { Types } from "mongoose";
+
 export default interface PostType {
-  _id: number,
-  recipe_id: number,
-  user_id: number,
-  caption: string,
+  _id?: number,
+  text: string,
   date: string,
   likes: number,
-  liked: boolean
-  postedIn: FoodGroup
+  liked: boolean,
+  userId: string,
+  groupId?: string,
+  groupName: string,
+  recipeId?: string,
+  
 }
 
 export enum FoodGroup {

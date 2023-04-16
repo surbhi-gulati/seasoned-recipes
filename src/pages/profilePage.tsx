@@ -10,14 +10,7 @@ import UserType from "../modules/userType";
 
 
 
-const ProfilePage = (user: UserType = {
-    "id": 3,
-    "username": "mostlyHereForRamen",
-    "name": "Belle Lim",
-    "avatar": "/userImages/belle.jpg",
-    "phone": "234-456-7880",
-    "email": "lim.i@northeastern.edu"
-  }) => {  
+const ProfilePage = (user: UserType) => {
 
     const {currentUser} = useSelector((state: any) => state.auth);
     const [profile, setProfile] = useState<UserType>(currentUser);
@@ -40,15 +33,6 @@ const ProfilePage = (user: UserType = {
         alert (e);
       }
     }
-
-    user = {
-        "id": 3,
-        "username": "mostlyHereForRamen",
-        "name": "Belle Lim",
-        "avatar": "/userImages/belle.jpg",
-        "phone": "234-456-7880",
-        "email": "lim.i@northeastern.edu"
-    }  
     // if (!user.username) {
     //     return <div>
     //         <h1> Invalid account requested </h1>
@@ -61,6 +45,9 @@ const ProfilePage = (user: UserType = {
     // }
     return (
         <div className="container-fluid">
+            {
+              currentUser == null ? <p>anon</p> :<p>auth'ed</p>
+            }
             <span>{JSON.stringify(profile)}</span>
             <ProfileHeader user={user} />
             <PersonalInfo user={user} />

@@ -1,6 +1,6 @@
-import RecipeType from "../../modules/recipeType";
+import RecipeDetailsType from "../../modules/recipeDetailsType";
 
-const recipeResults : Array<RecipeType> = [
+const recipeResults : Array<RecipeDetailsType> = [
       {
           "vegetarian": false,
           "vegan": false,
