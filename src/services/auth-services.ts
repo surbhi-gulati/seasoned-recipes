@@ -29,7 +29,7 @@ export const logout = async () => {
 
 export const register = async ({ username, password }) => {
   try {
-    const avatar = faker.image.nature();
+    const avatar = faker.image.nature(280, 280, true);
     const response = await api.post(`${USERS_URL}/register`, {
       username,
       password,

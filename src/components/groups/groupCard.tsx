@@ -20,7 +20,7 @@ const GroupCard = (props: GroupType) => {
           <p className="card-text">{props.description}</p>
         </div>
         <div className="float-end col-2" >
-          { currentUser == null ? <Link to="#"className="btn btn-lg btn-primary mt-4 rounded-pill">Join</Link> : <p></p>}
+          { currentUser != null ? <Link to="#"className="btn btn-lg btn-primary mt-4 rounded-pill">Join</Link> : <p></p>}
         </div>
       </div>
     </div>

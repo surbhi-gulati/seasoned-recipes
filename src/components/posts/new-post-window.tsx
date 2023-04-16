@@ -1,19 +1,39 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import RecipeCard from "../recipes/recipe-card";
 import RecipeType from "../../modules/recipeType";
 import {useDispatch, useSelector} from "react-redux";
 import {createPost} from "../../reducers/posts-reducer";
+<<<<<<< HEAD
 import Dropdown from "react-bootstrap/Dropdown";
 import PostType, {FoodGroup} from "../../modules/postType";
 import { createPostWithRecipe } from "../../services/post-services";
+=======
+import Select from 'react-select';
+import groups from "../../data/users/groupsData";
+
+interface GroupOption {
+  value: number,
+  label: string
+}
+>>>>>>> bl-authenticated-user-view
 
 const NewPostWindow = ({recipeInfo, recipeResponse}) => {
   let [postCaption, setPostCaption] = useState('');
+  let [postGroup, setPostGroup] = useState('');
   const dispatch = useDispatch();
 
-  const {currentUser} = useSelector((state: any) => state.auth);
+  let data: GroupOption[] = [];
+  for(let i = 0; i < groups.length; i++){
+    const { _id, name} = groups[i];
+    let singleGroup = {value: 0, label: ""};
+    singleGroup["value"] = _id;
+    singleGroup["label"] = name;
+    data.push(singleGroup);
+  };
 
   // This creates a new post and sends it to the backend
+  const {currentUser} = useSelector((state: any) => state.auth);
+>>>>>>> bl-authenticated-user-view
   const clickPostHandler = () => {
     console.log(recipeResponse.recipeId);
     const newPost: PostType = {
@@ -23,7 +43,7 @@ const NewPostWindow = ({recipeInfo, recipeResponse}) => {
       liked: false,
       userId: currentUser._id,
       groupId: "643b65cbc011ab1c347eadd4",
-      groupName: FoodGroup.subleAsianEats,
+      groupName: postGroup
     }
     createPostWithRecipe({
       post: newPost,
@@ -35,7 +55,7 @@ const NewPostWindow = ({recipeInfo, recipeResponse}) => {
   return (
       <div className="row">
         <div className="col-auto">
-          <img src={currentUser.avatar} alt={recipeResponse.title} className="rounded-circle" height={48} width={48}/>
+          <img src={currentUser?.avatar} alt={props.title} className="rounded-circle" height={48} width={48}/>
         </div>
         <div className="col-10 media border p-3">
           <div className="media-body">
@@ -48,17 +68,8 @@ const NewPostWindow = ({recipeInfo, recipeResponse}) => {
             </div>
           </div>
           <p className="float-start">Post to:</p>
-          <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-              Dropdown Button
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+          <Select options={data}
+                  onChange={(selected) => setPostGroup(selected!.label!)}/>
           <button onClick = {clickPostHandler} type="button" className="btn btn-success float-end">Post</button>
         </div>
       </div>
