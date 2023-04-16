@@ -6,7 +6,7 @@ export default interface PostType {
   date: string,
   likes: number,
   liked: boolean
-  postedIn: FoodGroup
+  groupName: FoodGroup
 }
 
 export enum FoodGroup {

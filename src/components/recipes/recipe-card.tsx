@@ -1,14 +1,15 @@
 import React from "react";
 import {Link, useLocation} from "react-router-dom";
 import RecipeType from "../../modules/recipeType";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateRecipeSaves} from "../../reducers/recipe-reducer";
 const savesArray = require("../../data/recipes/saves");
 
 export const RecipeCard = (props: any) => {
   const dispatch = useDispatch()
   const location = useLocation()
-  const showMakePostButton = location.pathname.includes("/search") || location.pathname.includes("/recipe");
+  const {currentUser} = useSelector((state: any) => state.auth);
+  const showMakePostButton = currentUser != null && (location.pathname.includes("/search") || location.pathname.includes("/recipe"));
   const updateRecipeSavesHandler = (id) => {
     dispatch(updateRecipeSaves(id));
   }

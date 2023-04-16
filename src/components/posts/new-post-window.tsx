@@ -1,12 +1,14 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import RecipeCard from "../recipes/recipe-card";
 import RecipeType from "../../modules/recipeType";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {createPost} from "../../reducers/posts-reducer";
 
 const NewPostWindow = (props : RecipeType) => {
   let [postCaption, setPostCaption] = useState('');
   const dispatch = useDispatch();
+
+  const {currentUser} = useSelector((state: any) => state.auth);
 
   const clickPostHandler = () => {
     console.log(props.id);
@@ -21,7 +23,7 @@ const NewPostWindow = (props : RecipeType) => {
   return (
       <div className="row">
         <div className="col-auto">
-          <img src={props.image} alt={props.title} className="rounded-circle" height={48} width={48}/>
+          <img src={currentUser.avatar} alt={props.title} className="rounded-circle" height={48} width={48}/>
         </div>
         <div className="col-10 media border p-3">
           <div className="media-body">

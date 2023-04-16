@@ -9,7 +9,7 @@ const posts : Array<PostType> = [
     "date": "6/25/2022",
     "likes": 13,
     "liked": true,
-    "postedIn": FoodGroup.vegan
+    "groupName": FoodGroup.vegan
   },
   {
     "_id": 20,
@@ -19,7 +19,7 @@ const posts : Array<PostType> = [
     "date": "3/1/2021",
     "likes": 13,
     "liked": true,
-    "postedIn": FoodGroup.pastaLovers
+    "groupName": FoodGroup.pastaLovers
   },
   {
     "_id": 30,
@@ -29,7 +29,7 @@ const posts : Array<PostType> = [
     "date": "2/6/2023",
     "likes": 13,
     "liked": true,
-    "postedIn": FoodGroup.subleAsianEats
+    "groupName": FoodGroup.subleAsianEats
   },
 ]
 

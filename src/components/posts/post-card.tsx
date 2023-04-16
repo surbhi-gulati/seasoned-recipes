@@ -27,7 +27,7 @@ export const PostCard = (props: PostType) => {
             <h5 className="fw-bolder">&nbsp;{user?.name}</h5>
             <i>@{user?.username}</i>
             <p>{props.caption}</p>
-            <p className="badge rounded-pill bg-dark">{props.postedIn}</p>
+            <p className="badge rounded-pill bg-dark">{props.groupName}</p>
             <div className="media p-3">
               <RecipeCard key={props.recipe_id} {...recipe!}></RecipeCard>
             </div>
