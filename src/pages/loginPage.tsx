@@ -19,6 +19,7 @@ function LoginPage() {
         username: loginUsername, 
         password: loginPassword 
       }));
+      console.log(payload);
       if(payload) {
         navigate("/profile");
       } else {

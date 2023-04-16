@@ -3,7 +3,8 @@ import {
   loginThunk, 
   logoutThunk, 
   profileThunk, 
-  registerThunk} from "../services/auth-thunks";
+  registerThunk
+} from "../services/auth-thunks";
 
 type authState = {
   users: any[],
