@@ -46,7 +46,7 @@ const ProfilePage = (user: UserType) => {
     return (
         <div className="container-fluid">
             {
-              currentUser == null ? <p>anon</p> : <p>auth</p>
+              currentUser == null ? <p>anon</p> :<p>auth'ed</p>
             }
             <span>{JSON.stringify(profile)}</span>
             <ProfileHeader user={user} />

@@ -1,3 +1,6 @@
+import {Recipe} from "@reduxjs/toolkit/dist/query/core/buildThunks";
+import RecipeType from "./recipeType";
+
 export default interface PostType {
   _id: number,
   recipe_id: number,
@@ -6,7 +9,7 @@ export default interface PostType {
   date: string,
   likes: number,
   liked: boolean
-  groupName: FoodGroup
+  groupName: FoodGroup // change to group_id
 }
 
 export enum FoodGroup {
