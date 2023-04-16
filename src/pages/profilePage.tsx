@@ -7,8 +7,7 @@ import PersonalInfo from "../components/profile/personalInfoSection/personalInfo
 import FollowingGroups from "../components/profile/groupSection/followingGroups";
 import FollowingPeople from "../components/profile/peopleSection/followingPeople";
 import UserType from "../modules/userType";
-
-
+import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 
 const ProfilePage = (user: UserType = {
     "id": 3,
@@ -23,6 +22,11 @@ const ProfilePage = (user: UserType = {
     const [profile, setProfile] = useState<UserType>(currentUser);
     const dispatch = useDispatch<any>();
     const navigate = useNavigate();
+    const [activeTab, setActiveTab] = useState('personalInfo');
+
+    const toggleTab = (tab) => {
+      if (activeTab !== tab) setActiveTab(tab);
+    };
 
     useEffect(() => {
       const getProfile = async () => {
@@ -52,30 +56,46 @@ const ProfilePage = (user: UserType = {
 
     return (
         <div className="container-fluid">
-            <ProfileHeader user={user} />
-            <ul className="nav nav-pills">
-              <li className="active"><a data-toggle="pill" href="#personalInfo">Home</a></li>
-              <li><a data-toggle="pill" href="#followingGroups">Groups</a></li>
-              <li><a data-toggle="pill" href="#followingPeople">Following</a></li>
-              <li><a data-toggle="pill" href="#followers">Followers</a></li>
-            </ul>
-            <div className="tab-content">
-              <div id="personalInfo" className="tab-pane fade in active">
-                <PersonalInfo user={user} />
-              </div>
-              <div id="followingGroups" className="tab-pane fade">
-                <FollowingGroups user={user} />
-              </div>
-              <div id="followingPeople" className="tab-pane fade">
-                <FollowingPeople user={user} />
-              </div>
-              <div id="followers" className="tab-pane fade">
-                <p> Followers! </p>
-              </div>
-            </div>
-            <button onClick={() => handleLogout() }>
-              Logout
-            </button>
+          <ProfileHeader user={user} />
+          <Nav pills>
+            <NavItem>
+              <NavLink href="#personalInfo" active={activeTab === 'personalInfo'} onClick={() => toggleTab('personalInfo')}>
+                Personal Info
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="#groups" active={activeTab === 'groups'} onClick={() => toggleTab('groups')}>
+                Following Groups
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="#following" active={activeTab === 'following'} onClick={() => toggleTab('following')}>
+                Following People
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="#followers" active={activeTab === 'followers'} onClick={() => toggleTab('followers')}>
+                Followers
+              </NavLink>
+            </NavItem>
+          </Nav>
+          <TabContent activeTab={activeTab}>
+            <TabPane tabId="personalInfo">
+              <PersonalInfo user={user} />
+            </TabPane>
+            <TabPane tabId="groups">
+              <FollowingGroups user={user} />
+            </TabPane>
+            <TabPane tabId="following">
+              <FollowingPeople user={user} />
+            </TabPane>
+            <TabPane tabId="followers">
+              <p>Followers!</p>
+            </TabPane>
+          </TabContent>
+          <button onClick={() => handleLogout() }>
+            Logout
+          </button>
         </div>
     );
 };
