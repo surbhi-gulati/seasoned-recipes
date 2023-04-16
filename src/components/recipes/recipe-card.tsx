@@ -1,5 +1,6 @@
 import React from "react";
 import {Link, useLocation} from "react-router-dom";
+import RecipeDetailsType from "../../modules/recipeDetailsType";
 import {useDispatch, useSelector} from "react-redux";
 import {updateRecipeSaves} from "../../reducers/recipe-reducer";
 const savesArray = require("../../data/recipes/saves");

@@ -2,7 +2,7 @@ import UserType from "../../modules/userType";
 
 const sampleUsers : Array<UserType> = [
   {
-    "id": 1,
+    "_id": "1",
     "username": "apastafan",
     "name": "Surbhi Gulati",
     "avatar": "/userImages/surbhi.jpg",
@@ -10,7 +10,7 @@ const sampleUsers : Array<UserType> = [
     "email": "gulati.su@northeastern.edu"
   },
   {
-    "id": 2,
+    "_id": "2",
     "username": "Luca2001",
     "name": "Luca Sharbani",
     "avatar": "/userImages/luca.jpg",
@@ -18,7 +18,7 @@ const sampleUsers : Array<UserType> = [
     "email": "sharbani.l@northeastern.edu"
   },
   {
-    "id": 3,
+    "_id": "3",
     "username": "mostlyHereForRamen",
     "name": "Belle Lim",
     "avatar": "/userImages/belle.jpg",

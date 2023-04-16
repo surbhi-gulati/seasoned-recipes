@@ -14,7 +14,7 @@ const FollowingPeople = ({ user }) => {
             {
                 users.map((user : UserType) => {
                 return (
-                <PersonCard key={user.id} {...user} />                
+                <PersonCard key={user._id} {...user} />                
                 );
             })}
         </>

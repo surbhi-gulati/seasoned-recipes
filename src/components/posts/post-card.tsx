@@ -16,8 +16,8 @@ export const PostCard = (props: PostType) => {
     dispatch(updatePostLikes(id))
   }
 
-  let user = sampleUsers.find(user => user.id === props.user_id);
-  let recipe = recipesArray.find(recipe => recipe.id === props.recipe_id);
+  let user = sampleUsers.find(user => user._id === props.userId);
+  let recipe = recipesArray.find(recipe => recipe.id === 8652);
 
   return (
       <div className="media border p-3">
@@ -26,10 +26,10 @@ export const PostCard = (props: PostType) => {
             <i className="bi bi-x-lg float-end" onClick={() => deletePostHandler(props._id)}></i>
             <h5 className="fw-bolder">&nbsp;{user?.name}</h5>
             <i>@{user?.username}</i>
-            <p>{props.caption}</p>
+            <p>{props.text}</p>
             <p className="badge rounded-pill bg-dark">{props.groupName}</p>
             <div className="media p-3">
-              <RecipeCard key={props.recipe_id} {...recipe!}></RecipeCard>
+              <RecipeCard key={props.recipeId} {...recipe!}></RecipeCard>
             </div>
             {props.liked ?
                 <div onClick={() => updatePostLikesHandler(props._id)} className="bi-hand-thumbs-up-fill float-start">&nbsp;{props.likes}</div> :

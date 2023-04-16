@@ -3,6 +3,11 @@ import RecipeCard from "../recipes/recipe-card";
 import RecipeType from "../../modules/recipeType";
 import {useDispatch, useSelector} from "react-redux";
 import {createPost} from "../../reducers/posts-reducer";
+<<<<<<< HEAD
+import Dropdown from "react-bootstrap/Dropdown";
+import PostType, {FoodGroup} from "../../modules/postType";
+import { createPostWithRecipe } from "../../services/post-services";
+=======
 import Select from 'react-select';
 import groups from "../../data/users/groupsData";
 
@@ -10,8 +15,9 @@ interface GroupOption {
   value: number,
   label: string
 }
+>>>>>>> bl-authenticated-user-view
 
-const NewPostWindow = (props : RecipeType) => {
+const NewPostWindow = ({recipeInfo, recipeResponse}) => {
   let [postCaption, setPostCaption] = useState('');
   let [postGroup, setPostGroup] = useState('');
   const dispatch = useDispatch();
@@ -25,17 +31,26 @@ const NewPostWindow = (props : RecipeType) => {
     data.push(singleGroup);
   };
 
+  // This creates a new post and sends it to the backend
   const {currentUser} = useSelector((state: any) => state.auth);
+>>>>>>> bl-authenticated-user-view
   const clickPostHandler = () => {
-    console.log(props.id);
-    const newPost = {
-      caption: postCaption,
-      recipe_id: props.id,
-      recipe: props,
+    console.log(recipeResponse.recipeId);
+    const newPost: PostType = {
+      text: postCaption,
       date: new Date().toLocaleDateString('en-US'),
+      likes: 0,
+      liked: false,
+      userId: currentUser._id,
+      groupId: "643b65cbc011ab1c347eadd4",
       groupName: postGroup
     }
+    createPostWithRecipe({
+      post: newPost,
+      recipe: recipeInfo,
+    });
     dispatch((createPost(newPost)));
+    
   }
   return (
       <div className="row">
@@ -49,7 +64,7 @@ const NewPostWindow = (props : RecipeType) => {
                       onChange={(event) => setPostCaption(event.target.value)}>
             </textarea>
             <div className="media p-3">
-              <RecipeCard key={props.id} {...props!} ></RecipeCard>
+              <RecipeCard key={recipeResponse.recipeId} {...recipeResponse!} ></RecipeCard>
             </div>
           </div>
           <p className="float-start">Post to:</p>

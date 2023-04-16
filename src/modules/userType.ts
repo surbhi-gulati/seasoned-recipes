@@ -1,5 +1,5 @@
 export default interface UserType {
-  id: number,
+  _id: string,
   username: string,
   name: string,
   avatar: string,

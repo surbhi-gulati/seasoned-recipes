@@ -1,7 +1,7 @@
-import RecipeType from "./recipeType";
+import RecipeDetailsType from "./recipeDetailsType";
 
 export default interface RecipeResults {
-  results: RecipeType[]
+  results: RecipeDetailsType[]
   offset: number
   number: number
   totalResults: number
