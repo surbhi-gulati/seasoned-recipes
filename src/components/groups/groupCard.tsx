@@ -1,8 +1,11 @@
 import React from "react";
 import GroupType from "../../modules/groupType";
 import { Link } from "react-router-dom";
+import {useSelector} from "react-redux";
 
-const GroupCard = (props: GroupType) => {    
+const GroupCard = (props: GroupType) => {
+  const {currentUser} = useSelector((state: any) => state.auth);
+
     return (
     <div className="card my-3">
       <div className="my-2"> 
@@ -17,7 +20,7 @@ const GroupCard = (props: GroupType) => {
           <p className="card-text">{props.description}</p>
         </div>
         <div className="float-end col-2" >
-          <Link to="#"className="btn btn-lg btn-primary mt-4 rounded-pill">Join</Link>
+          { currentUser != null ? <Link to="#"className="btn btn-lg btn-primary mt-4 rounded-pill">Join</Link> : <p></p>}
         </div>
       </div>
     </div>

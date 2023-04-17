@@ -1,4 +1,5 @@
 import axios from "axios";
+import {faker} from "@faker-js/faker";
 const SERVER_API_URL = process.env.REACT_APP_SERVER_API_URL;
 const USERS_URL = `${SERVER_API_URL}/users`;
 
@@ -28,9 +29,11 @@ export const logout = async () => {
 
 export const register = async ({ username, password }) => {
   try {
+    const avatar = faker.image.nature(280, 280, true);
     const response = await api.post(`${USERS_URL}/register`, {
       username,
       password,
+      avatar
     });
     console.log(response);
     const user = response.data;

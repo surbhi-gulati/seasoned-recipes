@@ -33,7 +33,6 @@ export const searchRecipes = async (query: string) => {
   };
   try {
     const response = await axios.request(options);
-    console.log(response);
     return response.data;
   } catch (error) {
     console.error("error: ", error);
@@ -42,7 +41,6 @@ export const searchRecipes = async (query: string) => {
 }
 
 export const getRecipeInfoByID = async (id: number) => {
-  console.log("got inside getRecipeInfoByID");
   const options = {
     method: 'GET',
     url: `${API_URL}/recipes/get-more-info`,

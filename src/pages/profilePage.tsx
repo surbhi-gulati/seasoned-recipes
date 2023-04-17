@@ -9,14 +9,7 @@ import FollowingPeople from "../components/profile/peopleSection/followingPeople
 import UserType from "../modules/userType";
 import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 
-const ProfilePage = (user: UserType = {
-    "id": 3,
-    "username": "mostlyHereForRamen",
-    "name": "Belle Lim",
-    "avatar": "/userImages/belle.jpg",
-    "phone": "234-456-7880",
-    "email": "lim.i@northeastern.edu"
-  }) => {  
+const ProfilePage = (user: UserType) => {
 
     const {currentUser} = useSelector((state: any) => state.auth);
     const [profile, setProfile] = useState<UserType>(currentUser);
@@ -46,7 +39,7 @@ const ProfilePage = (user: UserType = {
     }
 
     user = {
-        "id": 3,
+        "_id": "3",
         "username": "mostlyHereForRamen",
         "name": "Belle Lim",
         "avatar": "/userImages/belle.jpg",
