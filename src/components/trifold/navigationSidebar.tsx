@@ -7,27 +7,27 @@ const NavigationSidebar = ({active = 'feed'}) => {
       <Link 
         to="/feed" 
         className={`list-group-item ${active === 'feed' ? 'active' : ''}`}>
-        Feed
+        <i className="bi bi-newspaper"></i> Feed
       </Link>
       <Link 
         to="/groups" 
         className={`list-group-item ${active === 'groups' ? 'active' : ''}`}>
-        Groups
+        <i className="bi bi-people"></i> Groups
       </Link>
       <Link 
         to="/search" 
         className={`list-group-item ${active === 'search' ? 'active' : ''}`}>
-        Search Recipes
+        <i className="bi bi-search"></i> Search Recipes
       </Link>
       <Link 
         to="/bookmarks" 
         className={`list-group-item ${active === 'bookmarks' ? 'active' : ''}`}>
-        Bookmarks
+        <i className="bi bi-bookmarks"></i> Bookmarks
       </Link>
       <Link 
         to="/profile" 
         className={`list-group-item ${active === 'profile' ? 'active' : ''}`}>
-        Profile
+        <i className="bi bi-person"></i> Profile
       </Link>
     </div>
   );

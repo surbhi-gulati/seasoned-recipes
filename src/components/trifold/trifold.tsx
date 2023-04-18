@@ -1,11 +1,7 @@
 import React from "react";
 
 const Trifold = () => {    
-    return (
-        <div>
-            <p> Dummy content! </p>
-        </div>
-  );
+    return ( <> </> );
 };
 
 export default Trifold;

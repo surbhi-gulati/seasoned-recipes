@@ -5,15 +5,18 @@ import GroupSuggestionsItem from "../groups/groupSuggestionsItem";
 
 const GroupSuggestionsSidebar = () => {
   return (
-    <div className="list-group mb-1">
-      {
-        groups.map((group : GroupType) => {
-        return (
-          <GroupSuggestionsItem key={group._id} {...group} />                
-        );
-      })}
-      <a href="/groups">See All Groups</a>
-    </div>
+    <>
+      <h4> Groups you'll love... </h4>
+      <div className="list-group mb-1">
+        {
+          groups.map((group : GroupType) => {
+          return (
+            <GroupSuggestionsItem key={group._id} {...group} />                
+          );
+        })}
+        <a href="/groups">See All Groups</a>
+      </div>
+    </>
   );
 };
 
