@@ -28,32 +28,28 @@ export const fetchGroupMembersByGroupId = createAsyncThunk(
 async (groupId: string) => {
     const groupMembers = await getGroupMembersByGroupId(groupId);
     return { groupId, groupMembers };
-}
-);
+});
 
 export const fetchGroupsByUserId = createAsyncThunk(
 'groupMembers/fetchGroupsByUserId',
 async (userId: string) => {
     const groupMembers = await getGroupsByUserId(userId);
     return { userId, groupMembers };
-}
-);
+});
 
 export const createNewGroupMember = createAsyncThunk(
 'groupMembers/createNewGroupMember',
 async (groupMember: GroupMember) => {
     const newGroupMember = await createGroupMember(groupMember);
     return newGroupMember;
-}
-);
+});
 
 export const leaveGroupMember = createAsyncThunk(
 'groupMembers/leaveGroupMember',
 async (groupMember: GroupMember) => {
     const deletedGroupMember = await leaveGroup(groupMember);
     return deletedGroupMember;
-}
-);
+});
 
 export const groupMembersSlice = createSlice({
     name: 'groupMembers',
