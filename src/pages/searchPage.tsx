@@ -33,8 +33,14 @@ const SearchPage = () => {
 
 
   return (
-    <div>
-      <div className="row p-3">
+    <>
+      <h3> Browse Recipes </h3>
+      <p> 
+        Discover new recipes by searching for what you care about!
+        If you find something you fancy, you can bookmark it or even make a post to 
+        a group that might also take interest! 
+      </p>
+      <div className="row card p-3">
         <div className="col-10">
           <input 
             type="text"
@@ -43,16 +49,13 @@ const SearchPage = () => {
             onChange={(e) => { setSearch(e.currentTarget.value)}}>
           </input>
         </div>
-        
         <button className="col-2 rounded-pill btn btn-primary float-end mt-2 ps-3 pe-3 fw-bold"
                 onClick={() => handleSearchButton(search)}>
-            Search Recipe
+            <i className="bi bi-search"></i>
         </button>
-        
       </div>
-      <hr className="hr"></hr>
       <RecipeList recipesArray={recipeList}/>
-    </div>
+    </>
   );
 };
 

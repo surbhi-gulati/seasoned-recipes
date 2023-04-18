@@ -1,9 +1,11 @@
 import React from "react";
+import PostList from "../components/posts/post-list";
 
 const BookmarksPage = () => {    
     return (
         <div>
-            <p> Dummy content! </p>
+            <h3> Bookmarked Recipes </h3>
+            <PostList/>
         </div>
     );
 };

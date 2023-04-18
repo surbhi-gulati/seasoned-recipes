@@ -17,7 +17,6 @@ const PostList = () => {
   }, []);
   return(
     <>
-      <span>{JSON.stringify(postBody)}</span>
       <ul className="list-group">
         {
           postsArray.map((post : PostType) =>

@@ -4,16 +4,9 @@ import { Outlet } from "react-router";
 import NavigationSidebar from "../components/trifold/navigationSidebar";
 import GroupSuggestionsSidebar from "../components/trifold/groupSuggestionsSidebar";
 
-import postsReducer from "../reducers/posts-reducer";
-import { configureStore } from '@reduxjs/toolkit';
-import {Provider} from "react-redux";
-import recipeReducer from "../reducers/recipe-reducer";
-
-
-
 function TrifoldPage() {
-  const { path } = useParams();
-  return (
+    const { path } = useParams();
+    return (
         <div className="row mt-2">
             <div className="col-2 col-md-2 col-lg-1 col-xl-2">
                 <NavigationSidebar active={ path || 'find' }/>
