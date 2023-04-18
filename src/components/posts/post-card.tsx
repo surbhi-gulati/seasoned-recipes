@@ -1,11 +1,7 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {deletePost, updatePostLikes} from "../../reducers/posts-reducer";
-
-import RecipeCard from "../recipes/recipe-card";
 import PostType from "../../modules/postType";
-import recipesArray from "../../data/recipes/receipeResults";
-import sampleUsers from "../../data/users/usersData";
 
 export const PostCard = (props: PostType) => {
   const dispatch = useDispatch();
@@ -16,8 +12,12 @@ export const PostCard = (props: PostType) => {
     dispatch(updatePostLikes(id))
   }
 
-  let user = sampleUsers.find(user => user._id === props.userId);
-  let recipe = recipesArray.find(recipe => recipe.id === 8652);
+  // This gets the current user from the redux store
+  const {currentUser} = useSelector((state: any) => state.auth);
+  const [user, setUser] = React.useState<any>({});
+  useEffect(() => {
+    setUser(currentUser);
+  }, [currentUser]);
 
   return (
       <div className="media border p-3">
@@ -29,7 +29,7 @@ export const PostCard = (props: PostType) => {
             <p>{props.text}</p>
             <p className="badge rounded-pill bg-dark">{props.groupName}</p>
             <div className="media p-3">
-              <RecipeCard key={props.recipeId} {...recipe!}></RecipeCard>
+              {/*<RecipeCard key={pro} {...recipeResponse}></RecipeCard>*/}
             </div>
             {props.liked ?
                 <div onClick={() => updatePostLikesHandler(props._id)} className="bi-hand-thumbs-up-fill float-start">&nbsp;{props.likes}</div> :

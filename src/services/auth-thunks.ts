@@ -1,8 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as authService from "./auth-services";
-import { create } from "domain";
 import UserType from "../modules/userType";
-import {faker} from "@faker-js/faker";
 
 type credentials = {
   username: string;

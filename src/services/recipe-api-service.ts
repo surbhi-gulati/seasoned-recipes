@@ -43,7 +43,7 @@ export const searchRecipes = async (query: string) => {
 export const getRecipeInfoByID = async (id: number) => {
   const options = {
     method: 'GET',
-    url: `${API_URL}/recipes/get-more-info`,
+    url: `${API_URL}/get-more-info`,
     params: {id: `${id}`},
     headers: {
       'X-RapidAPI-Key': API_KEY,

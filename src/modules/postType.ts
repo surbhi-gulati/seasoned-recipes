@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 
 export default interface PostType {
-  _id?: number,
+  _id?: string,
   text: string,
   date: string,
   likes: number,

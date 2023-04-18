@@ -3,10 +3,11 @@
 export default interface RecipeType {
   _id?: string,
   recipeApiId: number,
-  title: string,
-  description: string,
-  image: string,
+  name: string,
+  thumbnail_url: string,
   tags: string[],
+  yields: string,
+  total_time_minutes: string
 }
 
 export enum FoodGroup {
