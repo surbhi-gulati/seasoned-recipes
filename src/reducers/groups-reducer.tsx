@@ -1,50 +1,52 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getAllGroups, createGroup as createGroupService, updateGroup } from "../services/group-services";
 import groups from "../data/users/groupsData";
-
-const templateGroup = {
-  "_id": 2,
-  "name": "Pasta Lovers",
-  "image": "/groupImages/pastaLovers.jpg",
-  "description": "This a group created by pasta lovers for pasta lovers! Here you will find delicious and yummy pictures, recipes and more!"
-}
 
 const groupsSlice = createSlice({
   name: 'groups',
   initialState: groups,
   reducers: {
-    createGroup(state, action) {
-      state.unshift({
-          ...templateGroup,
-          ...action.payload,
-          _id: (new Date()).getTime(),
-      })
+    setGroups(state, action) {
+      return action.payload;
     },
-    deleteGroup(state, action) {
-      const groupAtIndex = state
-      .findIndex(group =>
-          group._id === action.payload);
-      state.splice(groupAtIndex, 1);
+    addGroup(state, action) {
+      state.unshift(action.payload);
     },
-    updateGroupDescription(state, action) {
-      const groupId = action.payload.groupId;
-      const newDescription = action.payload.newDescription;
-    
-      const groupIndex = state.findIndex(group => group._id === groupId);
-      if (groupIndex !== -1) {
-        state[groupIndex].description = newDescription;
+    removeGroup(state, action) {
+      const index = state.findIndex(group => group._id === action.payload);
+      state.splice(index, 1);
+    },
+    updateGroupInfo(state, action) {
+      const { groupId, newInfo } = action.payload;
+      const index = state.findIndex(group => group._id === groupId);
+      if (index !== -1) {
+        state[index] = { ...state[index], ...newInfo };
       }
-    },    
-    updateGroupImage(state, action) {
-      const groupId = action.payload.groupId;
-      const newImage = action.payload.newImage;
-    
-      const groupIndex = state.findIndex(group => group._id === groupId);
-      if (groupIndex !== -1) {
-        state[groupIndex].image = newImage;
-      }
-    }    
-  }
+    },
+  },
 });
 
-export const {createGroup, deleteGroup, updateGroupDescription, updateGroupImage} = groupsSlice.actions;
+export const { setGroups, addGroup, removeGroup, updateGroupInfo } = groupsSlice.actions;
+
+export const fetchGroups = () => async dispatch => {
+  const groups = await getAllGroups();
+  if (groups) {
+    dispatch(setGroups(groups));
+  }
+};
+
+export const createGroup = group => async dispatch => {
+  const createdGroup = await createGroupService({ group });
+  if (createdGroup) {
+    dispatch(addGroup(createdGroup));
+  }
+};
+
+export const updateGroupDetails = ({ groupId, group }) => async dispatch => {
+  const updatedGroup = await updateGroup({ groupId, group });
+  if (updatedGroup) {
+    dispatch(updateGroupInfo({ groupId, newInfo: updatedGroup }));
+  }
+};
+
 export default groupsSlice.reducer;
