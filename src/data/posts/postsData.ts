@@ -1,7 +1,7 @@
 import PostType, {FoodGroup} from "../../modules/postType";
 const posts : Array<PostType> = [
   {
-    "_id": 10,
+    "_id": "643b7f955da0d4402e90938e",
     "recipeId": "643b7f955da0d4402e90938e",
     "userId": "1",
     "groupId": "643b65cbc011ab1c347eadd4",
@@ -12,7 +12,7 @@ const posts : Array<PostType> = [
     "groupName": FoodGroup.vegan
   },
   {
-    "_id": 20,
+    "_id": "643b7f955da0d4402e90938e",
     "recipeId": "643b7f955da0d4402e90938e",
     "userId": "2",
     "groupId": "643b65cbc011ab1c347eadd4",
@@ -23,7 +23,7 @@ const posts : Array<PostType> = [
     "groupName": FoodGroup.pastaLovers
   },
   {
-    "_id": 30,
+    "_id": "643b7f955da0d4402e90938e",
     "recipeId": "643b86bd9141fbe58bb9bf4e",
     "userId": "3",
     "groupId": "643b65cbc011ab1c347eadd4",

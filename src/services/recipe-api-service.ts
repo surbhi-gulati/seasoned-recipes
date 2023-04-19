@@ -50,6 +50,12 @@ export const getRecipeInfoByID = async (id: number) => {
       'X-RapidAPI-Host': API_HOST
     }
   };
-  const response = await axios.request(options);
-  return response.data;
+  try {
+    const response = await axios.request(options);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("error: ", error);
+    return null;
+  }
 }
