@@ -27,7 +27,6 @@ export const PostCard = (props: PostType) => {
   // This gets the recipe info from the API
   // @ts-ignore
   const recipe_id = props.recipeId.id;
-  console.log("ASSIGNING RECIPE_ID AS", recipe_id);
   const [recipeInfo, setRecipeInfo] = React.useState<RecipeType>({
     id: 0,
     name: "",
@@ -37,9 +36,7 @@ export const PostCard = (props: PostType) => {
     total_time_minutes: ""
   });
   const getRecipeInfoHandler = async (recipe_id: number) => {
-    console.log("getRecipeInfoHandler for", recipe_id);
     const response = await getRecipeByID(recipe_id);
-    console.log(response);
     const recipeInfo: RecipeType = {
       id: response.id,
       name: response.name,

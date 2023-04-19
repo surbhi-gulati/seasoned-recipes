@@ -14,7 +14,7 @@ export const RecipeCard = (props: RecipeType) => {
     dispatch(updateRecipeSaves(id));
   }
 
-  const numberOfSaves = 30; // findSavesByRecipe(props._id)
+  const numberOfSaves = findSavesByRecipe(props.id);
   return (
       <div className="row card">
         <div className="row">
@@ -28,7 +28,7 @@ export const RecipeCard = (props: RecipeType) => {
               <Link to={`/recipe/${props.id}`} style={{color: 'black', textDecoration: 'none' }}>
                 <h5 className="card-title">{props.name}</h5>
               </Link>
-              <span className="card-text">{props.id}</span>
+              <span className="card-text">{props.yields}</span>
               {props.total_time_minutes && <div className="card-text">{`Cook time: ${props.total_time_minutes} minutes`}</div>}
               <div className="card-text mb-1"><small className="text-muted">Tags: </small>{getTags(props.tags)}</div>
               {showMakePostButton ? <div><Link to={`/newPost/${props.id}`}><button type="button" className="btn btn-success">Make a Post</button></Link></div> : <i/>}
