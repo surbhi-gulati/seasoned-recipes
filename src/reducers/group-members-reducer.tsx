@@ -14,13 +14,13 @@ export interface GroupMember {
 }
 
 interface GroupMembersState {
-    byGroupId: Record<string, GroupMember[]>;
-    byUserId: Record<string, GroupMember[]>;
+    groupByGroupId: Record<string, GroupMember[]>;
+    groupByUserId: Record<string, GroupMember[]>;
 }
 
 const initialState: GroupMembersState = {
-    byGroupId: {},
-    byUserId: {},
+    groupByGroupId: {},
+    groupByUserId: {},
 };
 
 export const fetchGroupMembersByGroupId = createAsyncThunk(
@@ -59,30 +59,30 @@ export const groupMembersSlice = createSlice({
         builder
         .addCase(fetchGroupMembersByGroupId.fulfilled, (state, action) => {
             const { groupId, groupMembers } = action.payload;
-            state.byGroupId[groupId] = groupMembers;
+            state.groupByGroupId[groupId] = groupMembers;
         })
         .addCase(fetchGroupsByUserId.fulfilled, (state, action) => {
             const { userId, groupMembers } = action.payload;
-            state.byUserId[userId] = groupMembers;
+            state.groupByUserId[userId] = groupMembers;
         })
         .addCase(createNewGroupMember.fulfilled, (state, action) => {
             const newGroupMember = action.payload;
-            if (state.byGroupId[newGroupMember.groupId]) {
-            state.byGroupId[newGroupMember.groupId].push(newGroupMember);
+            if (state.groupByGroupId[newGroupMember.groupId]) {
+            state.groupByGroupId[newGroupMember.groupId].push(newGroupMember);
             }
-            if (state.byUserId[newGroupMember.userId]) {
-            state.byUserId[newGroupMember.userId].push(newGroupMember);
+            if (state.groupByUserId[newGroupMember.userId]) {
+            state.groupByUserId[newGroupMember.userId].push(newGroupMember);
             }
         })
         .addCase(leaveGroupMember.fulfilled, (state, action) => {
             const deletedGroupMember = action.payload;
-            if (state.byGroupId[deletedGroupMember.groupId]) {
-            state.byGroupId[deletedGroupMember.groupId] = state.byGroupId[
+            if (state.groupByGroupId[deletedGroupMember.groupId]) {
+            state.groupByGroupId[deletedGroupMember.groupId] = state.groupByGroupId[
                 deletedGroupMember.groupId
             ].filter((groupMember) => groupMember.id !== deletedGroupMember.id);
             }
-            if (state.byUserId[deletedGroupMember.userId]) {
-            state.byUserId[deletedGroupMember.userId] = state.byUserId[
+            if (state.groupByUserId[deletedGroupMember.userId]) {
+            state.groupByUserId[deletedGroupMember.userId] = state.groupByUserId[
                 deletedGroupMember.userId
             ].filter((groupMember) => groupMember.id !== deletedGroupMember.id);
             }
