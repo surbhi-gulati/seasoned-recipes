@@ -2,7 +2,7 @@
 
 export default interface RecipeType {
   _id?: string,
-  recipeApiId: number,
+  id: number,
   name: string,
   thumbnail_url: string,
   tags: string[],

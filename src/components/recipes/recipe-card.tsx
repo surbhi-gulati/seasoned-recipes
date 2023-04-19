@@ -13,26 +13,25 @@ export const RecipeCard = (props: RecipeType) => {
   const updateRecipeSavesHandler = (id) => {
     dispatch(updateRecipeSaves(id));
   }
-  // findSavesByRecipe(props._id)
-  console.log(props);
-  const numberOfSaves = 30;
+
+  const numberOfSaves = 30; // findSavesByRecipe(props._id)
   return (
       <div className="row card">
         <div className="row">
           <div className="col-4 ">
-            <Link to={`/recipe/${props.recipeApiId}`} style={{color: 'black', textDecoration: 'none' }}>
+            <Link to={`/recipe/${props.id}`} style={{color: 'black', textDecoration: 'none' }}>
               <img src={props.thumbnail_url} className="card-img" alt="..."/>
             </Link>
           </div>
           <div className="col-7">
             <div className="card-body">
-              <Link to={`/recipe/${props.recipeApiId}`} style={{color: 'black', textDecoration: 'none' }}>
+              <Link to={`/recipe/${props.id}`} style={{color: 'black', textDecoration: 'none' }}>
                 <h5 className="card-title">{props.name}</h5>
               </Link>
-              <span className="card-text">{props.recipeApiId}</span>
+              <span className="card-text">{props.id}</span>
               {props.total_time_minutes && <div className="card-text">{`Cook time: ${props.total_time_minutes} minutes`}</div>}
               <div className="card-text mb-1"><small className="text-muted">Tags: </small>{getTags(props.tags)}</div>
-              {showMakePostButton ? <div><Link to={`/newPost/${props.recipeApiId}`}><button type="button" className="btn btn-success">Make a Post</button></Link></div> : <i/>}
+              {showMakePostButton ? <div><Link to={`/newPost/${props.id}`}><button type="button" className="btn btn-success">Make a Post</button></Link></div> : <i/>}
             </div>
           </div>
           <div className="col-1">

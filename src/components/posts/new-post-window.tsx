@@ -3,7 +3,7 @@ import RecipeCard from "../recipes/recipe-card";
 import RecipeType from "../../modules/recipeType";
 import {useDispatch, useSelector} from "react-redux";
 import {createPost} from "../../reducers/posts-reducer";
-import PostType, {FoodGroup} from "../../modules/postType";
+import PostType from "../../modules/postType";
 import { createPostWithRecipe } from "../../services/post-services";
 import Select from 'react-select';
 import groups from "../../data/users/groupsData";
@@ -62,7 +62,7 @@ const NewPostWindow = (props : RecipeType) => {
                       onChange={(event) => setPostCaption(event.target.value)}>
             </textarea>
             <div className="media p-3">
-              <RecipeCard key={props._id} {...props!} ></RecipeCard>
+              <RecipeCard key={props.id} {...props!} ></RecipeCard>
             </div>
           </div>
           <p className="float-start">Post to:</p>

@@ -43,13 +43,19 @@ export const searchRecipes = async (query: string) => {
 export const getRecipeInfoByID = async (id: number) => {
   const options = {
     method: 'GET',
-    url: `${API_URL}/get-more-info`,
+    url: `${API_URL}/recipes/get-more-info`,
     params: {id: `${id}`},
     headers: {
       'X-RapidAPI-Key': API_KEY,
       'X-RapidAPI-Host': API_HOST
     }
   };
-  const response = await axios.request(options);
-  return response.data;
+  try {
+    const response = await axios.request(options);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("error: ", error);
+    return null;
+  }
 }

@@ -7,7 +7,7 @@ import RecipeType from "../modules/recipeType";
 
 const NewPostPage = () => {
   const [recipeInfo, setRecipeInfo] = React.useState<RecipeType>({
-    recipeApiId: 0,
+    id: 0,
     name: "",
     thumbnail_url: "",
     tags: [],
@@ -15,21 +15,17 @@ const NewPostPage = () => {
     total_time_minutes: ""
   });
   const {recipe_id} = useParams();
-
   // This gets the recipe info from the API
   const getRecipeInfoHandler = async (recipe_id: number) => {
     const response = await getRecipeInfoByID(recipe_id);
-    console.log("THE RECIPE ID IS", recipe_id);
-
     const recipeInfo: RecipeType = {
-      recipeApiId: response.id,
+      id: response.id,
       name: response.name,
       thumbnail_url: response.thumbnail_url,
       tags: response.tags,
       total_time_minutes: response.total_time_minutes,
       yields: response.yields
     }
-
     setRecipeInfo(recipeInfo);
   }
 
