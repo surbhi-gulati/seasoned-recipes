@@ -49,6 +49,8 @@ function App() {
               element={<ProfilePage/>}/>
             <Route path="profile/:id"
               element={<ProfilePage/>}/>
+            <Route path="profile/:id"
+              element={<ProfilePage/>}/>
             <Route path="newPost/:recipe_id"
               element={<NewPostPage/>}/>
             </Route>
