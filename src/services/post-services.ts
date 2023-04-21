@@ -7,6 +7,10 @@ export const createPostWithRecipe = async ({post, recipe}) => {
 
   console.log(post);
   console.log(recipe);
+  console.log("URL IS:", `${POSTS_URL}`, {
+    post,
+    recipe
+  });
 
   try {
     const response = await api.post(`${POSTS_URL}`, {

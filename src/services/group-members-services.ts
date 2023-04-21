@@ -11,8 +11,8 @@ export const createGroupMember = async (groupMember) => {
     const response = await api.post(`${GROUP_MEMS_URL}`, groupMember);
     return response.data;
   } catch (error) {
-    console.error(error);
-    throw error;
+    console.error("Unable to join group: ", error);
+    return null;
   }
 };
 
@@ -28,6 +28,7 @@ export const getGroupMembersByGroupId = async (groupId) => {
 
 export const getGroupsByUserId = async (userId) => {
   try {
+    console.log("INSIDE TRY", `${GROUPS_URL}/${userId}`);
     const response = await api.get(`${GROUPS_URL}/${userId}`);
     return response.data;
   } catch (error) {
