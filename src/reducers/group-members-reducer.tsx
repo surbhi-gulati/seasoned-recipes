@@ -40,7 +40,7 @@ async (userId: string) => {
 export const createNewGroupMember = createAsyncThunk(
 'groupMembers/createNewGroupMember',
 async (groupMember: GroupMember) => {
-    const newGroupMember = await createGroupMember(groupMember);
+    const newGroupMember = await createGroupMember(groupMember.groupId, groupMember.userId);
     return newGroupMember;
 });
 

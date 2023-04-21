@@ -1,24 +1,14 @@
 import React from "react";
 import GroupType from "../../modules/groupType";
 import {useSelector} from "react-redux";
-import {
-  fetchGroupsByUserId,
-  GroupMember
-} from "../../reducers/group-members-reducer";
 import {createGroupMember} from "../../services/group-members-services";
 
 const GroupCard = (props: GroupType) => {
 
   const {currentUser} = useSelector((state: any) => state.auth);
-  const clickPostHandler = () => {
-    const newGroupMember: GroupMember = {
-      id: new Date().toDateString(),
-      userId: currentUser._id,
-      groupId: props._id.toString(),
-      createdAt: new Date().toDateString()
-    }
+  const clickPostHandler = async () => {
     try {
-      createGroupMember(newGroupMember);
+      await createGroupMember(props._id, currentUser._id);
     } catch (e) {
       alert(e);
     }
