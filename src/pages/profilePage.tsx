@@ -80,7 +80,7 @@ const ProfilePage = (user: UserType) => {
               <PersonalInfo user={user} />
             </TabPane>
             <TabPane tabId="groups">
-              <FollowingGroups user={user} />
+              <FollowingGroups user={currentUser} />
             </TabPane>
             <TabPane tabId="following">
               <FollowingPeople user={user} />
