@@ -1,25 +1,27 @@
 import React, {useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { useNavigate, useParams } from "react-router";
-import { profileThunk, logoutThunk } from "../services/auth-thunks";
+import {logoutThunk, profileThunk} from "../services/auth-thunks";
 import ProfileHeader from "../components/profile/profileHeader";
 import PersonalInfo from "../components/profile/personalInfoSection/personalInfo";
 import FollowingGroups from "../components/profile/groupSection/followingGroups";
 import FollowingPeople from "../components/profile/peopleSection/followingPeople";
 import UserType from "../modules/userType";
 import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
-import { getProfileById } from "../services/auth-services";
+import { getProfileById, getLoggedInProfile } from "../services/auth-services";
+import { getGroupsByUserId } from "../services/group-members-services";
 
 const ProfilePage = (user: UserType) => {
 
     const {currentUser} = useSelector((state: any) => state.auth);
-    const [profile, setProfile] = useState<UserType>(currentUser);
+    const [profile, setProfile] = useState<UserType>();
     const [isFollowing, setIsFollowing] = useState<boolean>(false);
+    const [followedGroups, setFollowedGroups] = useState<Array<any>>([]);
     const dispatch = useDispatch<any>();
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('personalInfo');
     const { id } = useParams();
-    console.log(id);
+    console.log("id: ", id);
 
     const toggleTab = (tab) => {
       if (activeTab !== tab) setActiveTab(tab);
@@ -31,17 +33,28 @@ const ProfilePage = (user: UserType) => {
           const profileResponse = await getProfileById(id);
           console.log(profileResponse);
           setProfile(profileResponse.user);
-          setIsFollowing(profileResponse.following);
         }
         else {
           const {payload} = await dispatch(profileThunk());
+          console.log(payload);
           setProfile(payload);
         }
       }
       getProfile();
-    }, []);
+    }, [id]);
 
-    const handleLogout =async () => {
+    // Once profile is loaded, get the groups that the user follows
+    useEffect(() => {
+      const getFollowedGroups = async () => {
+        if (profile) {
+          const allGroupID = await getGroupsByUserId(profile && profile._id);
+          setFollowedGroups(allGroupID);
+        }
+      }
+      getFollowedGroups();
+    }, [profile]);
+
+    const handleLogout = async () => {
       try {
         await dispatch(logoutThunk());
         navigate("/login");
@@ -77,13 +90,13 @@ const ProfilePage = (user: UserType) => {
           </Nav>
           <TabContent activeTab={activeTab}>
             <TabPane tabId="personalInfo">
-              <PersonalInfo user={user} />
+              {/* <PersonalInfo user={user} /> */}
             </TabPane>
             <TabPane tabId="groups">
-              <FollowingGroups user={currentUser} />
+              {profile && <FollowingGroups profile={profile} groups={followedGroups} />}
             </TabPane>
             <TabPane tabId="following">
-              <FollowingPeople user={user} />
+              {/* <FollowingPeople user={user} /> */}
             </TabPane>
             <TabPane tabId="followers">
               <p>Followers!</p>

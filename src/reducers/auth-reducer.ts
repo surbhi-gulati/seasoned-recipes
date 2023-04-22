@@ -31,6 +31,7 @@ const authSlice = createSlice({
     }).addCase(logoutThunk.fulfilled, (state, {payload}) => {
       state.currentUser = null;
     }).addCase(profileThunk.fulfilled, (state, {payload}) => {
+      console.log("profileThunk.fulfilled payload: ", payload)
       state.currentUser = payload;
     }).addCase(registerThunk.fulfilled, (state, {payload}) => {
       if(payload) {

@@ -44,7 +44,7 @@ export const register = async ({ username, password }) => {
   }
 }
 
-export const profile = async () => {
+export const getLoggedInProfile = async () => {
   const response = await api.get(`${USERS_URL}/profile`);
   const user = response.data;
   return user;
