@@ -9,10 +9,10 @@ const UserCard = (user: UserType) => {
             <img 
                 className="rounded-circle" height={48} width={48}
                 src={`${user.avatar}`}
-                alt={user.name}
-                key={user.name}
+                alt={user.username}
+                key={user.username}
             />
-            <span> {user.name} </span>
+            <span> {user.username} </span>
         </span>
         </Link>
     );
