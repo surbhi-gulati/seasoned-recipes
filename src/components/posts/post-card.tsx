@@ -1,10 +1,9 @@
 import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {deletePost, updatePostLikes} from "../../reducers/posts-reducer";
-import PostType, { PostResponseType } from "../../modules/postType";
+import { PostResponseType } from "../../modules/postType";
 import RecipeCard from "../recipes/recipe-card";
 import {getRecipeByID} from "../../services/recipe-services";
-import {getRecipeInfoByID} from "../../services/recipe-api-service";
 import RecipeType from "../../modules/recipeType";
 import UserCard from "../profile/peopleSection/userCard";
 
