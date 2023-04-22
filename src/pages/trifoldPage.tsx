@@ -3,18 +3,17 @@ import {useParams} from "react-router";
 import { Outlet } from "react-router";
 import NavigationSidebar from "../components/trifold/navigationSidebar";
 import GroupSuggestionsSidebar from "../components/trifold/groupSuggestionsSidebar";
-
-import postsReducer from "../reducers/posts-reducer";
-import { configureStore } from '@reduxjs/toolkit';
-import {Provider} from "react-redux";
-import recipeReducer from "../reducers/recipe-reducer";
-
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
 function TrifoldPage() {
+  const currentUser = useSelector((state: any) => state.auth.currentUser);
   const { path } = useParams();
   return (
-        <div className="row mt-2">
+    <>
+      {!currentUser && <Link to="/login">Login</Link>}
+      <div className="row mt-2">
             <div className="col-2 col-md-2 col-lg-1 col-xl-2">
                 <NavigationSidebar active={ path || 'find' }/>
             </div>
@@ -26,6 +25,7 @@ function TrifoldPage() {
                 <GroupSuggestionsSidebar/>
             </div>
         </div>
+    </>
   );
 }
 
