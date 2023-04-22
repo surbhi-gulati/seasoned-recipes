@@ -3,9 +3,6 @@ import {createFollow, unfollow} from "../../services/follows-services";
 import { useNavigate } from "react-router-dom";
 
 const ProfileHeader = ({authenticated, isFollowing, user}) => {
-    console.log("authenticated: ", authenticated);
-    console.log("isFollowing: ", isFollowing);
-    console.log("user: ", user);
     const isSelf = authenticated && user && authenticated._id === user._id;
     const navigate = useNavigate();
 

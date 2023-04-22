@@ -50,6 +50,7 @@ export const getFollowingByUserId = async (userId: string) => {
   try {
     const response = await api.get(`${FOLLOWS_URL}/${userId}/following`);
     const follows = response.data;
+    console.log(follows);
     return follows;
   } catch (error) {
     console.log("Unable to get following: ", error);

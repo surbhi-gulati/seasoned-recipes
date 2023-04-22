@@ -1,6 +1,6 @@
 import React from "react";
 import PostCard from "./post-card";
-import PostType from "../../modules/postType";
+import PostType, { PostResponseType } from "../../modules/postType";
 import {useSelector} from "react-redux";
 import { getAllPosts } from "../../services/post-services";
 
@@ -17,7 +17,7 @@ const PostList = () => {
     <>
       <ul className="list-group">
         {
-          postBody.map((post : PostType) =>
+          postBody.map((post : PostResponseType) =>
               <PostCard key={post._id} {...post}></PostCard>)
         }
       </ul>
