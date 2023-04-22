@@ -1,8 +1,6 @@
 import React from "react";
 import GroupSuggestionsItem from "../../groups/groupSuggestionsItem";
 import GroupType from "../../../modules/groupType";
-import {getGroupsByUserId} from "../../../services/group-members-services";
-
 const FollowingGroups = ({profile, groups}) => {
 
     return (
