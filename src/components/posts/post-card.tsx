@@ -6,7 +6,7 @@ import RecipeCard from "../recipes/recipe-card";
 import {getRecipeByID} from "../../services/recipe-services";
 import {getRecipeInfoByID} from "../../services/recipe-api-service";
 import RecipeType from "../../modules/recipeType";
-import PersonCard from "../profile/peopleSection/personCard";
+import UserCard from "../profile/peopleSection/userCard";
 
 export const PostCard = (props: PostResponseType) => {
   const dispatch = useDispatch();
@@ -55,7 +55,7 @@ export const PostCard = (props: PostResponseType) => {
   return (
       <div className="media border p-3">
         <div className="media-body">
-          <PersonCard {...props.userId}/>
+          <UserCard {...props.userId}/>
           <i>@{user?.username}</i>
           <i className="bi bi-x-lg float-end" onClick={() => deletePostHandler(props._id)}></i>
           <p>{props.text}</p>

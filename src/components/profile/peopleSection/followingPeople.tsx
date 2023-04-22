@@ -1,6 +1,6 @@
 import React from "react";
 import UserType from "../../../modules/userType";
-import PersonCard from "./personCard";
+import UserCard from "./userCard";
 
 const FollowingPeople = ({ profile, following }) => {  
     return (
@@ -13,7 +13,7 @@ const FollowingPeople = ({ profile, following }) => {
             {
                 following.map((user : UserType) => {
                 return (
-                <PersonCard key={user._id} {...user} />                
+                <UserCard key={user._id} {...user} />
                 );
             })}
         </>

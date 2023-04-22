@@ -2,8 +2,7 @@ import React from "react";
 import UserType from "../../../modules/userType";
 import {Link} from "react-router-dom";
 
-const PersonCard = (user: UserType) => {    
-  console.log(user);
+const UserCard = (user: UserType) => {
     return (
         <Link to={`/profile/${user._id}`} style={{color: 'black', textDecoration: 'none' }}>
         <span className={"list-group-item"}>
@@ -19,4 +18,4 @@ const PersonCard = (user: UserType) => {
     );
 };
 
-export default PersonCard;
+export default UserCard;
