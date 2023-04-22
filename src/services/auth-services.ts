@@ -44,7 +44,7 @@ export const register = async ({ username, password }) => {
   }
 }
 
-export const profile = async () => {
+export const getLoggedInProfile = async () => {
   const response = await api.get(`${USERS_URL}/profile`);
   const user = response.data;
   return user;
@@ -56,3 +56,8 @@ export const updateUser = async (user) => {
   return updatedUser;
 }
 
+export const getProfileById = async (id: string) => {
+  const response = await api.get(`${USERS_URL}/${id}`);
+  const user = response.data;
+  return user;
+}
