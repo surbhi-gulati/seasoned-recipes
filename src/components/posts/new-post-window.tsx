@@ -6,7 +6,7 @@ import {createPost} from "../../reducers/posts-reducer";
 import PostType from "../../modules/postType";
 import { createPostWithRecipe } from "../../services/post-services";
 import Select from 'react-select';
-import groups from "../../data/users/groupsData";
+import {getAllGroups} from "../../services/group-services";
 
 interface GroupOption {
   value: number,
@@ -16,6 +16,14 @@ interface GroupOption {
 const NewPostWindow = (props : RecipeType) => {
   let [postCaption, setPostCaption] = useState('');
   let [postGroup, setPostGroup] = useState('');
+  const [groups, setGroups] = React.useState([]);
+  React.useEffect(() => {
+    const fetchGroups = async () => {
+      const allGroups = await getAllGroups();
+      setGroups(allGroups);
+    }
+    fetchGroups();
+  }, []);
   const dispatch = useDispatch();
 
   let data: GroupOption[] = [];
@@ -48,7 +56,6 @@ const NewPostWindow = (props : RecipeType) => {
       recipe: props,
     });
     dispatch((createPost(newPost)));
-    
   }
   return (
       <div className="row">

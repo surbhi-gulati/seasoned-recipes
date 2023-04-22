@@ -19,7 +19,7 @@ const BookmarksPage = () => {
   
   return (
     <div>
-      <PostList postBody={postBody} />
+      <PostList posts={postBody} />
     </div>
   );
 };

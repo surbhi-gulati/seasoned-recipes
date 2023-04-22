@@ -1,20 +1,19 @@
 import React from "react";
 import UserType from "../../../modules/userType";
-import PersonCard from "./personCard";
-import users from "../../../data/users/usersData";
+import UserCard from "./userCard";
 
-const FollowingPeople = ({ user }) => {  
+const FollowingPeople = ({ profile, following }) => {  
     return (
         <>
-            <h2> Who {user.username} follows </h2>
+            <h2> Who {profile.username} follows </h2>
             <div className="d-flex ">
                 <i className="bi bi-lock me-2"></i>
                 <p>This section is only visible to you.</p>
             </div>
             {
-                users.map((user : UserType) => {
+                following.map((user : UserType) => {
                 return (
-                <PersonCard key={user._id} {...user} />                
+                <UserCard key={user._id} {...user} />
                 );
             })}
         </>

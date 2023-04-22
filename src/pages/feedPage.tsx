@@ -11,10 +11,9 @@ const FeedPage = () => {
     }
     fetchPosts();
   }, []);
-     
     return (
         <div>
-          <PostList postBody={postBody}/>
+          <PostList posts={postBody}></PostList>
         </div>
     );
 };
