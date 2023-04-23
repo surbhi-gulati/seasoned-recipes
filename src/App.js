@@ -37,7 +37,7 @@ function App() {
               element={<GroupsPage/>}/>
             <Route path="group/:id"
               element={<GroupPage/>}/>
-            <Route path="recipe/:id"
+            <Route path="recipe/:recipe_id"
               element={<RecipePage/>}/>
             <Route path="search"
               element={<SearchPage/>}/>
