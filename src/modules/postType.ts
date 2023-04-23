@@ -1,4 +1,3 @@
-import { Types } from "mongoose";
 import UserType from "./userType";
 import GroupType from "./groupType";
 import RecipeType from "./recipeType";
@@ -13,7 +12,6 @@ export default interface PostType {
   groupId?: string,
   groupName: string,
   recipeId?: string,
-  
 }
 
 export interface PostResponseType {

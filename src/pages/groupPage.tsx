@@ -1,18 +1,17 @@
 import React, {useEffect} from "react";
 import GroupType from "../modules/groupType";
-import { Link } from "react-router-dom";
 import {useParams} from "react-router";
 import {useSelector} from "react-redux";
 import {getGroupById} from "../services/group-services";
 import UserList from "../components/profile/peopleSection/userList";
 import {getGroupMembersByGroupId} from "../services/group-members-services";
 import {getGroupsPosts} from "../services/post-services";
-import PostType from "../modules/postType";
+import { PostResponseType } from "../modules/postType";
 import PostList from "../components/posts/post-list";
 
 const GroupPage = () => {
   const [groupInfo, setGroupInfo] = React.useState<GroupType>();
-  const [groupPosts, setGroupPosts] = React.useState<PostType[]>();
+  const [groupPosts, setGroupPosts] = React.useState<PostResponseType[]>();
   const [groupMembers, setGroupMembers] = React.useState<GroupType>();
   const {id} = useParams();
   // This gets the recipe info from the API
@@ -37,16 +36,16 @@ const GroupPage = () => {
   const [user, setUser] = React.useState<any>({});
   useEffect(() => {
     setUser(currentUser);
-  }, []);
+  }, [currentUser]);
 
   // If the recipe_id is not null, then get the recipe info on page load
   useEffect(() => {
-    if(id) {
+    if (id) {
       getGroupInfoHandler();
       getGroupMemberHandler();
       getGroupPosts();
     }
-  }, [id]);
+  }, [getGroupInfoHandler, getGroupMemberHandler, getGroupPosts, id]);
 
   return (
       <div>
@@ -72,7 +71,6 @@ const GroupPage = () => {
               <div className="card-body d-flex flex-column align-items-start">
                 {groupPosts && <PostList posts={groupPosts}></PostList>}
               </div>
-              {/*<img className="card-img-right flex-auto d-none d-md-block" src="holder.js/200x250?theme=thumb" alt="Card image cap">*/}
             </div>
           </div>
         </div>
