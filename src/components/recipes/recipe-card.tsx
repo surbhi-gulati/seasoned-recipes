@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateRecipeSaves } from "../../reducers/recipe-reducer";
 import RecipeType from "../../modules/recipeType";
-const savesArray = require("../../data/recipes/saves");
 
 export const RecipeCard = (props: RecipeType) => {
   const dispatch = useDispatch();
@@ -19,7 +18,6 @@ export const RecipeCard = (props: RecipeType) => {
     dispatch(updateRecipeSaves(id));
   };
 
-  const numberOfSaves = findSavesByRecipe(props.id);
   return (
     <div className="row card">
       <div className="row">
@@ -69,16 +67,12 @@ export const RecipeCard = (props: RecipeType) => {
             <p
               onClick={() => updateRecipeSavesHandler(props.id)}
               className="bi bi-bookmark-fill float-end"
-            >
-              {numberOfSaves}
-            </p>
+            />
           ) : (
             <p
               onClick={() => updateRecipeSavesHandler(props.id)}
               className="bi bi-bookmark float-end"
-            >
-              {numberOfSaves}
-            </p>
+            ></p>
           )}
         </div>
       </div>
@@ -86,16 +80,6 @@ export const RecipeCard = (props: RecipeType) => {
   );
 };
 export default RecipeCard;
-
-function findSavesByRecipe(recipe_id: number) {
-  let count = 0;
-  for (let i = 0; i < savesArray.saves.length; i++) {
-    if (savesArray.saves[i].recipe_id === recipe_id) {
-      count++;
-    }
-  }
-  return count;
-}
 
 const getTags = (tags: Array<any>) => {
   const limit = 3;
