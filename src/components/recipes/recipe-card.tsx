@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateRecipeSaves } from "../../reducers/recipe-reducer";
 import RecipeType from "../../modules/recipeType";
+import { createNewBookmark, unbookmarkRecipe } from "../../reducers/bookmarks-reducer";
 
 export const RecipeCard = (props: RecipeType) => {
   const dispatch = useDispatch();
@@ -15,7 +16,15 @@ export const RecipeCard = (props: RecipeType) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const updateRecipeSavesHandler = (id) => {
     setIsBookmarked(!isBookmarked);
-    dispatch(updateRecipeSaves(id));
+    if (currentUser) {
+      if (isBookmarked) {
+        dispatch(unbookmarkRecipe(id, currentUser.id));
+      } else {
+        dispatch(createNewBookmark(id, currentUser.id));
+      }
+    } else {
+      dispatch(updateRecipeSaves(id));
+    }
   };
 
   return (
