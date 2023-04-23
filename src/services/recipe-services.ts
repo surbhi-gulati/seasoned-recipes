@@ -5,9 +5,7 @@ const api = axios.create({ withCredentials: true });
 
 export const getRecipeByID = async (id: number) => {
   try {
-    console.log(`${RECIPES_URL}/${id}`);
     const response = await api.get(`${RECIPES_URL}/${id}`);
-    console.log("RECIPE RETRIEVED AS:", response);
     const recipes = response.data;
     return recipes;
   } catch (error) {

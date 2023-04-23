@@ -17,8 +17,6 @@ export const PostCard = (props: PostResponseType) => {
     dispatch(updatePostLikes(id))
   }
 
-  console.log(props);
-
   // @ts-ignore
   const user = props.userId;
 
