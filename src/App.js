@@ -18,8 +18,11 @@ import {Provider} from "react-redux";
 import authReducer from './reducers/auth-reducer';
 import postsReducer from './reducers/posts-reducer';
 import recipeReducer from './reducers/recipe-reducer';
+import bookmarksReducer from './reducers/bookmarks-reducer';
+import upvotesReducer from './reducers/upvotes-reducer';
+
 const store = configureStore(
-  {reducer: {auth: authReducer, posts: postsReducer, recipes: recipeReducer}});
+  {reducer: {auth: authReducer, posts: postsReducer, recipes: recipeReducer, bookmarks: bookmarksReducer, upvotes: upvotesReducer}});
 
 function App() {
   return (

@@ -55,6 +55,22 @@ export const unbookmarkRecipe = createAsyncThunk(
   }
 );
 
+export const removeBookmark = createAsyncThunk(
+  'bookmarks/removeBookmark',
+  async ({ recipeId, userId }: { recipeId: number, userId: number }) => {
+    unbookmarkRecipe(recipeId, userId);
+    return { recipeId, userId };
+  }
+);
+
+export const addBookmark = createAsyncThunk(
+  'bookmarks/addBookmark',
+  async ({ recipeId, userId }: { recipeId: number, userId: number }) => {
+    createNewBookmark(recipeId, userId);
+    return { recipeId, userId };
+  }
+);
+
 export const bookmarksSlice = createSlice({
   name: 'bookmarks',
   initialState,
@@ -71,10 +87,14 @@ export const bookmarksSlice = createSlice({
       })
       .addCase(createNewBookmark.fulfilled, (state, action) => {
         const newBookmark = action.payload;
-        if (state.bookmarksByRecipeId[newBookmark.recipeId]) {
+        if (!state.bookmarksByRecipeId[newBookmark.recipeId]) {
+          state.bookmarksByRecipeId[newBookmark.recipeId] = [newBookmark];
+        } else {
           state.bookmarksByRecipeId[newBookmark.recipeId].push(newBookmark);
         }
-        if (state.bookmarksByUserId[newBookmark.userId]) {
+        if (!state.bookmarksByUserId[newBookmark.userId]) {
+          state.bookmarksByUserId[newBookmark.userId] = [newBookmark];
+        } else {
           state.bookmarksByUserId[newBookmark.userId].push(newBookmark);
         }
       })

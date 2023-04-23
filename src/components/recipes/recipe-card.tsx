@@ -14,13 +14,13 @@ export const RecipeCard = (props: RecipeType) => {
     (location.pathname.includes("/search") ||
       location.pathname.includes("/recipe"));
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const updateRecipeSavesHandler = (id) => {
+  const updateRecipeSavesHandler = async (id: number) => {
     setIsBookmarked(!isBookmarked);
     if (currentUser) {
       if (isBookmarked) {
-        dispatch(unbookmarkRecipe(id, currentUser.id));
+        await dispatch(removeBookmark({ recipeId: id, userId: currentUser.id }));
       } else {
-        dispatch(createNewBookmark(id, currentUser.id));
+        await dispatch(addBookmark({ recipeId: id, userId: currentUser.id }));
       }
     } else {
       dispatch(updateRecipeSaves(id));
