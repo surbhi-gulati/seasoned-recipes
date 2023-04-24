@@ -27,18 +27,28 @@ const ProfileHeader = ({authenticated, isFollowing, user}) => {
     }
 
     return (
-        <div className="bg-light mb-4">
-            <h1 className="display-4 text-success"> {user && user.username} </h1>
-            {!isSelf && authenticated && !isFollowing && 
-            <button type="button" 
-                    className="btn btn-sm btn-primary"
-                    onClick={() => handleFollow()}> 
-                    Follow </button>}
+        <div className="row">
+          <div className="col-8 row float-start">
+            <img
+                className="rounded-circle col-4 float-start" height={60} width={60}
+                src={user.avatar}
+                alt={user.avatar}
+                key={user.avatar}
+            />
+            <p className="col-8 display-4 text-success"> {user && user.username} </p>
+          </div>
+          <div className="col-4 float-end">
+            {!isSelf && authenticated && !isFollowing &&
+                <button type="button"
+                        className="btn btn-sm btn-primary float-end"
+                        onClick={() => handleFollow()}>
+                  Follow </button>}
 
             {!isSelf && authenticated && isFollowing &&
-            <button type="button" 
-            className="btn btn-sm btn-secondary"
-            onClick={() => handleUnfollow()}> Unfollow </button>}
+                <button type="button"
+                        className="btn btn-sm btn-secondary float-end"
+                        onClick={() => handleUnfollow()}> Unfollow </button>}
+          </div>
         </div>
     );
 };

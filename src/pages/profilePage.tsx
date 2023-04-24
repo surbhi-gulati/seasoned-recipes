@@ -99,7 +99,7 @@ const ProfilePage = (user: UserType) => {
           </Nav>
           <TabContent activeTab={activeTab}>
             <TabPane tabId="personalInfo">
-              <PersonalInfo user={profile} />
+              {currentUser && <PersonalInfo></PersonalInfo>}
             </TabPane>
             <TabPane tabId="groups">
               <FollowingGroups profile={profile} groups={followedGroups} />

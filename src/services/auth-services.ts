@@ -1,5 +1,7 @@
 import axios from "axios";
 import {faker} from "@faker-js/faker";
+import { AvatarGenerator } from 'random-avatar-generator';
+
 const SERVER_API_URL = process.env.REACT_APP_SERVER_API_URL;
 const USERS_URL = `${SERVER_API_URL}/users`;
 
@@ -27,13 +29,22 @@ export const logout = async () => {
   return user;  
 }
 
-export const register = async ({ username, password }) => {
+export const register = async (fullCredentials) => {
   try {
-    const avatar = faker.image.nature(280, 280, true);
+
+
+    const generator = new AvatarGenerator();
+
+    // Simply get a random avatar
     const response = await api.post(`${USERS_URL}/register`, {
-      username,
-      password,
-      avatar
+      username: fullCredentials.username,
+      password: fullCredentials.password,
+      firstName: fullCredentials.firstName,
+      lastName: fullCredentials.lastName,
+      email: fullCredentials.email,
+      createdAt: fullCredentials.createdAt,
+      role: fullCredentials.role,
+      avatar: generator.generateRandomAvatar(fullCredentials.username)
     });
     console.log(response);
     const user = response.data;
@@ -51,7 +62,8 @@ export const getLoggedInProfile = async () => {
 };
 
 export const updateUser = async (user) => {
-  const response = await api.put(`${USERS_URL}/profile`, user);
+  console.log("updating via ", `${USERS_URL}`, user.email);
+  const response = await api.put(`${USERS_URL}`, user);
   const updatedUser = response.data;
   return updatedUser;
 }
