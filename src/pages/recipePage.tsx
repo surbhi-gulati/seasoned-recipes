@@ -17,7 +17,7 @@ const RecipePage = () => {
       thumbnail_url: response.thumbnail_url,
       tags: response.tags,
       total_time_minutes: response.total_time_minutes,
-      yields: response.yields,
+      servings: response.num_servings,
       instructions: response.instructions,
     };
     setRecipeInfo(recipeInfo);
@@ -40,10 +40,14 @@ const RecipePage = () => {
       <h1 className="display-4 font-italic">{recipeInfo.name}</h1>
       <img src={recipeInfo.thumbnail_url} className="card-img" alt="..."/>
       <div className="jumbotron p-3 p-md-5 text-white rounded bg-dark d-flex flex-column justify-content-center">
-          {(recipeInfo.total_time_minutes != null) && 
+          {(recipeInfo.total_time_minutes !== null) && 
             <div className="mb-4 text-muted"> {recipeInfo.total_time_minutes} </div>}
-          {recipeInfo.yields !== "Servings" && <h5>Servings: {recipeInfo.yields} </h5> }
-          <p className="lead mb-4">{recipeInfo.description}</p>
+          {recipeInfo.servings !== "Servings" && <h5>Servings: {recipeInfo.servings} </h5> }
+          {recipeInfo.description !== null && recipeInfo.description !== '' &&
+            <>
+              <h5>Desription:</h5>
+              <h2 className="lead mb-4">surbhi {recipeInfo.description}</h2>
+            </>}
           <div className="card-text mb-4">
             <h5>Tags:</h5> 
             {getTags(recipeInfo.tags)}
@@ -71,13 +75,12 @@ const RecipePage = () => {
 };
 
 const getTags = (tags: Array<any>) => {
-  const limit = 3;
-  if(tags) {
-    const limitedTags = tags.slice(0, limit);
-    return limitedTags.map(tag => 
-      <span key={tag.id} className="badge mx-1 rounded-pill bg-info">{`${tag.display_name}`} </span>
-    );
+  if (tags) {
+    return tags.map((tag) => (
+      <span key={tag.id} className="badge mx-1 rounded-pill bg-info">{`${tag.display_name}`}</span>
+    ));
   }
-}
+};
+
 
 export default RecipePage;
