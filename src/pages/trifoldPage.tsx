@@ -20,7 +20,7 @@ function TrifoldPage() {
         <div className="col-sm-12 col-md-8 col-lg-6 col-xl-6">
           <Outlet />
         </div>
-        <div className="col-sm-12 col-md-12 col-lg-3 col-xl-4">
+        <div className="col-sm-12 col-md-12 col-lg-3 col-xl-4 d-none d-lg-block">
           <GroupSuggestionsSidebar />
         </div>
       </div>
