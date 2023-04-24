@@ -19,7 +19,10 @@ import authReducer from './reducers/auth-reducer';
 import postsReducer from './reducers/posts-reducer';
 import recipeReducer from './reducers/recipe-reducer';
 const store = configureStore(
-  {reducer: {auth: authReducer, posts: postsReducer, recipes: recipeReducer}});
+  {reducer: {
+    auth: authReducer, 
+    posts: postsReducer, 
+    recipes: recipeReducer}});
 
 function App() {
   return (

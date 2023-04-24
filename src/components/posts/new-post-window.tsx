@@ -2,11 +2,12 @@ import React, {useState} from "react";
 import RecipeCard from "../recipes/recipe-card";
 import RecipeType from "../../modules/recipeType";
 import {useDispatch, useSelector} from "react-redux";
-import {createPost} from "../../reducers/posts-reducer";
+import {createPostThunk} from "../../services/post-thunks";
 import PostType from "../../modules/postType";
 import { createPostWithRecipe } from "../../services/post-services";
 import Select from 'react-select';
 import {getAllGroups} from "../../services/group-services";
+import { useNavigate } from "react-router";
 
 interface GroupOption {
   value: number,
@@ -24,7 +25,8 @@ const NewPostWindow = (props : RecipeType) => {
     }
     fetchGroups();
   }, []);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
+  const navigate = useNavigate();
 
   let data: GroupOption[] = [];
   for(let i = 0; i < groups.length; i++){
@@ -45,17 +47,17 @@ const NewPostWindow = (props : RecipeType) => {
     }
     const newPost: PostType = {
       text: postCaption,
-      date: new Date().toLocaleDateString('en-US'),
       likes: 0,
       liked: false,
       userId: currentUser._id,
       groupName: postGroup
     }
-    createPostWithRecipe({
+    const reqBody = {
       post: newPost,
       recipe: props,
-    });
-    dispatch((createPost(newPost)));
+    };
+    dispatch(createPostThunk(reqBody));
+    navigate("/feed");
   }
   return (
       <div className="row">

@@ -18,7 +18,7 @@ export const createPostWithRecipe = async ({post, recipe}) => {
     post = response.data;
     return post;
   } catch (error) {
-    console.log("error: ", error);
+    console.log("Unable to create post: ", error);
     return null;
   }
 }
@@ -29,7 +29,6 @@ export const getAllPosts = async () => {
     const response = await api.get(`${POSTS_URL}`);
     console.log(response);
     const posts = response.data;
-    console.log(posts);
     return posts;
   } catch (error) {
     console.log("Unable to get all posts: ", error);
@@ -52,12 +51,21 @@ export const getFollowedPosts = async () => {
 export const getGroupsPosts = async (groupId) => {
   try {
     const response = await api.get(`${GROUP_POSTS_URL}/${groupId}`);
-    console.log(response);
     const posts = response.data;
-    console.log(posts);
     return posts;
   } catch (error) {
-    console.log("error: ", error);
+    console.log("Unable to get group posts: ", error);
+    return null;
+  }
+}
+
+export const deletePost = async (postId) => {
+  try {
+    const response = await api.delete(`${POSTS_URL}/${postId}`);
+    const post = response.data;
+    return post;
+  } catch (error) {
+    console.log("Can Not Delete: ", error);
     return null;
   }
 }

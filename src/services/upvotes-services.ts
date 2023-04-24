@@ -5,7 +5,8 @@ const UPVOTES_URL = `${SERVER_API_URL}/upvotes`;
 
 const api = axios.create({ withCredentials: true });
 
-export const createUpvote = async ({ upvote }) => {
+export const createUpvote = async (user: string, post: string) => {
+    const upvote = {user, post};
     try {
         const response = await api.post(`${UPVOTES_URL}`, upvote);
         const createdUpvote = response.data;
@@ -15,6 +16,17 @@ export const createUpvote = async ({ upvote }) => {
         return null;
     }
 };
+
+export const getUpvotesByBothIds = async (userId: string, postId: string) => {
+    try {
+        const response = await api.get(`${UPVOTES_URL}/objects/${postId}/${userId}`);
+        const upvotes = response.data;
+    return upvotes;
+    } catch (error) {
+        console.log("error: ", error);
+        return null;
+    }
+}
 
 export const getUpvotesByPostId = async (postId) => {
     try {
@@ -38,7 +50,8 @@ export const getUpvotesByUserId = async (userId) => {
     }
 };
 
-export const removeUpvote = async ({ upvote }) => {
+export const removeUpvote = async (user: string, post: string) => {
+    const upvote = {user, post};
     try {
         const response = await api.delete(`${UPVOTES_URL}`, { data: upvote });
         const deletedUpvote = response.data;
