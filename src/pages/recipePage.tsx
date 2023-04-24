@@ -19,6 +19,7 @@ const RecipePage = () => {
       total_time_minutes: response.total_time_minutes,
       servings: response.num_servings,
       instructions: response.instructions,
+      nutrition: response.nutrition,
     };
     setRecipeInfo(recipeInfo);
   };
@@ -46,11 +47,14 @@ const RecipePage = () => {
           {recipeInfo.description !== null && recipeInfo.description !== '' &&
             <>
               <h5>Desription:</h5>
-              <h2 className="lead mb-4">surbhi {recipeInfo.description}</h2>
+              <h2 className="lead mb-4">{recipeInfo.description}</h2>
             </>}
           <div className="card-text mb-4">
             <h5>Tags:</h5> 
             {getTags(recipeInfo.tags)}
+          </div>
+          <div className="card-text mb-4">
+            {getNutrition(recipeInfo.nutrition)}
           </div>
           {recipeInfo.instructions && (
             <div>
@@ -82,5 +86,20 @@ const getTags = (tags: Array<any>) => {
   }
 };
 
+const getNutrition = (nutrition: any) => {
+  if (nutrition) {
+    const nutritionData = Object.entries(nutrition).filter(([key, value]) => key !== 'updated_at');
+    return (
+      <>
+        <h5>Nutritional information:</h5> 
+        <ul>
+        {nutritionData.map(([key, value]) => (
+          <li key={key}>{`${key}: ${value}`}</li>
+        ))}
+      </ul>
+      </>
+    );
+  }
+};
 
 export default RecipePage;
