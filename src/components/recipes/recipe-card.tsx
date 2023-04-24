@@ -1,28 +1,32 @@
 import React, {useEffect, useState} from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import RecipeType from "../../modules/recipeType";
 import {
-  createBookmark,
+  createBookmark, getBookmarksByBothIds,
   getBookmarksByRecipeId,
   unbookmark
 } from "../../services/bookmarks-services";
 
 export const RecipeCard = (props: RecipeType) => {
   const location = useLocation();
+  const [numberOfBookmarks, setNumberOfBookmarks] = useState(0);
+  const [isBookmarked, setIsBookmarked] = useState(false);
   const { currentUser } = useSelector((state: any) => state.auth);
   const showMakePostButton =
     currentUser != null &&
     (location.pathname.includes("/search") ||
       location.pathname.includes("/recipe"));
-  const [isBookmarked, setIsBookmarked] = useState(false);
 
   const updateRecipeSavesHandler = async () => {
+    const currSaves = numberOfBookmarks;
     try {
       if (isBookmarked) {
         await unbookmark(props, currentUser._id);
+        setNumberOfBookmarks(currSaves - 1);
       } else {
         await createBookmark(props, currentUser._id);
+        setNumberOfBookmarks(currSaves + 1);
       }
     } catch (e) {
       console.log(e);
@@ -33,8 +37,12 @@ export const RecipeCard = (props: RecipeType) => {
 
   useEffect(() => {
     const bookmarkExists = async () => {
-      const bookmark = await getBookmarksByRecipeId(props.id);
-      setIsBookmarked(bookmark);
+      const bookmarksForThisRecipe = await getBookmarksByRecipeId(props.id);
+      if (bookmarksForThisRecipe) {
+        setNumberOfBookmarks(bookmarksForThisRecipe.length);
+      }
+      const usersBookmarkForThisRecipe = await getBookmarksByBothIds(currentUser._id, props.id)
+      setIsBookmarked(usersBookmarkForThisRecipe != null);
     }
     bookmarkExists();
   },[]);
@@ -63,23 +71,13 @@ export const RecipeCard = (props: RecipeType) => {
                 <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark-fill float-end"/>
               : <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark float-end"></p>
             }
+            <p>{numberOfBookmarks}</p>
           </div>
         </div>
       </div>
   );
 };
 export default RecipeCard;
-
-
-// function findSavesByRecipe(recipe_id: number) {
-//   let count = 0;
-//   for (let i = 0; i < savesArray.saves.length; i++) {
-//     if (savesArray.saves[i].recipe_id === recipe_id) {
-//       count++;
-//     }
-//   }
-//   return count;
-// }
 
 const getTags = (tags: Array<any>) => {
   const limit = 3;

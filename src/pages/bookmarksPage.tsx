@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import PostList from "../components/posts/post-list";
 import { getBookmarksByUserId } from "../services/bookmarks-services";
 import RecipeList from "../components/recipes/recipe-list";
 
@@ -11,7 +10,7 @@ const BookmarksPage = () => {
   React.useEffect(() => {
     const fetchPosts = async () => {
       if (currentUser) {
-        const posts = await getBookmarksByUserId(currentUser._id);
+        const posts = await getBookmarksByUserId(currentUser._id, false);
         setPostBody(posts);
       }
     };
@@ -20,6 +19,7 @@ const BookmarksPage = () => {
   
   return (
     <div>
+      <h2> My Bookmarks</h2>
       {currentUser ? <RecipeList recipesArray={postBody}/>
           : <p>See your bookmarks here when you log in!</p>}
     </div>
