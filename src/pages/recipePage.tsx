@@ -7,7 +7,6 @@ const RecipePage = () => {
   const [recipeInfo, setRecipeInfo] = React.useState<any>({});
   const { recipe_id } = useParams();
 
-  // This gets the recipe info from the API
   const getRecipeInfoHandler = async (recipe_id: number) => {
     const response = await getRecipeInfoByID(recipe_id);
     console.log("FULL RESPONSE:", response);
@@ -24,14 +23,12 @@ const RecipePage = () => {
     setRecipeInfo(recipeInfo);
   };
 
-  // This gets the current user from the redux store
   const { currentUser } = useSelector((state: any) => state.auth);
   const [user, setUser] = React.useState<any>();
   useEffect(() => {
     setUser(currentUser);
   }, [currentUser]);
 
-  // If the recipe_id is not null, then get the recipe info on page load
   useEffect(() => {
     if (recipe_id) {
       getRecipeInfoHandler(parseInt(recipe_id));
@@ -40,23 +37,34 @@ const RecipePage = () => {
 
   return (
     <div>
+      <h1 className="display-4 font-italic">{recipeInfo.name}</h1>
       <img src={recipeInfo.thumbnail_url} className="card-img" alt="..."/>
       <div className="jumbotron p-3 p-md-5 text-white rounded bg-dark d-flex flex-column justify-content-center">
-          <h1 className="display-4 font-italic">{recipeInfo.name}</h1>
-          {(recipeInfo.total_time_minutes != null) && <div className="mb-1 text-muted"> {recipeInfo.total_time_minutes} </div>}
-          <div className="mb-1 text-muted">{recipeInfo.yields}</div>
-          <p className="lead my-3">{recipeInfo.description}</p>
-          <div className="card-text mb-1"><small className="text-muted">Tags: </small>{getTags(recipeInfo.tags)}</div>
-          {recipeInfo.instructions &&
+          {(recipeInfo.total_time_minutes != null) && 
+            <div className="mb-4 text-muted"> {recipeInfo.total_time_minutes} </div>}
+          {recipeInfo.yields !== "Servings" && <h5>Servings: {recipeInfo.yields} </h5> }
+          <p className="lead mb-4">{recipeInfo.description}</p>
+          <div className="card-text mb-4">
+            <h5>Tags:</h5> 
+            {getTags(recipeInfo.tags)}
+          </div>
+          {recipeInfo.instructions && (
             <div>
             <h5>Instructions:</h5>
-            <ul style={{listStyleType: 'none'}}>
-            {recipeInfo.instructions.map((instruction: any, index: number) => (
-              <li key={index}>{`${index + 1}. ${instruction.display_text}`}</li>
-            )) }
-            </ul>
-            </div>
-          }
+            <table>
+              <tbody>
+                {recipeInfo.instructions.map(
+                  (instruction: any, index: number) => (
+                    <tr key={index} style={{ marginBottom: '40px' }}>
+                      <td style={{ color: '#17a2b8', paddingRight: '20px' }}>{`${index + 1}`}</td>
+                      <td>{instruction.display_text}</td>
+                    </tr>
+                  )
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );
