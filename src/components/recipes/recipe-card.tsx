@@ -37,15 +37,17 @@ export const RecipeCard = (props: RecipeType) => {
 
   useEffect(() => {
     const bookmarkExists = async () => {
-      const bookmarksForThisRecipe = await getBookmarksByRecipeId(props.id);
-      if (bookmarksForThisRecipe) {
-        setNumberOfBookmarks(bookmarksForThisRecipe.length);
+      if (props) {
+        const bookmarksForThisRecipe = await getBookmarksByRecipeId(props.id);
+        if (bookmarksForThisRecipe) {
+          setNumberOfBookmarks(bookmarksForThisRecipe.length);
+        }
+        const usersBookmarkForThisRecipe = await getBookmarksByBothIds(currentUser._id, props.id)
+        setIsBookmarked(usersBookmarkForThisRecipe != null);
       }
-      const usersBookmarkForThisRecipe = await getBookmarksByBothIds(currentUser._id, props.id)
-      setIsBookmarked(usersBookmarkForThisRecipe != null);
     }
     bookmarkExists();
-  },[]);
+  },[props]);
 
   return (
       <div className="row card">
