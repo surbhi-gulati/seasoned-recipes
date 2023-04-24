@@ -45,6 +45,10 @@ const NewPostWindow = (props : RecipeType) => {
       alert("Please enter a caption");
       return;
     }
+    if(!postGroup) {
+      alert("Please select a group");
+      return;
+    }
     const newPost: PostType = {
       text: postCaption,
       likes: 0,
