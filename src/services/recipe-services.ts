@@ -13,3 +13,12 @@ export const getRecipeByID = async (id: number) => {
     return null;
   }
 }
+
+export const getRecipeObjIDByAPIID = async (id: number) => {
+  const response = await api.get(`${RECIPES_URL}/${id}`)
+}
+
+export const createRecipe = async (recipe) => {
+  const response = await api.post(`${RECIPES_URL}`, recipe);
+  return response.data;
+}

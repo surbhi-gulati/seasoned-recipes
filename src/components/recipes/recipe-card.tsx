@@ -1,20 +1,44 @@
-import React from "react";
-import {Link, useLocation} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {updateRecipeSaves} from "../../reducers/recipe-reducer";
+import React, {useEffect, useState} from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import RecipeType from "../../modules/recipeType";
-const savesArray = require("../../data/recipes/saves");
+import {
+  createBookmark,
+  getBookmarksByRecipeId,
+  unbookmark
+} from "../../services/bookmarks-services";
 
 export const RecipeCard = (props: RecipeType) => {
-  const dispatch = useDispatch()
-  const location = useLocation()
-  const {currentUser} = useSelector((state: any) => state.auth);
-  const showMakePostButton = currentUser != null && (location.pathname.includes("/search") || location.pathname.includes("/recipe"));
-  const updateRecipeSavesHandler = (id) => {
-    dispatch(updateRecipeSaves(id));
-  }
+  const location = useLocation();
+  const { currentUser } = useSelector((state: any) => state.auth);
+  const showMakePostButton =
+    currentUser != null &&
+    (location.pathname.includes("/search") ||
+      location.pathname.includes("/recipe"));
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
-  const numberOfSaves = findSavesByRecipe(props.id);
+  const updateRecipeSavesHandler = async (id : string) => {
+    try {
+      if (isBookmarked) {
+        await unbookmark(currentUser._id, id);
+      } else {
+        await createBookmark(props, currentUser._id);
+      }
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+    setIsBookmarked(!isBookmarked);
+  };
+
+  useEffect(() => {
+    const bookmarkExists = async () => {
+      const bookmark = await getBookmarksByRecipeId(props.id);
+      setIsBookmarked(bookmark);
+    }
+    bookmarkExists();
+  },[]);
+
   return (
       <div className="row card">
         <div className="row">
@@ -35,9 +59,9 @@ export const RecipeCard = (props: RecipeType) => {
             </div>
           </div>
           <div className="col-1">
-            {numberOfSaves > 2 ?
-                <p onClick = {() => updateRecipeSavesHandler(props._id)} className="bi bi-bookmark-fill float-end">{numberOfSaves}</p> :
-                <p onClick = {() => updateRecipeSavesHandler(props._id)} className="bi bi-bookmark float-end">{numberOfSaves}</p>
+            {isBookmarked ?
+                <p onClick={() => updateRecipeSavesHandler(props.id.toString())} className="bi bi-bookmark-fill float-end"/>
+              : <p onClick={() => updateRecipeSavesHandler(props.id.toString())} className="bi bi-bookmark float-end"></p>
             }
           </div>
         </div>
@@ -47,15 +71,15 @@ export const RecipeCard = (props: RecipeType) => {
 export default RecipeCard;
 
 
-function findSavesByRecipe(recipe_id: number) {
-  let count = 0;
-  for (let i = 0; i < savesArray.saves.length; i++) {
-    if (savesArray.saves[i].recipe_id === recipe_id) {
-      count++;
-    }
-  }
-  return count;
-}
+// function findSavesByRecipe(recipe_id: number) {
+//   let count = 0;
+//   for (let i = 0; i < savesArray.saves.length; i++) {
+//     if (savesArray.saves[i].recipe_id === recipe_id) {
+//       count++;
+//     }
+//   }
+//   return count;
+// }
 
 const getTags = (tags: Array<any>) => {
   const limit = 3;
