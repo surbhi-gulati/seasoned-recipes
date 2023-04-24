@@ -17,10 +17,10 @@ export const RecipeCard = (props: RecipeType) => {
       location.pathname.includes("/recipe"));
   const [isBookmarked, setIsBookmarked] = useState(false);
 
-  const updateRecipeSavesHandler = async (id : string) => {
+  const updateRecipeSavesHandler = async () => {
     try {
       if (isBookmarked) {
-        await unbookmark(currentUser._id, id);
+        await unbookmark(props, currentUser._id);
       } else {
         await createBookmark(props, currentUser._id);
       }
@@ -60,8 +60,8 @@ export const RecipeCard = (props: RecipeType) => {
           </div>
           <div className="col-1">
             {isBookmarked ?
-                <p onClick={() => updateRecipeSavesHandler(props.id.toString())} className="bi bi-bookmark-fill float-end"/>
-              : <p onClick={() => updateRecipeSavesHandler(props.id.toString())} className="bi bi-bookmark float-end"></p>
+                <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark-fill float-end"/>
+              : <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark float-end"></p>
             }
           </div>
         </div>

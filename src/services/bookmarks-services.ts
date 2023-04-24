@@ -9,7 +9,6 @@ const api = axios.create({ withCredentials: true });
 
 export const createBookmark = async (recipeInfo: RecipeType, user: string) => {
   try {
-
     const existingRecipe = await getRecipeByID(recipeInfo.id);
     if (!existingRecipe) {
       await createRecipe(recipeInfo);
@@ -29,7 +28,6 @@ export const createBookmark = async (recipeInfo: RecipeType, user: string) => {
 
 export const getBookmarksByRecipeId = async (recipeId) => {
   try {
-    console.log("RETRIEVING BOOKMARK VIA", recipeId);
     const recipeObj = await getRecipeByID(recipeId);
     const recipeObjId = recipeObj._id;
     const response = await api.get(`${BOOKMARKS_URL}/${recipeObjId}`);
@@ -44,7 +42,6 @@ export const getBookmarksByRecipeId = async (recipeId) => {
 export const getBookmarksByUserId = async (userId) => {
   try {
     const response = await api.get(`${BOOKMARKS_URL}/user/${userId}`);
-    console.log("getBookmarksByUserId", response.data);
     const bookmarks = response.data;
     return bookmarks;
   } catch (error) {
@@ -53,15 +50,13 @@ export const getBookmarksByUserId = async (userId) => {
   }
 };
 
-export const unbookmark = async (user: string, recipe: string) => {
+export const unbookmark = async (recipeInfo: RecipeType, user: string) => {
   try {
-    const bookmark = {
-      user,
-      recipe
-    }
-    const response = await api.delete(`${BOOKMARKS_URL}`, { data: bookmark });
-    const deletedBookmark = response.data;
-    return deletedBookmark;
+    const recipeObj = await getRecipeByID(recipeInfo.id);
+    const recipe = recipeObj._id;
+    const bookmark = { user: user, recipe: recipe };
+    const deletion = await api.delete(`${BOOKMARKS_URL}`, { data: { user: user, recipe: recipe } });
+
   } catch (error) {
     console.log("error: ", error);
     return null;
