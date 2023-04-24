@@ -41,20 +41,22 @@ const RecipePage = () => {
   return (
     <div>
       <img src={recipeInfo.thumbnail_url} className="card-img" alt="..."/>
-      <div className="jumbotron p-3 p-md-5 text-white rounded bg-dark">
-        <div className="col-md-6 px-0">
+      <div className="jumbotron p-3 p-md-5 text-white rounded bg-dark d-flex flex-column justify-content-center">
           <h1 className="display-4 font-italic">{recipeInfo.name}</h1>
           {(recipeInfo.total_time_minutes != null) && <div className="mb-1 text-muted"> {recipeInfo.total_time_minutes} </div>}
           <div className="mb-1 text-muted">{recipeInfo.yields}</div>
           <p className="lead my-3">{recipeInfo.description}</p>
           <div className="card-text mb-1"><small className="text-muted">Tags: </small>{getTags(recipeInfo.tags)}</div>
-          <ul>
-            {recipeInfo.instructions &&
-              recipeInfo.instructions.map((instruction: any, index: number) => (
-                <li key={index}>{instruction.display_text}</li>
-              ))}
-          </ul>
-        </div>
+          {recipeInfo.instructions &&
+            <div>
+            <h5>Instructions:</h5>
+            <ul style={{listStyleType: 'none'}}>
+            {recipeInfo.instructions.map((instruction: any, index: number) => (
+              <li key={index}>{`${index + 1}. ${instruction.display_text}`}</li>
+            )) }
+            </ul>
+            </div>
+          }
       </div>
     </div>
   );
