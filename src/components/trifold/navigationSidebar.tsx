@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const NavigationSidebar = ({ active = "feed" }) => {
   return (
     <div className="list-group mb-1 d-flex flex-wrap">
-      <div className="d-flex justify-content-between flex-wrap">
+      <div className="d-flex flex-row flex-wrap justify-content-between">
         <Link
           to="/feed"
           className={`list-group-item list-group-item-action ${
@@ -12,7 +12,7 @@ const NavigationSidebar = ({ active = "feed" }) => {
           }`}
         >
           <i className="bi bi-newspaper"></i>
-          <span className="ms-2 d-none d-md-inline">Feed</span>
+          <span className="ms-2">Feed</span>
         </Link>
         <Link
           to="/groups"
@@ -21,7 +21,7 @@ const NavigationSidebar = ({ active = "feed" }) => {
           }`}
         >
           <i className="bi bi-people"></i>
-          <span className="ms-2 d-none d-md-inline">Groups</span>
+          <span className="ms-2">Groups</span>
         </Link>
         <Link
           to="/search"
@@ -30,7 +30,7 @@ const NavigationSidebar = ({ active = "feed" }) => {
           }`}
         >
           <i className="bi bi-search"></i>
-          <span className="ms-2 d-none d-md-inline">Search Recipes</span>
+          <span className="ms-2">Search Recipes</span>
         </Link>
         <Link
           to="/bookmarks"
@@ -39,7 +39,7 @@ const NavigationSidebar = ({ active = "feed" }) => {
           }`}
         >
           <i className="bi bi-bookmarks"></i>
-          <span className="ms-2 d-none d-md-inline">Bookmarks</span>
+          <span className="ms-2">Bookmarks</span>
         </Link>
         <Link
           to="/profile"
@@ -48,7 +48,7 @@ const NavigationSidebar = ({ active = "feed" }) => {
           }`}
         >
           <i className="bi bi-person"></i>
-          <span className="ms-2 d-none d-md-inline">Profile</span>
+          <span className="ms-2">Profile</span>
         </Link>
       </div>
     </div>
