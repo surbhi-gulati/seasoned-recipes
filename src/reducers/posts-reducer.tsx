@@ -1,42 +1,47 @@
 import { createSlice } from "@reduxjs/toolkit";
-import posts from "../data/posts/postsData";
+import PostType, { PostResponseType } from "../modules/postType";
+import { 
+  createPostThunk, 
+  getAllPostsThunk, 
+  getFollowedPostsThunk, 
+  getGroupsPostsThunk,
+  deletePostThunk } from "../services/post-thunks";
 
-const templatePost = {
-  "_id": 1,
-  "recipe_id": 715467,
-  "user_id": 1,
-  "caption": "template caption",
-  "date": "Jan 1, 2023",
-  "likes": 0,
-  "liked": true
+const initialPostsArray : Array<PostResponseType> = [];
+
+const initialState = {
+  posts: initialPostsArray
 }
 
 const postsSlice = createSlice({
   name: 'posts',
-  initialState: posts,
+  initialState,
   reducers: {
-    createPost(state, action) {
-      state.unshift({
-          ...templatePost,
-          ...action.payload,
-          _id: (new Date()).getTime(),
-      })
-    },
-    deletePost(state, action) {
-      const index = state
-      .findIndex(post =>
-          post._id === action.payload);
-      state.splice(index, 1);
-    },
-    updatePostLikes(state, action) {
-      const post = state.find(post => post._id === action.payload);
-      // @ts-ignore
-      post.liked ? post.likes-- : post.likes++;
-      // @ts-ignore
-      post.liked = !post.liked;
-    }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(createPostThunk.fulfilled, (state, action) => {
+      state.posts.unshift(action.payload);
+    }).addCase(getAllPostsThunk.fulfilled, (state, action) => {
+      console.log("all posts", action.payload);
+      state.posts = action.payload;
+    }).addCase(getFollowedPostsThunk.fulfilled, (state, action) => {
+      console.log("followed posts", action.payload);
+      state.posts = action.payload;
+    }).addCase(getGroupsPostsThunk.fulfilled, (state, action) => {
+      state.posts = action.payload;
+    }).addCase(deletePostThunk.fulfilled, (state, action) => {
+      console.log("before filter", state.posts);
+      const newPosts = state.posts.filter((post) => {
+        console.log("post._id", post._id);
+        console.log("action.payload._id", action.payload);
+        console.log("equality", post._id !== action.payload);
+        return post._id !== action.payload}
+      );
+      console.log("after filter", newPosts);
+      state.posts = newPosts;
+    });
   }
 });
 
-export const {createPost, deletePost, updatePostLikes} = postsSlice.actions;
+
 export default postsSlice.reducer;

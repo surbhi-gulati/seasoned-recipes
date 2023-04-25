@@ -5,6 +5,17 @@ import UserType from "../modules/userType";
 type credentials = {
   username: string;
   password: string;
+}
+
+type fullCredentials = {
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  createdAt: Date;
+  role: string;
+  avatar: string;
 };
 
 export const loginThunk = createAsyncThunk(
@@ -22,7 +33,7 @@ export const logoutThunk = createAsyncThunk(
 )
 
 export const registerThunk = createAsyncThunk(
-  "user/register", async (credentials: credentials) => {
+  "user/register", async (credentials: fullCredentials) => {
     const user = await authService.register(credentials);
     return user;
   }

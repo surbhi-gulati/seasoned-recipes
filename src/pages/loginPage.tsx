@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { loginThunk, registerThunk } from "../services/auth-thunks";
-import { current, isAsyncThunkAction, isRejected } from "@reduxjs/toolkit";
+
 function LoginPage() {
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [registerUsername, setRegisterUsername] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
+  const [registerFirstName, setRegisterFirstName] = useState("");
+  const [registerLastName, setRegisterLastName] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");;
+  const [registerRole, setRegisterRole] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch<any>();
   const {error} = useSelector((state: any) => state.auth);
@@ -35,7 +39,13 @@ function LoginPage() {
     try {
       const {payload} = await dispatch(registerThunk({ 
         username: registerUsername, 
-        password: registerPassword 
+        password: registerPassword,
+        firstName: registerFirstName,
+        lastName: registerLastName,
+        email: registerEmail,
+        createdAt: new Date(),
+        role: registerRole,
+        avatar: ""
       }));
       if(payload) {
         navigate("/profile");
@@ -52,6 +62,45 @@ function LoginPage() {
       
       {/* FORM FOR REGISTERING USERS */}
       <h1>Register Screen</h1>
+      <div className="row">
+        <div className ="col-6">
+          <label>First Name</label>
+          <input className="form-control"
+                 type="text" value={registerFirstName}
+                 onChange={(event) => setRegisterFirstName(event.target.value)}
+          />
+        </div>
+        <div className ="col-6">
+          <label>Last Name</label>
+          <input className="form-control"
+                 type="text" value={registerLastName}
+                 onChange={(event) => setRegisterLastName(event.target.value)}
+          />
+        </div>
+      </div>
+      <div>
+        <label>Email</label>
+        <input className="form-control"
+               type="text" value={registerEmail}
+               onChange={(event) => setRegisterEmail(event.target.value)}
+        />
+      </div>
+      <label>Role</label>
+      <div>
+        <div className="form-check form-check-inline">
+        <input className="form-check-input" type="radio" name="inlineRadioOptions"
+               id="inlineRadio2" value="user"
+               onClick={(event) => setRegisterRole("user")}/>
+        <label className="form-check-label" htmlFor="inlineRadio2">User</label>
+      </div>
+        <div className="form-check form-check-inline">
+          <input className="form-check-input" type="radio" name="inlineRadioOptions"
+                 id="inlineRadio1" value="admin"
+                 onClick={(event) => setRegisterRole("admin")}/>
+          <label className="form-check-label" htmlFor="inlineRadio1">Admin</label>
+        </div>
+        <label>(Note: Admin members can create groups and moderate posts)</label>
+      </div>
       <div>
         <label>Username</label>
         <input className="form-control"

@@ -6,7 +6,7 @@ import RecipeType from "./recipeType";
 export default interface PostType {
   _id?: string,
   text: string,
-  date: string,
+  date?: string,
   likes: number,
   liked: boolean,
   userId: string,
@@ -27,6 +27,7 @@ export interface PostResponseType {
   groupName: string,
   recipeId: RecipeType
 }
+
 
 export enum FoodGroup {
   vegan = "Vegan",
