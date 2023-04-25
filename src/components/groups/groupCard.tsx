@@ -33,7 +33,6 @@ const GroupCard = (props: GroupType) => {
           return;
         }
       })
-      console.log("THIS USERS GROUPS ARE:" , groups);
     }
     currUsersGroups()
   }, [])

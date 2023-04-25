@@ -19,7 +19,6 @@ const GroupPage = () => {
   const [groupPosts, setGroupPosts] = React.useState<PostType[]>();
   const [groupMembers, setGroupMembers] = React.useState([]);
 
-  const dispatch = useDispatch<any>();
   const [isEditingGroupName, setIsEditingGroupName] = React.useState(false);
   const [isEditingGroupDescription, setIsEditingGroupDescription] = React.useState(false);
   const [isDoneEditing, setIsDoneEditing] = React.useState(false);
@@ -47,14 +46,12 @@ const GroupPage = () => {
   }
   const clickJoinHandler = async () => {
     try {
-      if (id) {
-        if (hasJoined) {
-          await leaveGroup(id, currentUser._id);
-        }  else {
-          await createGroupMember(id, currentUser._id);
-        }
-        setHasJoined(!hasJoined);
+      if (hasJoined) {
+        id && await leaveGroup(id, currentUser._id);
+      }  else {
+        id && await createGroupMember(id, currentUser._id);
       }
+      setHasJoined(!hasJoined);
     } catch (e) {
       alert(e);
     }
@@ -69,10 +66,9 @@ const GroupPage = () => {
           return;
         }
       })
-      console.log("THIS USERS GROUPS ARE:" , groups);
     }
     currUsersGroups()
-  }, [])
+  }, [groupInfo])
 
   // If the recipe_id is not null, then get the recipe info on page load
   useEffect(() => {
