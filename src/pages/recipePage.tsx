@@ -39,8 +39,8 @@ const RecipePage = () => {
   return (
     <div>
       <h1 className="display-4 font-italic">{recipeInfo.name}</h1>
-      <img src={recipeInfo.thumbnail_url} className="card-img" alt="..."/>
-      <div className="jumbotron p-3 p-md-5 text-white rounded bg-dark d-flex flex-column justify-content-center">
+      <img src={recipeInfo.thumbnail_url} className="card-img rounded" alt={recipeInfo.name} />
+      <div className="jumbotron p-3 p-md-5 rounded d-flex flex-column justify-content-center">
           {(recipeInfo.total_time_minutes !== null) && 
             <div className="mb-4 text-muted"> {recipeInfo.total_time_minutes} </div>}
           {recipeInfo.servings !== "Servings" && <h5>Servings: {recipeInfo.servings} </h5> }
