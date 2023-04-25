@@ -30,6 +30,7 @@ export const getGroupMembersByGroupId = async (groupId) => {
 };
 
 export const getGroupsByUserId = async (userId) => {
+
   try {
     const response = await api.get(`${GROUP_MEMS_URL}/user/${userId}`);
     return response.data;
@@ -39,8 +40,12 @@ export const getGroupsByUserId = async (userId) => {
   }
 };
 
-export const leaveGroup = async (groupMember) => {
+export const leaveGroup = async (group: string, user: string) => {
   try {
+    const groupMember = {
+      group,
+      user
+    }
     const response = await api.delete(`${GROUP_MEMS_URL}`, { data: groupMember });
     return response.data;
   } catch (error) {

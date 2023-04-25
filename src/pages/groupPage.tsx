@@ -1,10 +1,15 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import GroupType from "../modules/groupType";
 import {useParams} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {getGroupById, updateGroup} from "../services/group-services";
 import UserList from "../components/profile/peopleSection/userList";
-import {getGroupMembersByGroupId} from "../services/group-members-services";
+import {
+  createGroupMember,
+  getGroupMembersByGroupId,
+  getGroupsByUserId,
+  leaveGroup
+} from "../services/group-members-services";
 import {getGroupsPosts} from "../services/post-services";
 import PostType from "../modules/postType";
 import PostList from "../components/posts/post-list";
@@ -12,7 +17,7 @@ import PostList from "../components/posts/post-list";
 const GroupPage = () => {
   const [groupInfo, setGroupInfo] = React.useState<GroupType>();
   const [groupPosts, setGroupPosts] = React.useState<PostType[]>();
-  const [groupMembers, setGroupMembers] = React.useState<GroupType>();
+  const [groupMembers, setGroupMembers] = React.useState([]);
 
   const dispatch = useDispatch<any>();
   const [isEditingGroupName, setIsEditingGroupName] = React.useState(false);
@@ -21,12 +26,9 @@ const GroupPage = () => {
   const [editedName, setEditedName] = React.useState(groupInfo?.name);
   const [editedDescription, setEditedDescription] = React.useState(groupInfo?.description);
 
+  const [hasJoined, setHasJoined] = useState(false);
   // This gets the current user from the redux store
   const {currentUser} = useSelector((state: any) => state.auth);
-  const [user, setUser] = React.useState<any>({});
-  useEffect(() => {
-    setUser(currentUser);
-  }, []);
 
   const {id} = useParams();
   const getGroupInfoHandler = async () => {
@@ -43,6 +45,34 @@ const GroupPage = () => {
     const posts = await getGroupsPosts(id);
     setGroupPosts(posts);
   }
+  const clickJoinHandler = async () => {
+    try {
+      if (id) {
+        if (hasJoined) {
+          await leaveGroup(id, currentUser._id);
+        }  else {
+          await createGroupMember(id, currentUser._id);
+        }
+        setHasJoined(!hasJoined);
+      }
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  useEffect( () => {
+    const currUsersGroups = async () => {
+      const groups = await getGroupsByUserId(currentUser._id);
+      groups.forEach((group) => {
+        if (group.name === groupInfo?.name) {
+          setHasJoined(true);
+          return;
+        }
+      })
+      console.log("THIS USERS GROUPS ARE:" , groups);
+    }
+    currUsersGroups()
+  }, [])
 
   // If the recipe_id is not null, then get the recipe info on page load
   useEffect(() => {
@@ -121,9 +151,10 @@ const GroupPage = () => {
           <div className="col-md-4">
             <div className="card flex-md-row mb-4 box-shadow h-md-250">
               <div className="card-body d-flex flex-column align-items-start">
+                { currentUser != null ? <button onClick = {clickJoinHandler} className="btn btn-lg btn-primary mt-4 rounded-pill">{!hasJoined ? <p>Join</p> : <p>Leave</p>}</button> : <p></p>}
                 <h3 className="mb-0">Members</h3>
-                <div className="mb-1 text-muted">38 Foodies!</div>
-                {groupMembers && <UserList users={groupMembers}></UserList> }
+                <div className="mb-1 text-muted">{groupMembers.length} Foodies!</div>
+                {groupMembers && groupMembers.length > 0 && <UserList users={groupMembers}></UserList> }
               </div>
             </div>
           </div>
