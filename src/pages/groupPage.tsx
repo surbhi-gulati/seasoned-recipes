@@ -75,14 +75,16 @@ const GroupPage = () => {
                   }} type="button" className="btn btn-success col-2">Save</button>
                 </div>)
                 :
-                (<>
-                  <h1 className="display-4 font-italic">{editedName}</h1>&nbsp; {currentUser && currentUser.isAdmin && <i
-                    className="bi bi-pen-fill"
-                    onClick={() => {
-                      setIsEditingGroupName(true);
-                      setIsDoneEditing(false);
-                    }}></i>}
-                </>)
+                (<div className="row align-content-center">
+                  {currentUser && currentUser.isAdmin && <i
+                      className="bi bi-pen-fill col-1 float-end"
+                      style={{verticalAlign: "middle"}}
+                      onClick={() => {
+                        setIsEditingGroupName(true);
+                        setIsDoneEditing(false);
+                      }}></i>}
+                  <h1 className="display-4 font-italic col-11 float-start">{editedName}</h1>
+                </div>)
             }
             {isEditingGroupDescription ? (<div className="row">
                   <div className="col-8">
@@ -102,16 +104,16 @@ const GroupPage = () => {
                   }} type="button" className="btn btn-success col-2">Save</button>
                 </div>)
                 :
-                (<>
-                  <p className="lead my-3">{editedDescription}</p>&nbsp; {currentUser && currentUser.isAdmin && <i
-                    className="bi bi-pen-fill"
-                    onClick={() => {
-                      setIsEditingGroupDescription(true);
-                      setIsDoneEditing(false);
-                    }}></i>}
-                </>)
+                (<div className="row">
+                  {currentUser && currentUser.isAdmin && <i className="bi bi-pen-fill col-1"
+                                                            onClick={() => {
+                                                              setIsEditingGroupDescription(true);
+                                                              setIsDoneEditing(false);
+                                                            }}></i>}
+                  <p className="lead my-3 col-11 float-start">{editedDescription}</p>
+
+                </div>)
             }
-            {/*<p className="lead my-3">{groupInfo?.description}</p>{currentUser && currentUser.isAdmin && <i className="bi bi-pen-fill float-end" onClick={() => console.log("EDIT")}></i>}*/}
           </div>
         </div>
 
