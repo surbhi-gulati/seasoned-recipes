@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const NavigationSidebar = ({ active = "feed" }) => {
   return (
-    <div className="list-group mb-1">
+    <div className="list-group mb-1 d-flex flex-wrap">
       <div className="d-flex justify-content-between flex-wrap">
         <Link
           to="/feed"
