@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getRecipeInfoByID } from "../services/recipe-api-service";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { createBookmark, getBookmarksByBothIds, getBookmarksByRecipeId, unbookmark } from "../services/bookmarks-services";
 
 const RecipePage = () => {
   const [recipeInfo, setRecipeInfo] = React.useState<any>({});
@@ -37,6 +38,40 @@ const RecipePage = () => {
     }
   }, [recipe_id]);
 
+  const [numberOfBookmarks, setNumberOfBookmarks] = useState(0);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  
+  const updateRecipeSavesHandler = async () => {
+    const currSaves = numberOfBookmarks;
+    try {
+      if (isBookmarked) {
+        await unbookmark(recipeInfo, currentUser._id);
+        setNumberOfBookmarks(currSaves - 1);
+      } else {
+        await createBookmark(recipeInfo, currentUser._id);
+        setNumberOfBookmarks(currSaves + 1);
+      }
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+    setIsBookmarked(!isBookmarked);
+  };
+
+  useEffect(() => {
+    const bookmarkExists = async () => {
+      if (recipeInfo) {
+        const bookmarksForThisRecipe = await getBookmarksByRecipeId(recipeInfo.id);
+        if (bookmarksForThisRecipe) {
+          setNumberOfBookmarks(bookmarksForThisRecipe.length);
+        }
+        const usersBookmarkForThisRecipe = await getBookmarksByBothIds(currentUser._id, recipeInfo.id)
+        setIsBookmarked(usersBookmarkForThisRecipe != null);
+      }
+    }
+    bookmarkExists();
+  }, [recipeInfo]);
+
   return (
     <div>
       <h1 className="display-4 font-italic">{recipeInfo.name}</h1>
@@ -46,6 +81,13 @@ const RecipePage = () => {
             Make a Post
           </button>
         </Link>
+      </div>
+      <div className="col-1">
+        {isBookmarked ?
+            <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark-fill float-end"/>
+          : <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark float-end"></p>
+        }
+        <p>{numberOfBookmarks}</p>
       </div>
       <img src={recipeInfo.thumbnail_url} className="card-img rounded" alt={recipeInfo.name} />
       <div className="jumbotron p-3 p-md-5 d-flex flex-column justify-content-center">
@@ -82,6 +124,8 @@ const RecipePage = () => {
           </div>
         )}
       </div>
+      <hr />
+      {getWhatPeopleSay()}
     </div>
   );
 };
@@ -101,13 +145,24 @@ const getNutrition = (nutrition: any) => {
       <>
         <h5>Nutritional information:</h5> 
         <ul>
-        {nutritionData.map(([key, value]) => (
-          <li key={key}>{`${key}: ${value}`}</li>
-        ))}
-      </ul>
+          {nutritionData.map(([key, value]) => (
+            <li key={key}>{`${key}: ${value}`}</li>
+          ))}
+        </ul>
       </>
     );
   }
+};
+
+const getWhatPeopleSay = () => {
+  return (
+    <>
+      <h5>What people are saying about this recipe:</h5> 
+      <p> Extract posts that have this recipe_id. getPostsForRecipe </p>
+      <p> From each post, extract text field. </p>
+
+    </>
+  );
 };
 
 export default RecipePage;
