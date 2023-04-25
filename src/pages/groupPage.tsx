@@ -1,9 +1,8 @@
 import React, {useEffect} from "react";
 import GroupType from "../modules/groupType";
-import { Link } from "react-router-dom";
 import {useParams} from "react-router";
-import {useSelector} from "react-redux";
-import {getGroupById} from "../services/group-services";
+import {useDispatch, useSelector} from "react-redux";
+import {getGroupById, updateGroup} from "../services/group-services";
 import UserList from "../components/profile/peopleSection/userList";
 import {getGroupMembersByGroupId} from "../services/group-members-services";
 import {getGroupsPosts} from "../services/post-services";
@@ -14,23 +13,13 @@ const GroupPage = () => {
   const [groupInfo, setGroupInfo] = React.useState<GroupType>();
   const [groupPosts, setGroupPosts] = React.useState<PostType[]>();
   const [groupMembers, setGroupMembers] = React.useState<GroupType>();
-  const {id} = useParams();
-  // This gets the recipe info from the API
-  const getGroupInfoHandler = async () => {
-    const groupInfo = await getGroupById(id);
-    setGroupInfo(groupInfo![0]); //returns as an array for some reason
-  }
-  const getGroupMemberHandler = async () => {
-    const members = await getGroupMembersByGroupId(id);
-    console.log("MEMBERS OF GROUP ARE:", members);
-    setGroupMembers(members);
-  }
 
-  const getGroupPosts = async () => {
-    const posts = await getGroupsPosts(id);
-    console.log("POSTS OF GROUP ARE:", posts);
-    setGroupPosts(posts);
-  }
+  const dispatch = useDispatch<any>();
+  const [isEditingGroupName, setIsEditingGroupName] = React.useState(false);
+  const [isEditingGroupDescription, setIsEditingGroupDescription] = React.useState(false);
+  const [isDoneEditing, setIsDoneEditing] = React.useState(false);
+  const [editedName, setEditedName] = React.useState(groupInfo?.name);
+  const [editedDescription, setEditedDescription] = React.useState(groupInfo?.description);
 
   // This gets the current user from the redux store
   const {currentUser} = useSelector((state: any) => state.auth);
@@ -39,6 +28,22 @@ const GroupPage = () => {
     setUser(currentUser);
   }, []);
 
+  const {id} = useParams();
+  const getGroupInfoHandler = async () => {
+    const thisGroupInfo = await getGroupById(id);
+    setGroupInfo(thisGroupInfo![0]);
+    setEditedName(thisGroupInfo![0].name);
+    setEditedDescription(thisGroupInfo![0].description);
+  }
+  const getGroupMemberHandler = async () => {
+    const members = await getGroupMembersByGroupId(id);
+    setGroupMembers(members);
+  }
+  const getGroupPosts = async () => {
+    const posts = await getGroupsPosts(id);
+    setGroupPosts(posts);
+  }
+
   // If the recipe_id is not null, then get the recipe info on page load
   useEffect(() => {
     if(id) {
@@ -46,14 +51,67 @@ const GroupPage = () => {
       getGroupMemberHandler();
       getGroupPosts();
     }
-  }, [id]);
+  }, [id, isDoneEditing]);
 
   return (
       <div>
-        <div className="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+        <div className="jumbotron p-3 p-md-5 text-white rounded bg-black">
           <div className="px-0">
-            <h1 className="display-4 font-italic">{groupInfo?.name}</h1>
-            <p className="lead my-3">{groupInfo?.description}</p>
+            {isEditingGroupName ? (<div className="row">
+                  <div className="col-8">
+                    <input className="form-control"
+                           type="text" defaultValue={editedName}
+                           onChange={(event) => setEditedName(event.target.value)}
+                    />
+                  </div>
+                  <button onClick = { async () => {
+                    const newGroup = {
+                      ...groupInfo,
+                      name: editedName,
+                    };
+                    await updateGroup(newGroup);
+                    setIsEditingGroupName(false);
+                    setIsDoneEditing(true);
+                  }} type="button" className="btn btn-success col-2">Save</button>
+                </div>)
+                :
+                (<>
+                  <h1 className="display-4 font-italic">{editedName}</h1>&nbsp; {currentUser && currentUser.isAdmin && <i
+                    className="bi bi-pen-fill"
+                    onClick={() => {
+                      setIsEditingGroupName(true);
+                      setIsDoneEditing(false);
+                    }}></i>}
+                </>)
+            }
+            {isEditingGroupDescription ? (<div className="row">
+                  <div className="col-8">
+                    <input className="form-control"
+                           type="text" defaultValue={editedDescription}
+                           onChange={(event) => setEditedDescription(event.target.value)}
+                    />
+                  </div>
+                  <button onClick = { async () => {
+                    const newGroup = {
+                      ...groupInfo,
+                      description: editedDescription,
+                    };
+                    await updateGroup(newGroup);
+                    setIsEditingGroupDescription(false);
+                    setIsDoneEditing(true);
+                  }} type="button" className="btn btn-success col-2">Save</button>
+                </div>)
+                :
+                (<>
+                  <p className="lead my-3">{editedDescription}</p>&nbsp; {currentUser && currentUser.isAdmin && <i
+                    className="bi bi-pen-fill"
+                    onClick={() => {
+                      setIsEditingGroupDescription(true);
+                      setIsDoneEditing(false);
+                    }}></i>}
+                </>)
+            }
+            {/*<p className="lead my-3">{groupInfo?.description}</p>{currentUser && currentUser.isAdmin && <i className="bi bi-pen-fill float-end" onClick={() => console.log("EDIT")}></i>}*/}
           </div>
         </div>
 
@@ -72,7 +130,6 @@ const GroupPage = () => {
               <div className="card-body d-flex flex-column align-items-start">
                 {groupPosts && <PostList posts={groupPosts}></PostList>}
               </div>
-              {/*<img className="card-img-right flex-auto d-none d-md-block" src="holder.js/200x250?theme=thumb" alt="Card image cap">*/}
             </div>
           </div>
         </div>

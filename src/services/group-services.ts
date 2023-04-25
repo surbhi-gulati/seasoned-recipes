@@ -38,9 +38,9 @@ export const getGroupById = async (groupId) => {
   }
 };
 
-export const updateGroup = async ({ groupId, group }) => {
+export const updateGroup = async (group) => {
   try {
-    const response = await api.put(`${GROUPS_URL}/${groupId}`, group);
+    const response = await api.put(`${GROUPS_URL}`, group);
     const updatedGroup = response.data;
     return updatedGroup;
   } catch (error) {
