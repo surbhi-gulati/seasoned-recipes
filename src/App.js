@@ -30,9 +30,9 @@ function App() {
       <CurrentUserContext>
         <BrowserRouter>
           <Routes>
-            <Route index path="login"
+            <Route index
                 element={<LoginPage/>}/>
-            <Route path="/"
+            <Route path="home"
               element={<TrifoldPage/>}>
             <Route path="feed"
               element={<FeedPage/>}/>

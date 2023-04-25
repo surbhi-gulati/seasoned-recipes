@@ -115,7 +115,7 @@ function LoginPage() {
           onChange={(event) => setRegisterPassword(event.target.value)}
         />
       </div>
-      <button onClick={handleRegister}>
+      <button className={"button"}onClick={handleRegister}>
         Register
       </button>
       <br/>
