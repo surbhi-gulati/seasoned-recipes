@@ -44,6 +44,7 @@ export const register = async (fullCredentials) => {
       email: fullCredentials.email,
       createdAt: fullCredentials.createdAt,
       role: fullCredentials.role,
+      isAdmin: fullCredentials.role === "admin",
       avatar: generator.generateRandomAvatar(fullCredentials.username)
     });
     console.log(response);

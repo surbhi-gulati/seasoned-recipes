@@ -46,7 +46,6 @@ const NewPostPage = () => {
   // Pass the recipe info to the new post window
   return (
     <div>
-        <span>{JSON.stringify(user)}</span>
         <NewPostWindow {...recipeInfo}></NewPostWindow>
     </div>
   );
