@@ -40,11 +40,11 @@ export const getGroupsByUserId = async (userId) => {
   }
 };
 
-export const leaveGroup = async (group: string, user: string) => {
+export const leaveGroup = async (groupId: string, userId: string) => {
   try {
     const groupMember = {
-      group,
-      user
+      groupId,
+      userId
     }
     const response = await api.delete(`${GROUP_MEMS_URL}`, { data: groupMember });
     return response.data;
