@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { getRecipeInfoByID } from "../services/recipe-api-service";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const RecipePage = () => {
   const [recipeInfo, setRecipeInfo] = React.useState<any>({});
@@ -39,8 +40,15 @@ const RecipePage = () => {
   return (
     <div>
       <h1 className="display-4 font-italic">{recipeInfo.name}</h1>
+      <div>
+        <Link to={`/newPost/${recipeInfo.id}`}>
+          <button type="button" className="btn btn-success">
+            Make a Post
+          </button>
+        </Link>
+      </div>
       <img src={recipeInfo.thumbnail_url} className="card-img rounded" alt={recipeInfo.name} />
-      <div className="jumbotron p-3 p-md-5 rounded d-flex flex-column justify-content-center">
+      <div className="jumbotron p-3 p-md-5 d-flex flex-column justify-content-center">
           {(recipeInfo.total_time_minutes !== null) && 
             <div className="mb-4 text-muted"> {recipeInfo.total_time_minutes} </div>}
           {recipeInfo.servings !== "Servings" && <h5>Servings: {recipeInfo.servings} </h5> }
