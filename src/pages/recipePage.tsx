@@ -1,90 +1,72 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { getRecipeInfoByID } from "../services/recipe-api-service";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {getInternalRecipeIDByAPIID, getRecipeByID} from "../services/recipe-services";
+import {getInternalRecipeIDByAPIID, getRecipeByAPIID} from "../services/recipe-services";
 import { createBookmark, getBookmarksByBothIds, getBookmarksByRecipeId, unbookmark } from "../services/bookmarks-services";
-import { current } from "@reduxjs/toolkit";
 import {getPostsByRecipeId} from "../services/post-services";
 
 const RecipePage = () => {
-  const [recipeInfo, setRecipeInfo] = React.useState<any>({});
-  const [recipePosts, setRecipePosts] = React.useState<any>([]);
-  const { recipe_id } = useParams();
-  const [internalRecipeId, setInternalRecipeId] = React.useState<string>('');
-
-  const getRecipeInfoHandler = async (recipe_id: number) => {
-    const response = await getRecipeInfoByID(recipe_id);
-    console.log("FULL getRecipeInfoByID RESPONSE:", response);
-    const recipeInfo: any = {
-      id: response.id,
-      name: response.name,
-      description: response.description,
-      thumbnail_url: response.thumbnail_url,
-      tags: response.tags,
-      total_time_minutes: response.total_time_minutes,
-      servings: response.num_servings,
-      instructions: response.instructions,
-      nutrition: response.nutrition,
-    };
-    const objIDInfo = await getRecipeByID(recipe_id);
-    console.log("RETRIEVED OBJ ID IS", objIDInfo);
-    setInternalRecipeId(objIDInfo._id);
-    setRecipeInfo(recipeInfo);
-    const posts = await getPostsByRecipeId(objIDInfo._id);
-    console.log("RETRIEVED POSTS ARE", posts);
-    setRecipePosts(posts);
-  };
 
   const { currentUser } = useSelector((state: any) => state.auth);
-  const [user, setUser] = React.useState<any>();
-  useEffect(() => {
-    setUser(currentUser);
-  }, [currentUser]);
+  const [recipeInfo, setRecipeInfo] = React.useState<any>({});
+  const [recipePosts, setRecipePosts] = React.useState<any>([]);
+  const [numberOfBookmarks, setNumberOfBookmarks] = useState(0);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const { recipe_id } = useParams();
 
-  useEffect(() => {
-    console.log("GETTING RECIPE INFO FOR", recipe_id);
+  useEffect( () => {
+    const getRecipeInfoHandler = async (recipe_id: number) => {
+      const response = await getRecipeByAPIID(recipe_id);
+      const recipeInfo: any = {
+        id: response.id,
+        name: response.name,
+        description: response.description,
+        thumbnail_url: response.thumbnail_url,
+        tags: response.tags,
+        total_time_minutes: response.total_time_minutes,
+        servings: response.num_servings,
+        instructions: response.instructions,
+        nutrition: response.nutrition,
+      };
+      setRecipeInfo(recipeInfo);
+      const objIDInfo = await getInternalRecipeIDByAPIID(recipe_id);
+      const posts = await getPostsByRecipeId(objIDInfo._id);
+      setRecipePosts(posts);
+      if (recipeInfo && objIDInfo) {
+        const bookmarksForThisRecipe = await getBookmarksByRecipeId(recipe_id);
+        console.log(bookmarksForThisRecipe);
+        if (bookmarksForThisRecipe) {
+          setNumberOfBookmarks(bookmarksForThisRecipe.length);
+        }
+        if (currentUser) {
+          const usersBookmarkForThisRecipe = await getBookmarksByBothIds(currentUser._id, recipe_id)
+          setIsBookmarked(usersBookmarkForThisRecipe != null);
+        }
+      }
+    }
+
     if (recipe_id) {
       getRecipeInfoHandler(parseInt(recipe_id));
     }
-  }, [recipe_id]);
-
-  const [numberOfBookmarks, setNumberOfBookmarks] = useState(0);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  }, [recipe_id, currentUser]);
   
   const updateRecipeSavesHandler = async () => {
-    // if (currentUser) {
-    //   const currSaves = numberOfBookmarks;
-    //   try {
-    //     if (isBookmarked) {
-    //       await unbookmark(recipeInfo, currentUser._id);
-    //       setNumberOfBookmarks(currSaves - 1);
-    //     } else {
-    //       await createBookmark(recipeInfo, currentUser._id);
-    //       setNumberOfBookmarks(currSaves + 1);
-    //     }
-    //   } catch (e) {
-    //     console.log(e);
-    //     return null;
-    //   }
-    //   setIsBookmarked(!isBookmarked);
-    // }
+    const currSaves = numberOfBookmarks;
+    try {
+      if (isBookmarked) {
+        await unbookmark(recipeInfo, currentUser._id);
+        setNumberOfBookmarks(currSaves - 1);
+      } else {
+        await createBookmark(recipeInfo, currentUser._id);
+        setNumberOfBookmarks(currSaves + 1);
+      }
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+    setIsBookmarked(!isBookmarked);
   };
-
-  // useEffect(() => {
-  //   const bookmarkExists = async () => {
-  //     if (recipeInfo) {
-  //       const bookmarksForThisRecipe = await getBookmarksByRecipeId(internalRecipeId);
-  //       if (bookmarksForThisRecipe) {
-  //         setNumberOfBookmarks(bookmarksForThisRecipe.length);
-  //       }
-  //       const usersBookmarkForThisRecipe = await getBookmarksByBothIds(currentUser._id, internalRecipeId)
-  //       setIsBookmarked(usersBookmarkForThisRecipe != null);
-  //     }
-  //   }
-  //   bookmarkExists();
-  // }, [currentUser, internalRecipeId, recipeInfo]);
 
   return (
     <div>
@@ -97,16 +79,16 @@ const RecipePage = () => {
         </Link>
       </div>
       <div className="col-1">
-        {/*{isBookmarked ?*/}
-        {/*    <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark-fill float-end"/>*/}
-        {/*  : <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark float-end"></p>*/}
-        {/*}*/}
-        {/*<p>{numberOfBookmarks}</p>*/}
+        {isBookmarked ?
+            <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark-fill float-end"/>
+          : <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark float-end"></p>
+        }
+        <p>{numberOfBookmarks}</p>
       </div>
       <img src={recipeInfo.thumbnail_url} className="card-img rounded" alt={recipeInfo.name} />
       <div className="jumbotron p-3 p-md-5 d-flex flex-column justify-content-center">
           {(recipeInfo.total_time_minutes !== null) && 
-            <div className="mb-4 text-muted"> {recipeInfo.total_time_minutes} </div>}
+            <div className="mb-4 text-muted">Cook time: {recipeInfo.total_time_minutes} minutes </div>}
           {recipeInfo.servings !== "Servings" && <h5>Servings: {recipeInfo.servings} </h5> }
           {recipeInfo.description !== null && recipeInfo.description !== '' &&
             <>
