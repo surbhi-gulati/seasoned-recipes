@@ -1,6 +1,6 @@
 import axios from "axios";
 import RecipeType from "../modules/recipeType";
-import {createRecipe, getRecipeByID} from "./recipe-services";
+import {createRecipe, getRecipeByAPIID} from "./recipe-services";
 
 const SERVER_API_URL = process.env.REACT_APP_SERVER_API_URL;
 const BOOKMARKS_URL = `${SERVER_API_URL}/bookmarks`;
@@ -9,11 +9,11 @@ const api = axios.create({ withCredentials: true });
 
 export const createBookmark = async (recipeInfo: RecipeType, user: string) => {
   try {
-    const existingRecipe = await getRecipeByID(recipeInfo.id);
+    const existingRecipe = await getRecipeByAPIID(recipeInfo.id);
     if (!existingRecipe) {
       await createRecipe(recipeInfo);
     }
-    const newRecipeObj = await getRecipeByID(recipeInfo.id);
+    const newRecipeObj = await getRecipeByAPIID(recipeInfo.id);
     const recipe = newRecipeObj._id;
     if (recipe) {
       const response = await api.post(`${BOOKMARKS_URL}`, {
@@ -31,7 +31,7 @@ export const createBookmark = async (recipeInfo: RecipeType, user: string) => {
 
 export const getBookmarksByRecipeId = async (recipeId) => {
   try {
-    const recipeObj = await getRecipeByID(recipeId);
+    const recipeObj = await getRecipeByAPIID(recipeId);
     const recipeObjId = recipeObj._id;
     if (recipeObjId) {
       const response = await api.get(`${BOOKMARKS_URL}/${recipeObjId}`);
@@ -60,7 +60,7 @@ export const getBookmarksByUserId = async (userId, objectsOrRecipes) => {
 
 export const getBookmarksByBothIds = async (userId, recipeId) => {
   try {
-    const recipeObj = await getRecipeByID(recipeId);
+    const recipeObj = await getRecipeByAPIID(recipeId);
     const recipeObjId = recipeObj._id;
     if (recipeObjId) {
       const response = await api.get(`${BOOKMARKS_URL}/${recipeObjId}/${userId}/`);
@@ -76,7 +76,7 @@ export const getBookmarksByBothIds = async (userId, recipeId) => {
 
 export const unbookmark = async (recipeInfo: RecipeType, user: string) => {
   try {
-    const recipeObj = await getRecipeByID(recipeInfo.id);
+    const recipeObj = await getRecipeByAPIID(recipeInfo.id);
     const recipe = recipeObj._id;
     if (recipe) {
       const response = await api.delete(`${BOOKMARKS_URL}`, { data: { user: user, recipe: recipe } });

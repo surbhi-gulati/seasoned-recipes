@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import { useDispatch, useSelector} from "react-redux";
 import PostList from "../components/posts/post-list";
 import { getAllPostsThunk, getFollowedPostsThunk } from "../services/post-thunks";
-import { Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap";
+import { Nav, NavItem, NavLink } from "reactstrap";
 
 const FeedPage = () => {
   const dispatch = useDispatch<any>();
@@ -23,7 +23,7 @@ const FeedPage = () => {
       }
     }
     fetchPosts();
-  }, [activeTab]);
+  }, [activeTab, dispatch]);
     return (
       <div>
         {/* align the nav center */}

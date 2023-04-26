@@ -145,8 +145,6 @@ const ProfilePage = () => {
         </div>
         : <LoginPrompt promptText={"Please login to view your profile"}/>}
       </>
-        
-
     );
 };
 
