@@ -3,18 +3,20 @@ import { useParams } from "react-router";
 import { getRecipeInfoByID } from "../services/recipe-api-service";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getInternalRecipeIDByAPIID } from "../services/recipe-services";
+import {getInternalRecipeIDByAPIID, getRecipeByID} from "../services/recipe-services";
 import { createBookmark, getBookmarksByBothIds, getBookmarksByRecipeId, unbookmark } from "../services/bookmarks-services";
 import { current } from "@reduxjs/toolkit";
+import {getPostsByRecipeId} from "../services/post-services";
 
 const RecipePage = () => {
   const [recipeInfo, setRecipeInfo] = React.useState<any>({});
+  const [recipePosts, setRecipePosts] = React.useState<any>([]);
   const { recipe_id } = useParams();
   const [internalRecipeId, setInternalRecipeId] = React.useState<string>('');
 
   const getRecipeInfoHandler = async (recipe_id: number) => {
     const response = await getRecipeInfoByID(recipe_id);
-    console.log("FULL RESPONSE:", response);
+    console.log("FULL getRecipeInfoByID RESPONSE:", response);
     const recipeInfo: any = {
       id: response.id,
       name: response.name,
@@ -26,18 +28,14 @@ const RecipePage = () => {
       instructions: response.instructions,
       nutrition: response.nutrition,
     };
+    const objIDInfo = await getRecipeByID(recipe_id);
+    console.log("RETRIEVED OBJ ID IS", objIDInfo);
+    setInternalRecipeId(objIDInfo._id);
     setRecipeInfo(recipeInfo);
+    const posts = await getPostsByRecipeId(objIDInfo._id);
+    console.log("RETRIEVED POSTS ARE", posts);
+    setRecipePosts(posts);
   };
-
-  useEffect(() => {
-    const fetchInternalRecipeID = async () => {
-      const internalID = await getInternalRecipeIDByAPIID(recipeInfo.id);
-      console.log(internalID)
-      setInternalRecipeId(internalID);
-    };
-
-    fetchInternalRecipeID();
-  }, [recipeInfo.id]);
 
   const { currentUser } = useSelector((state: any) => state.auth);
   const [user, setUser] = React.useState<any>();
@@ -46,6 +44,7 @@ const RecipePage = () => {
   }, [currentUser]);
 
   useEffect(() => {
+    console.log("GETTING RECIPE INFO FOR", recipe_id);
     if (recipe_id) {
       getRecipeInfoHandler(parseInt(recipe_id));
     }
@@ -55,35 +54,37 @@ const RecipePage = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   
   const updateRecipeSavesHandler = async () => {
-    const currSaves = numberOfBookmarks;
-    try {
-      if (isBookmarked) {
-        await unbookmark(recipeInfo, currentUser._id);
-        setNumberOfBookmarks(currSaves - 1);
-      } else {
-        await createBookmark(recipeInfo, currentUser._id);
-        setNumberOfBookmarks(currSaves + 1);
-      }
-    } catch (e) {
-      console.log(e);
-      return null;
-    }
-    setIsBookmarked(!isBookmarked);
+    // if (currentUser) {
+    //   const currSaves = numberOfBookmarks;
+    //   try {
+    //     if (isBookmarked) {
+    //       await unbookmark(recipeInfo, currentUser._id);
+    //       setNumberOfBookmarks(currSaves - 1);
+    //     } else {
+    //       await createBookmark(recipeInfo, currentUser._id);
+    //       setNumberOfBookmarks(currSaves + 1);
+    //     }
+    //   } catch (e) {
+    //     console.log(e);
+    //     return null;
+    //   }
+    //   setIsBookmarked(!isBookmarked);
+    // }
   };
 
-  useEffect(() => {
-    const bookmarkExists = async () => {
-      if (recipeInfo) {
-        const bookmarksForThisRecipe = await getBookmarksByRecipeId(internalRecipeId);
-        if (bookmarksForThisRecipe) {
-          setNumberOfBookmarks(bookmarksForThisRecipe.length);
-        }
-        const usersBookmarkForThisRecipe = await getBookmarksByBothIds(currentUser._id, internalRecipeId)
-        setIsBookmarked(usersBookmarkForThisRecipe != null);
-      }
-    }
-    bookmarkExists();
-  }, [currentUser._id, internalRecipeId, recipeInfo]);
+  // useEffect(() => {
+  //   const bookmarkExists = async () => {
+  //     if (recipeInfo) {
+  //       const bookmarksForThisRecipe = await getBookmarksByRecipeId(internalRecipeId);
+  //       if (bookmarksForThisRecipe) {
+  //         setNumberOfBookmarks(bookmarksForThisRecipe.length);
+  //       }
+  //       const usersBookmarkForThisRecipe = await getBookmarksByBothIds(currentUser._id, internalRecipeId)
+  //       setIsBookmarked(usersBookmarkForThisRecipe != null);
+  //     }
+  //   }
+  //   bookmarkExists();
+  // }, [currentUser, internalRecipeId, recipeInfo]);
 
   return (
     <div>
@@ -96,11 +97,11 @@ const RecipePage = () => {
         </Link>
       </div>
       <div className="col-1">
-        {isBookmarked ?
-            <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark-fill float-end"/>
-          : <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark float-end"></p>
-        }
-        <p>{numberOfBookmarks}</p>
+        {/*{isBookmarked ?*/}
+        {/*    <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark-fill float-end"/>*/}
+        {/*  : <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark float-end"></p>*/}
+        {/*}*/}
+        {/*<p>{numberOfBookmarks}</p>*/}
       </div>
       <img src={recipeInfo.thumbnail_url} className="card-img rounded" alt={recipeInfo.name} />
       <div className="jumbotron p-3 p-md-5 d-flex flex-column justify-content-center">
@@ -138,7 +139,14 @@ const RecipePage = () => {
         )}
       </div>
       <hr />
-      {getWhatPeopleSay(internalRecipeId)}
+      <div>
+        <h5>What people are saying about this recipe:</h5>
+        <div className="list-group mb-1">
+          {recipePosts.map((post : any) => {
+            return getSingleReview(post.userId.username, post.userId._id, post.text);
+          })}
+        </div>
+      </div>
     </div>
   );
 };
@@ -165,21 +173,6 @@ const getNutrition = (nutrition: any) => {
       </>
     );
   }
-};
-
-const getWhatPeopleSay = (internalRecipeId: string) => {
-// todo: make getPostsByRecipeId call in posts endpoint
-// to get reviewerId + postText fields,
-// then to get reviewer name make call to findUserById in users endpoint
-  const postsByRecipeId: any = ["abcd"];
-  // return (
-  //   <>
-  //     <h5>What people are saying about this recipe:</h5> 
-  //     <div className="list-group mb-1">
-  //       {postsByRecipeId.forEach((post) => {getSingleReview(post.reviewer, post.reviewerId, post.postText)})}
-  //     </div>
-  //   </>
-  // );
 };
 
 const getSingleReview = (reviewer: string, reviewerId: string, postText: string) => {

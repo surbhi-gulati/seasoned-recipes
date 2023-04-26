@@ -10,8 +10,8 @@ import {
 
 export const RecipeCard = (props: RecipeType) => {
   const location = useLocation();
-  const [numberOfBookmarks, setNumberOfBookmarks] = useState(0);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  // const [numberOfBookmarks, setNumberOfBookmarks] = useState(0);
+  // const [isBookmarked, setIsBookmarked] = useState(false);
   const { currentUser } = useSelector((state: any) => state.auth);
   const showMakePostButton =
     currentUser != null &&
@@ -19,34 +19,34 @@ export const RecipeCard = (props: RecipeType) => {
       location.pathname.includes("/recipe"));
 
   const updateRecipeSavesHandler = async () => {
-    const currSaves = numberOfBookmarks;
-    try {
-      if (isBookmarked) {
-        await unbookmark(props, currentUser._id);
-        setNumberOfBookmarks(currSaves - 1);
-      } else {
-        await createBookmark(props, currentUser._id);
-        setNumberOfBookmarks(currSaves + 1);
-      }
-    } catch (e) {
-      console.log(e);
-      return null;
-    }
-    setIsBookmarked(!isBookmarked);
+    // const currSaves = numberOfBookmarks;
+    // try {
+    //   if (isBookmarked) {
+    //     await unbookmark(props, currentUser._id);
+    //     setNumberOfBookmarks(currSaves - 1);
+    //   } else {
+    //     await createBookmark(props, currentUser._id);
+    //     setNumberOfBookmarks(currSaves + 1);
+    //   }
+    // } catch (e) {
+    //   console.log(e);
+    //   return null;
+    // }
+    // setIsBookmarked(!isBookmarked);
   };
 
   useEffect(() => {
-    const bookmarkExists = async () => {
-      if (props) {
-        const bookmarksForThisRecipe = await getBookmarksByRecipeId(props.id);
-        if (bookmarksForThisRecipe) {
-          setNumberOfBookmarks(bookmarksForThisRecipe.length);
-        }
-        const usersBookmarkForThisRecipe = await getBookmarksByBothIds(currentUser._id, props.id)
-        setIsBookmarked(usersBookmarkForThisRecipe != null);
-      }
-    }
-    bookmarkExists();
+    // const bookmarkExists = async () => {
+    //   if (props) {
+    //     const bookmarksForThisRecipe = await getBookmarksByRecipeId(props._id);
+    //     if (bookmarksForThisRecipe) {
+    //       setNumberOfBookmarks(bookmarksForThisRecipe.length);
+    //     }
+    //     const usersBookmarkForThisRecipe = await getBookmarksByBothIds(currentUser._id, props._id)
+    //     setIsBookmarked(usersBookmarkForThisRecipe != null);
+    //   }
+    // }
+    // bookmarkExists();
   },[props]);
 
   return (
@@ -69,11 +69,11 @@ export const RecipeCard = (props: RecipeType) => {
             </div>
           </div>
           <div className="col-1">
-            {isBookmarked ?
-                <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark-fill float-end"/>
-              : <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark float-end"></p>
-            }
-            <p>{numberOfBookmarks}</p>
+            {/*{isBookmarked ?*/}
+            {/*    <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark-fill float-end"/>*/}
+            {/*  : <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark float-end"></p>*/}
+            {/*}*/}
+            {/*<p>{numberOfBookmarks}</p>*/}
           </div>
         </div>
       </div>

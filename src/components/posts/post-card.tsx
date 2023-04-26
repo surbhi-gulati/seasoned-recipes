@@ -35,7 +35,7 @@ export const PostCard = ({post}) => {
   const getRecipeInfoHandler = async (recipe_id: number) => {
     const response = await getRecipeByID(recipe_id);
     const recipeInfo: RecipeType = {
-      id: response.id,
+      id: recipe_id,
       name: response.name,
       thumbnail_url: response.thumbnail_url,
       tags: response.tags,
