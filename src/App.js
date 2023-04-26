@@ -3,6 +3,7 @@ import {BrowserRouter} from "react-router-dom";
 import {Routes, Route} from "react-router";
 import TrifoldPage from './pages/trifoldPage.tsx';
 import LoginPage from './pages/loginPage.tsx';
+import RegisterPage from './pages/registerPage.tsx';
 import FeedPage from './pages/feedPage.tsx';
 import GroupsPage from './pages/groupsPage.tsx';
 import GroupPage from './pages/groupPage.tsx';
@@ -32,6 +33,8 @@ function App() {
           <Routes>
             <Route index path="login"
                 element={<LoginPage/>}/>
+            <Route path="register"
+                element={<RegisterPage/>}/>  
             <Route path="/"
               element={<TrifoldPage/>}>
             <Route path="feed"

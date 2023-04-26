@@ -11,7 +11,11 @@ import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import { getProfileById } from "../services/auth-services";
 import { getGroupsByUserId } from "../services/group-members-services";
 import { getFollowersByUserId, getFollowingByUserId } from "../services/follows-services";
+import { getPostsByUserId, getLikedPostsByUserId } from "../services/post-services";
 import FollowersPeople from "../components/profile/peopleSection/followersPeople";
+import Popup from "reactjs-popup";
+import LoginPrompt from "../components/loginPrompt";
+import PostList from "../components/posts/post-list";
 
 const ProfilePage = () => {
 
@@ -21,6 +25,8 @@ const ProfilePage = () => {
     const [followedGroups, setFollowedGroups] = useState<Array<any>>([]);
     const [following, setFollowing] = useState<Array<any>>([]);
     const [followers, setFollowers] = useState<Array<any>>([]);
+    const [userPosts, setUserPosts] = useState<Array<any>>([]);
+    const [likedPosts, setLikedPosts] = useState<Array<any>>([]);
     const dispatch = useDispatch<any>();
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('personalInfo');
@@ -54,9 +60,15 @@ const ProfilePage = () => {
           const allGroupID = await getGroupsByUserId(profile._id);
           const followingResponse = await getFollowingByUserId(profile._id);
           const followersResponse = await getFollowersByUserId(profile._id);
+          const userPostsResponse = await getPostsByUserId(profile._id);
+          const likedPostsResponse = await getLikedPostsByUserId(profile._id);
+          console.log("userPostsResponse", userPostsResponse);
+          console.log("likedPostsResponse", likedPostsResponse);
           setFollowing(followingResponse);
           setFollowers(followersResponse);
           setFollowedGroups(allGroupID);
+          setUserPosts(userPostsResponse);
+          setLikedPosts(likedPostsResponse);
         }
       }
       getFollowedGroups();
@@ -73,14 +85,11 @@ const ProfilePage = () => {
     }  
 
     return (
-        profile && <div className="container-fluid">
+      <>
+          {profile ? <div className="container-fluid">
           <ProfileHeader authenticated={currentUser} isFollowing = {isFollowing} user={profile} />
+          {profile && profile._id === currentUser._id && <PersonalInfo></PersonalInfo>}
           <Nav pills>
-            <NavItem>
-              <NavLink href="#personalInfo" active={activeTab === 'personalInfo'} onClick={() => toggleTab('personalInfo')}>
-                Personal Info
-              </NavLink>
-            </NavItem>
             <NavItem>
               <NavLink href="#groups" active={activeTab === 'groups'} onClick={() => toggleTab('groups')}>
                 Following Groups
@@ -96,11 +105,18 @@ const ProfilePage = () => {
                 Followers
               </NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink href="#posts" active={activeTab === 'posts'} onClick={() => toggleTab('posts')}>
+                Posts
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="#likedPosts" active={activeTab === 'likedPosts'} onClick={() => toggleTab('likedPosts')}>
+                Liked Posts
+              </NavLink>
+            </NavItem>
           </Nav>
           <TabContent activeTab={activeTab}>
-            <TabPane tabId="personalInfo">
-              {currentUser && <PersonalInfo></PersonalInfo>}
-            </TabPane>
             <TabPane tabId="groups">
               <FollowingGroups profile={profile} groups={followedGroups} />
             </TabPane>
@@ -110,12 +126,28 @@ const ProfilePage = () => {
             <TabPane tabId="followers">
               <FollowersPeople profile={profile} followers={followers}/>
             </TabPane>
+            <TabPane tabId="posts">
+              {profile && currentUser && profile._id === currentUser._id
+                ? <h2>Your Posts</h2>
+                : <h2>{profile && `${profile.username}'s posts`}</h2>}
+              <PostList posts={userPosts} />
+            </TabPane>
+            <TabPane tabId="likedPosts">
+                {profile && currentUser && profile._id === currentUser._id
+                ? <h2>Your liked Posts</h2>
+                : <h2>{profile && `${profile.username}'s liked posts`}</h2>}
+              <PostList posts={likedPosts} />
+            </TabPane>
           </TabContent>
           {!id && 
-          <button onClick={() => handleLogout() }>
+          <button className={"btn btn-primary rounded my-2"} onClick={() => handleLogout() }>
             Logout
           </button>}
         </div>
+        : <LoginPrompt promptText={"Please login to view your profile"}/>}
+      </>
+        
+
     );
 };
 

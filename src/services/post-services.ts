@@ -3,6 +3,8 @@ const SERVER_API_URL = process.env.REACT_APP_SERVER_API_URL;
 const POSTS_URL = `${SERVER_API_URL}/posts`;
 const GROUP_POSTS_URL = `${SERVER_API_URL}/group-posts`;
 const FOLLOWED_POSTS_URL = `${SERVER_API_URL}/followed-posts`;
+const LIKED_POSTS_URL = `${SERVER_API_URL}/liked-posts`;
+const USERS_POSTS_URL = `${SERVER_API_URL}/user-posts`;
 const api = axios.create({ withCredentials: true });
 
 export const createPostWithRecipe = async ({post, recipe}) => {
@@ -55,6 +57,28 @@ export const getGroupsPosts = async (groupId) => {
     return posts;
   } catch (error) {
     console.log("Unable to get group posts: ", error);
+    return null;
+  }
+}
+
+export const getLikedPostsByUserId = async (userId) => {
+  try {
+    const response = await api.get(`${LIKED_POSTS_URL}/${userId}`);
+    const posts = response.data;
+    return posts;
+  } catch (error) {
+    console.log("Unable to get liked posts: ", error);
+    return null;
+  }
+}
+
+export const getPostsByUserId = async (userId) => {
+  try {
+    const response = await api.get(`${USERS_POSTS_URL}/${userId}`);
+    const posts = response.data;
+    return posts;
+  } catch (error) {
+    console.log("Unable to get users posts: ", error);
     return null;
   }
 }

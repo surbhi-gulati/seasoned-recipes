@@ -13,11 +13,13 @@ const FollowingPeople = ({ profile, following }) => {
             {
                 following.map((user : UserType) => {
                 return (
-                <UserCard key={user._id} {...user} />
+                  <div className={"list-group-item"}>
+                    <UserCard key={user._id} {...user} />
+                  </div>
                 );
             })}
         </>
-    );
+    );  
 };
 
 export default FollowingPeople;
