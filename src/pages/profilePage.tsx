@@ -117,22 +117,22 @@ const ProfilePage = () => {
           </Nav>
           <TabContent activeTab={activeTab}>
             <TabPane tabId="groups">
-              <FollowingGroups profile={profile} groups={followedGroups} />
+              {followedGroups && <FollowingGroups profile={profile} groups={followedGroups} />}
             </TabPane>
             <TabPane tabId="following">
-              <FollowingPeople profile={profile} following={following} />
+              {following && <FollowingPeople profile={profile} following={following} /> }
             </TabPane>
             <TabPane tabId="followers">
-              <FollowersPeople profile={profile} followers={followers}/>
+              {followers && <FollowersPeople profile={profile} followers={followers}/>}
             </TabPane>
             <TabPane tabId="posts">
-              {profile && currentUser && profile._id === currentUser._id
+              {profile && currentUser && profile._id === currentUser._id && userPosts
                 ? <h2>Your Posts</h2>
                 : <h2>{profile && `${profile.username}'s posts`}</h2>}
               <PostList posts={userPosts} />
             </TabPane>
             <TabPane tabId="likedPosts">
-                {profile && currentUser && profile._id === currentUser._id
+                {profile && currentUser && profile._id === currentUser._id && likedPosts
                 ? <h2>Your liked Posts</h2>
                 : <h2>{profile && `${profile.username}'s liked posts`}</h2>}
               <PostList posts={likedPosts} />

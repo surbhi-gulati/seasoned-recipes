@@ -111,9 +111,10 @@ export const PostCard = ({post}) => {
           <div className="media pb-2">
             <RecipeCard key={post.recipeId._id} {...recipeInfo!}></RecipeCard>
           </div>
-          {isLiked ?
+          {isLiked && currentUser &&
               <div onClick={() => updateLikesHandler()}
-                  className="bi-hand-thumbs-up-fill float-start">&nbsp;{numberOfLikes}</div> :
+                  className="bi-hand-thumbs-up-fill float-start">&nbsp;{numberOfLikes}</div> }
+          {!isLiked && currentUser &&
               <div onClick={() => updateLikesHandler()}
                   className="bi-hand-thumbs-up float-start">&nbsp;{numberOfLikes}</div>}
           <i className="float-end">Posted on {new Date(post.date).toLocaleString()}</i>
