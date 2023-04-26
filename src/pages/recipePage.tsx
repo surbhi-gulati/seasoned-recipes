@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getInternalRecipeIDByAPIID } from "../services/recipe-services";
 import { createBookmark, getBookmarksByBothIds, getBookmarksByRecipeId, unbookmark } from "../services/bookmarks-services";
+import { current } from "@reduxjs/toolkit";
 
 const RecipePage = () => {
   const [recipeInfo, setRecipeInfo] = React.useState<any>({});
@@ -28,14 +29,14 @@ const RecipePage = () => {
     setRecipeInfo(recipeInfo);
   };
 
-  useEffect(() => {
-    const fetchInternalRecipeID = async () => {
-      const internalID = await getInternalRecipeIDByAPIID(recipeInfo.id);
-      setInternalRecipeId(internalID);
-    };
+  // useEffect(() => {
+  //   const fetchInternalRecipeID = async () => {
+  //     const internalID = await getInternalRecipeIDByAPIID(recipeInfo.id);
+  //     setInternalRecipeId(internalID);
+  //   };
 
-    fetchInternalRecipeID();
-  }, [recipeInfo.id]);
+  //   fetchInternalRecipeID();
+  // }, [recipeInfo.id]);
 
   const { currentUser } = useSelector((state: any) => state.auth);
   const [user, setUser] = React.useState<any>();
@@ -86,13 +87,13 @@ const RecipePage = () => {
   return (
     <div>
       <h1 className="display-4 font-italic">{recipeInfo.name}</h1>
-      <div>
+      {/* <div>
         <Link to={`/newPost/${recipeInfo.id}`}>
           <button type="button" className="btn btn-success">
             Make a Post
           </button>
         </Link>
-      </div>
+      </div> */}
       {/* <div className="col-1">
         {isBookmarked ?
             <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark-fill float-end"/>
@@ -136,7 +137,7 @@ const RecipePage = () => {
         )}
       </div>
       <hr />
-      {getWhatPeopleSay(internalRecipeId)}
+      {/* {getWhatPeopleSay(internalRecipeId)} */}
     </div>
   );
 };
@@ -165,23 +166,35 @@ const getNutrition = (nutrition: any) => {
   }
 };
 
-const getWhatPeopleSay = (internalRecipeId: string) => {
-  return (
-    <>
-      <h5>What people are saying about this recipe:</h5> 
-      {getSingleReview(internalRecipeId)}
-    </>
-  );
-};
+// const getWhatPeopleSay = (internalRecipeId: string) => {
+//   return (
+//     <>
+//       <h5>What people are saying about this recipe:</h5> 
+//       <div className="list-group mb-1">
+//         {getSingleReview(internalRecipeId, "reviewer", "reviewerId", "reviewerAvatarPath", "postText")}
+//       </div>
+//     </>
+//   );
+// };
 
-const getSingleReview = (internalRecipeId: string) => {
-  console.log("SINGLE REVIEW: " + internalRecipeId)
-  return (
-    <>
-      <p> Extract posts that have this recipe_id. getPostsForRecipe </p>
-      <p> From each post, extract text field. </p>
-    </>
-  );
-};
+// const getSingleReview = (internalRecipeId: string, reviewer: string, reviewerId: string, reviewerAvatarPath: string, postText: string) => {
+//   console.log("SINGLE REVIEW: " + internalRecipeId)
+//   return (
+//     <Link to={`/profile/${reviewerId}`} style={{color: 'black', textDecoration: 'none' }}>
+//       <span className={"list-group-item"}>
+//           <img
+//               className="rounded-circle" height={48} width={48}
+//               src={`${reviewerAvatarPath}`}
+//               alt={reviewer}
+//               key={reviewer}
+//           />
+//         <span> 
+//           <h6> {reviewer} </h6>
+//           <p> {postText} </p>
+//         </span>
+//       </span>
+//     </Link>
+//   );
+// };
 
 export default RecipePage;
