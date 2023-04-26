@@ -50,30 +50,34 @@ export const RecipeCard = (props: RecipeType) => {
   },[props]);
 
   return (
-      <div className="row card">
-        <div className="row">
-          <div className="col-4 ">
+      <div className="card">
+        <div className="row no-gutters pe-3">
+          <div className="col-4">
             <Link to={`/recipe/${props.id}`} style={{color: 'black', textDecoration: 'none' }}>
-              <img src={props.thumbnail_url} className="card-img" alt="..."/>
+              <div className="ratio ratio-1x1">
+                <img 
+                  src={props.thumbnail_url} 
+                  className="mw-100 roundeds" 
+                  alt="..."
+                  style={{objectFit: "cover" }}/>
+              </div>
             </Link>
           </div>
-          <div className="col-7">
-            <div className="card-body">
-              <Link to={`/recipe/${props.id}`} style={{color: 'black', textDecoration: 'none' }}>
-                <h5 className="card-title">{props.name}</h5>
-              </Link>
-              <span className="card-text">{props.yields}</span>
-              {props.total_time_minutes && <div className="card-text">{`Cook time: ${props.total_time_minutes} minutes`}</div>}
-              <div className="card-text mb-1"><small className="text-muted">Tags: </small>{getTags(props.tags)}</div>
-              {showMakePostButton ? <div><Link to={`/newPost/${props.id}`}><button type="button" className="btn btn-success">Make a Post</button></Link></div> : <i/>}
-            </div>
+          <div className="card-body ps-0 col-5">
+            <Link to={`/recipe/${props.id}`} style={{color: 'black', textDecoration: 'none' }}>
+              <h5 className="card-title">{props.name}</h5>
+            </Link>
+            <span className="card-text">{props.yields}</span>
+            {props.total_time_minutes && <div className="card-text">{`Cook time: ${props.total_time_minutes} minutes`}</div>}
+            <div className="card-text mb-1"><small className="text-muted">Tags: </small>{getTags(props.tags)}</div>
+            {showMakePostButton ? <div><Link to={`/newPost/${props.id}`}><button type="button" className="btn btn-success">Make a Post</button></Link></div> : <i/>}
           </div>
-          <div className="col-1">
+          <div className="col-1 d-inline-flex  pt-2">
+            <p className="">{numberOfBookmarks}&nbsp;</p>
             {isBookmarked ?
-                <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark-fill float-end"/>
-              : <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark float-end"></p>
+                <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark-fill"/>
+              : <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark"/>
             }
-            <p>{numberOfBookmarks}</p>
           </div>
         </div>
       </div>

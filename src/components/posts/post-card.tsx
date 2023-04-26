@@ -105,11 +105,10 @@ export const PostCard = ({post}) => {
       <div className="media border p-3">
         <div className="media-body">
           <UserCard {...post.userId}/>
-          <i>@{user?.username}</i>
           {currentUser && currentUser.isAdmin && <i className="bi bi-x-lg float-end" onClick={() => deletePostHandler()}></i>}
-          <p>{post.text}</p>
+          <div className="py-2">{post.text}</div>
           <p className="badge rounded-pill bg-dark">{postedInGroupName}</p>
-          <div className="media p-3">
+          <div className="media pb-2">
             <RecipeCard key={post.recipeId._id} {...recipeInfo!}></RecipeCard>
           </div>
           {isLiked ?
