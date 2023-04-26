@@ -3,12 +3,13 @@ import { useParams } from "react-router";
 import { getRecipeInfoByID } from "../services/recipe-api-service";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { createBookmark, getBookmarksByBothIds, getBookmarksByRecipeId, unbookmark } from "../services/bookmarks-services";
 import { getInternalRecipeIDByAPIID } from "../services/recipe-services";
+import { createBookmark, getBookmarksByBothIds, getBookmarksByRecipeId, unbookmark } from "../services/bookmarks-services";
 
 const RecipePage = () => {
   const [recipeInfo, setRecipeInfo] = React.useState<any>({});
   const { recipe_id } = useParams();
+  const [internalRecipeId, setInternalRecipeId] = React.useState<string>('');
 
   const getRecipeInfoHandler = async (recipe_id: number) => {
     const response = await getRecipeInfoByID(recipe_id);
@@ -27,6 +28,15 @@ const RecipePage = () => {
     setRecipeInfo(recipeInfo);
   };
 
+  useEffect(() => {
+    const fetchInternalRecipeID = async () => {
+      const internalID = await getInternalRecipeIDByAPIID(recipeInfo.id);
+      setInternalRecipeId(internalID);
+    };
+
+    fetchInternalRecipeID();
+  }, [recipeInfo.id]);
+
   const { currentUser } = useSelector((state: any) => state.auth);
   const [user, setUser] = React.useState<any>();
   useEffect(() => {
@@ -39,40 +49,39 @@ const RecipePage = () => {
     }
   }, [recipe_id]);
 
-  const [numberOfBookmarks, setNumberOfBookmarks] = useState(0);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  // const [numberOfBookmarks, setNumberOfBookmarks] = useState(0);
+  // const [isBookmarked, setIsBookmarked] = useState(false);
   
-  const updateRecipeSavesHandler = async () => {
-    const currSaves = numberOfBookmarks;
-    try {
-      if (isBookmarked) {
-        await unbookmark(recipeInfo, currentUser._id);
-        setNumberOfBookmarks(currSaves - 1);
-      } else {
-        await createBookmark(recipeInfo, currentUser._id);
-        setNumberOfBookmarks(currSaves + 1);
-      }
-    } catch (e) {
-      console.log(e);
-      return null;
-    }
-    setIsBookmarked(!isBookmarked);
-  };
+  // const updateRecipeSavesHandler = async () => {
+  //   const currSaves = numberOfBookmarks;
+  //   try {
+  //     if (isBookmarked) {
+  //       await unbookmark(recipeInfo, currentUser._id);
+  //       setNumberOfBookmarks(currSaves - 1);
+  //     } else {
+  //       await createBookmark(recipeInfo, currentUser._id);
+  //       setNumberOfBookmarks(currSaves + 1);
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //     return null;
+  //   }
+  //   setIsBookmarked(!isBookmarked);
+  // };
 
-  useEffect(() => {
-    const bookmarkExists = async () => {
-      if (recipeInfo) {
-        const internalRecipeId = await getInternalRecipeIDByAPIID(recipeInfo.id);
-        const bookmarksForThisRecipe = await getBookmarksByRecipeId(internalRecipeId);
-        if (bookmarksForThisRecipe) {
-          setNumberOfBookmarks(bookmarksForThisRecipe.length);
-        }
-        const usersBookmarkForThisRecipe = await getBookmarksByBothIds(currentUser._id, internalRecipeId)
-        setIsBookmarked(usersBookmarkForThisRecipe != null);
-      }
-    }
-    bookmarkExists();
-  }, [currentUser._id, recipeInfo]);
+  // useEffect(() => {
+  //   const bookmarkExists = async () => {
+  //     if (recipeInfo) {
+  //       const bookmarksForThisRecipe = await getBookmarksByRecipeId(internalRecipeId);
+  //       if (bookmarksForThisRecipe) {
+  //         setNumberOfBookmarks(bookmarksForThisRecipe.length);
+  //       }
+  //       const usersBookmarkForThisRecipe = await getBookmarksByBothIds(currentUser._id, internalRecipeId)
+  //       setIsBookmarked(usersBookmarkForThisRecipe != null);
+  //     }
+  //   }
+  //   bookmarkExists();
+  // }, [currentUser._id, internalRecipeId, recipeInfo]);
 
   return (
     <div>
@@ -84,13 +93,13 @@ const RecipePage = () => {
           </button>
         </Link>
       </div>
-      <div className="col-1">
+      {/* <div className="col-1">
         {isBookmarked ?
             <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark-fill float-end"/>
           : <p onClick={() => updateRecipeSavesHandler()} className="bi bi-bookmark float-end"></p>
         }
         <p>{numberOfBookmarks}</p>
-      </div>
+      </div> */}
       <img src={recipeInfo.thumbnail_url} className="card-img rounded" alt={recipeInfo.name} />
       <div className="jumbotron p-3 p-md-5 d-flex flex-column justify-content-center">
           {(recipeInfo.total_time_minutes !== null) && 
@@ -127,7 +136,7 @@ const RecipePage = () => {
         )}
       </div>
       <hr />
-      {getWhatPeopleSay()}
+      {getWhatPeopleSay(internalRecipeId)}
     </div>
   );
 };
@@ -156,10 +165,19 @@ const getNutrition = (nutrition: any) => {
   }
 };
 
-const getWhatPeopleSay = () => {
+const getWhatPeopleSay = (internalRecipeId: string) => {
   return (
     <>
       <h5>What people are saying about this recipe:</h5> 
+      {getSingleReview(internalRecipeId)}
+    </>
+  );
+};
+
+const getSingleReview = (internalRecipeId: string) => {
+  console.log("SINGLE REVIEW: " + internalRecipeId)
+  return (
+    <>
       <p> Extract posts that have this recipe_id. getPostsForRecipe </p>
       <p> From each post, extract text field. </p>
     </>
