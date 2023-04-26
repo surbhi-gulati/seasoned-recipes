@@ -51,6 +51,31 @@ const NavigationSidebar = ({ active = "feed" }) => {
           <span className="ms-2">Profile</span>
         </Link>
       </div>
+      <style>
+        {`
+          @media (max-width: 576px) {
+            .list-group-item {
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+              text-align: center;
+              width: 20%;
+              padding: 8px 0;
+            }
+            .list-group-item i {
+              margin-right: 5px;
+              margin-bottom: 0;
+            }
+            .list-group-item span {
+              display: none;
+            }
+            .d-flex.flex-row.flex-wrap.justify-content-between {
+              flex-direction: row;
+            }
+          }
+        `}
+      </style>
     </div>
   );
 };
