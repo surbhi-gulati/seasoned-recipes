@@ -13,7 +13,6 @@ import { getGroupsByUserId } from "../services/group-members-services";
 import { getFollowersByUserId, getFollowingByUserId } from "../services/follows-services";
 import { getPostsByUserId, getLikedPostsByUserId } from "../services/post-services";
 import FollowersPeople from "../components/profile/peopleSection/followersPeople";
-import Popup from "reactjs-popup";
 import LoginPrompt from "../components/loginPrompt";
 import PostList from "../components/posts/post-list";
 
