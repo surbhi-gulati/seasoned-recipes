@@ -29,7 +29,7 @@ const ProfilePage = () => {
     const [likedPosts, setLikedPosts] = useState<Array<any>>([]);
     const dispatch = useDispatch<any>();
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState('personalInfo');
+    const [activeTab, setActiveTab] = useState('groups');
     const { id } = useParams();
 
     const toggleTab = (tab) => {
@@ -88,7 +88,7 @@ const ProfilePage = () => {
       <>
           {profile ? <div className="container-fluid">
           <ProfileHeader authenticated={currentUser} isFollowing = {isFollowing} user={profile} />
-          {profile && profile._id === currentUser._id && <PersonalInfo></PersonalInfo>}
+          {profile && currentUser && profile._id === currentUser._id && <PersonalInfo></PersonalInfo>}
           <Nav pills>
             <NavItem>
               <NavLink href="#groups" active={activeTab === 'groups'} onClick={() => toggleTab('groups')}>
