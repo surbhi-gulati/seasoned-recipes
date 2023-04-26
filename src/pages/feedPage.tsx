@@ -7,6 +7,7 @@ import { Nav, NavItem, NavLink } from "reactstrap";
 const FeedPage = () => {
   const dispatch = useDispatch<any>();
   const {posts} = useSelector((state: any) => state.posts);
+  const {currentUser} = useSelector((state: any) => state.auth);
   console.log("posts", posts);
   const [activeTab, setActiveTab] = React.useState('allPosts');
   const toggleTab = (tab) => {
@@ -26,17 +27,18 @@ const FeedPage = () => {
     return (
       <div>
         {/* align the nav center */}
-        <Nav className="row justify-content-center" pills>
+        <Nav className="row justify-content-center pb-2" pills>
           <NavItem className="col-6">
             <NavLink className="text-center" active={activeTab === 'allPosts'} onClick={() => toggleTab('allPosts')}>
               All Posts
             </NavLink>
           </NavItem>
+          {currentUser &&
           <NavItem className="col-6">
             <NavLink className="text-center" active={activeTab === 'followedPosts'} onClick={() => toggleTab('followedPosts')}>
               Followed Posts
             </NavLink>
-          </NavItem>
+          </NavItem>}
         </Nav>
         {posts && <PostList posts={posts}/>}
       </div>
