@@ -13,6 +13,7 @@ import {
 import {getGroupsPosts} from "../services/post-services";
 import PostType from "../modules/postType";
 import PostList from "../components/posts/post-list";
+import SmallerUserList from "../components/profile/peopleSection/smallerUserList";
 
 const GroupPage = () => {
   const [groupInfo, setGroupInfo] = React.useState<GroupType>();
@@ -147,10 +148,10 @@ const GroupPage = () => {
           <div className="col-md-4">
             <div className="card flex-md-row mb-4 box-shadow h-md-250">
               <div className="card-body d-flex flex-column align-items-start">
-                { currentUser != null ? <button onClick = {clickJoinHandler} className="btn btn-lg btn-primary mt-4 rounded-pill">{!hasJoined ? <p>Join</p> : <p>Leave</p>}</button> : <p></p>}
+                { currentUser != null && <button onClick = {clickJoinHandler} type="button" className="btn btn-success">{!hasJoined ? <>Join</> : <>Leave</>}</button>}
                 <h3 className="mb-0">Members</h3>
                 <div className="mb-1 text-muted">{groupMembers.length} Foodies!</div>
-                {groupMembers && groupMembers.length > 0 && <UserList users={groupMembers}></UserList> }
+                {groupMembers && groupMembers.length > 0 && <SmallerUserList users={groupMembers}></SmallerUserList> }
               </div>
             </div>
           </div>

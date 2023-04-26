@@ -28,11 +28,17 @@ const FeedPage = () => {
       <div>
         {/* align the nav center */}
         <Nav className="row justify-content-center pb-2" pills>
-          <NavItem className="col-6">
-            <NavLink className="text-center" active={activeTab === 'allPosts'} onClick={() => toggleTab('allPosts')}>
-              All Posts
-            </NavLink>
-          </NavItem>
+          {currentUser ?
+              <NavItem className="col-6">
+                <NavLink className="text-center" active={activeTab === 'allPosts'} onClick={() => toggleTab('allPosts')}>
+                  All Posts
+                </NavLink>
+              </NavItem> :
+              <NavItem className="col-12">
+                <NavLink className="text-center" active={activeTab === 'allPosts'} onClick={() => toggleTab('allPosts')}>
+                  All Posts
+                </NavLink>
+              </NavItem>}
           {currentUser &&
           <NavItem className="col-6">
             <NavLink className="text-center" active={activeTab === 'followedPosts'} onClick={() => toggleTab('followedPosts')}>
