@@ -25,7 +25,7 @@ const BookmarksPage = () => {
               <h2> My Bookmarks</h2>
               <RecipeList recipesArray={postBody}/>
             </>
-          : <LoginPrompt promptText={"Please Login to see your bookmarks"}/>}
+          : <LoginPrompt promptText={"Please login to see your bookmarks"}/>}
     </div>
   );
 };

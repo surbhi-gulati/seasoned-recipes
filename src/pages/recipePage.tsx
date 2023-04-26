@@ -73,11 +73,12 @@ const RecipePage = () => {
     <div>
       <h1 className="display-4 font-italic">{recipeInfo.name}</h1>
       <div>
+        {currentUser &&
         <Link to={`/newPost/${recipeInfo.id}`}>
           <button type="button" className="btn btn-success">
             Make a Post
           </button>
-        </Link>
+        </Link>}
       </div>
       <div className="col-1">
         {isBookmarked ?
@@ -126,7 +127,7 @@ const RecipePage = () => {
         <h5>What people are saying about this recipe:</h5>
         <div className="list-group mb-1">
           {recipePosts.map((post : any) => {
-            return getSingleReview(post.userId.username, post.userId._id, post.text);
+            return getSingleReview(post.userId, post.text);
           })}
         </div>
       </div>
@@ -158,12 +159,17 @@ const getNutrition = (nutrition: any) => {
   }
 };
 
-const getSingleReview = (reviewer: string, reviewerId: string, postText: string) => {
+const getSingleReview = (user: any, postText: string) => {
   return (
-    <Link to={`/profile/${reviewerId}`} style={{color: 'black', textDecoration: 'none' }}>
+    <Link to={`/profile/${user._id}`} style={{color: 'black', textDecoration: 'none' }}>
       <span className={"list-group-item"}>
-        <h6> {reviewer} </h6>
-        <p> {postText} </p>
+        <img
+            className="rounded-circle" height={48} width={48}
+            src={user.avatar}
+            alt={user.avatar}
+            key={user.avatar}
+        />
+        <span> <b>{user.username}</b> <p> {postText} </p></span>
       </span>
     </Link>
   );

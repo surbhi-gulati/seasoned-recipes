@@ -7,6 +7,7 @@ import {
   leaveGroup
 } from "../../services/group-members-services";
 import {Link} from "react-router-dom";
+import UserList from "../profile/peopleSection/userList";
 
 const GroupCard = (props: GroupType) => {
   const [hasJoined, setHasJoined] = useState(false);
@@ -48,14 +49,19 @@ const GroupCard = (props: GroupType) => {
               </div>
             </Link>
             <div className="row">
-              <Link to={`/group/${props._id}`} style={{color: 'black', textDecoration: 'none' }}>
                 <div className="card-body col-9">
-                  <h5 className="card-title">{props.name}</h5>
-                  <p className="card-text">{props.description}</p>
+                  <Link to={`/group/${props._id}`} style={{color: 'black', textDecoration: 'none' }}>
+                    <h5 className="card-title">{props.name}</h5>
+                    <p className="card-text">{props.description}</p>
+                  </Link>
                 </div>
-              </Link>
-              <div className="float-end col-2" >
-                { currentUser != null ? <button onClick = {clickJoinHandler} className="btn btn-lg btn-primary mt-4 rounded-pill">{!hasJoined ? <p>Join</p> : <p>Leave</p>}</button> : <p></p>}
+              <div className="card-body col-3">
+                { currentUser != null && hasJoined &&
+                    <button onClick = {clickJoinHandler}
+                            className="btn btn-secondary float-end"> <>Leave</></button> }
+                { currentUser != null && !hasJoined &&
+                    <button onClick = {clickJoinHandler}
+                            className="btn btn-success float-end"> <>Join</></button> }
               </div>
             </div>
           </div>

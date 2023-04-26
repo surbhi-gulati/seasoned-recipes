@@ -34,6 +34,7 @@ const SearchPage = () => {
 
   return (
     <div>
+      <h2>Show me meals for...</h2>
       <div className="row p-3">
         <div className="col-10">
           <input 
@@ -43,10 +44,10 @@ const SearchPage = () => {
             onChange={(e) => { setSearch(e.currentTarget.value)}}>
           </input>
         </div>
-        
-        <button className="col-2 rounded-pill btn btn-primary float-end mt-2 ps-3 pe-3 fw-bold"
+        <button className="col-2 rounded-pill btn btn-primary "
                 onClick={() => handleSearchButton(search)}>
-            Search Recipe
+          <i className="col-2 bi-search wd-float-left"></i>
+          <div className="col-10 d-none d-xl-inline wd-subheader-text"> Search </div>
         </button>
         
       </div>

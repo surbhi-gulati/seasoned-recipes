@@ -7,12 +7,10 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function TrifoldPage() {
-  const currentUser = useSelector((state: any) => state.auth.currentUser);
   const { path } = useParams();
 
   return (
     <>
-      {!currentUser && <Link to="/login">Login</Link>}
       <div className="row mt-2">
         <div className="col-sm-12 col-md-4 col-lg-3 col-xl-2 mb-3 mb-md-0">
           <NavigationSidebar active={path || "find"} />
