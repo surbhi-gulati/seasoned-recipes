@@ -25,7 +25,7 @@ export const searchRecipes = async (query: string) => {
   const options = {
     method: 'GET',
     url: `${API_URL}/recipes/list`,
-    params: {from: '0', size: '10', q: query},
+    params: {from: '0', size: '25', q: query},
     headers: {
       'X-RapidAPI-Key': API_KEY,
       'X-RapidAPI-Host': API_HOST
@@ -33,7 +33,13 @@ export const searchRecipes = async (query: string) => {
   };
   try {
     const response = await axios.request(options);
-    return response.data;
+    const recipeArray = response.data.results;
+    console.log("recipeArray", recipeArray);
+    const filteredRecipes = recipeArray.filter((recipe) => {
+      console.log(recipe);
+      return recipe.canonical_id.includes("recipe");
+    });
+    return filteredRecipes;
   } catch (error) {
     console.error("error: ", error);
     return null;
