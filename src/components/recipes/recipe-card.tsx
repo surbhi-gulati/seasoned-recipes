@@ -46,7 +46,9 @@ export const RecipeCard = (props: RecipeType) => {
         setIsBookmarked(usersBookmarkForThisRecipe != null);
       }
     }
-    bookmarkExists();
+    if (currentUser) {
+      bookmarkExists();
+    }
   },[props]);
 
   return (

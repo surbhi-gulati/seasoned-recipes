@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import PostType, { PostResponseType } from "../../modules/postType";
 import RecipeCard from "../recipes/recipe-card";
-import {getRecipeByID} from "../../services/recipe-services";
+import {getRecipeByAPIID} from "../../services/recipe-services";
 import { getUpvotesByPostId, getUpvotesByBothIds, removeUpvote, createUpvote } from "../../services/upvotes-services";
 import RecipeType from "../../modules/recipeType";
 import UserCard from "../profile/peopleSection/userCard";
@@ -33,9 +33,9 @@ export const PostCard = ({post}) => {
   });
 
   const getRecipeInfoHandler = async (recipe_id: number) => {
-    const response = await getRecipeByID(recipe_id);
+    const response = await getRecipeByAPIID(recipe_id);
     const recipeInfo: RecipeType = {
-      id: response.id,
+      id: recipe_id,
       name: response.name,
       thumbnail_url: response.thumbnail_url,
       tags: response.tags,

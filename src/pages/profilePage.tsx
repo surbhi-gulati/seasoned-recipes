@@ -73,49 +73,49 @@ const ProfilePage = () => {
     }  
 
     return (
-        profile && <div className="container-fluid">
-          <ProfileHeader authenticated={currentUser} isFollowing = {isFollowing} user={profile} />
-          <Nav pills>
-            <NavItem>
-              <NavLink href="#personalInfo" active={activeTab === 'personalInfo'} onClick={() => toggleTab('personalInfo')}>
-                Personal Info
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="#groups" active={activeTab === 'groups'} onClick={() => toggleTab('groups')}>
-                Following Groups
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="#following" active={activeTab === 'following'} onClick={() => toggleTab('following')}>
-                Following People
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="#followers" active={activeTab === 'followers'} onClick={() => toggleTab('followers')}>
-                Followers
-              </NavLink>
-            </NavItem>
-          </Nav>
-          <TabContent activeTab={activeTab}>
-            <TabPane tabId="personalInfo">
-              {currentUser && <PersonalInfo></PersonalInfo>}
-            </TabPane>
-            <TabPane tabId="groups">
-              <FollowingGroups profile={profile} groups={followedGroups} />
-            </TabPane>
-            <TabPane tabId="following">
-              <FollowingPeople profile={profile} following={following} />
-            </TabPane>
-            <TabPane tabId="followers">
-              <FollowersPeople profile={profile} followers={followers}/>
-            </TabPane>
-          </TabContent>
-          {!id && 
-          <button onClick={() => handleLogout() }>
-            Logout
-          </button>}
-        </div>
+      profile && <div className="container-fluid">
+        <ProfileHeader authenticated={currentUser} isFollowing = {isFollowing} user={profile} />
+        <Nav pills>
+          <NavItem>
+            <NavLink href="#personalInfo" active={activeTab === 'personalInfo'} onClick={() => toggleTab('personalInfo')}>
+              Personal Info
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="#groups" active={activeTab === 'groups'} onClick={() => toggleTab('groups')}>
+              Following Groups
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="#following" active={activeTab === 'following'} onClick={() => toggleTab('following')}>
+              Following People
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="#followers" active={activeTab === 'followers'} onClick={() => toggleTab('followers')}>
+              Followers
+            </NavLink>
+          </NavItem>
+        </Nav>
+        <TabContent activeTab={activeTab}>
+          <TabPane tabId="personalInfo">
+            {currentUser && <PersonalInfo></PersonalInfo>}
+          </TabPane>
+          <TabPane tabId="groups">
+            <FollowingGroups profile={profile} groups={followedGroups} />
+          </TabPane>
+          <TabPane tabId="following">
+            <FollowingPeople profile={profile} following={following} />
+          </TabPane>
+          <TabPane tabId="followers">
+            <FollowersPeople profile={profile} followers={followers}/>
+          </TabPane>
+        </TabContent>
+        {!id && 
+        <button onClick={() => handleLogout() }>
+          Logout
+        </button>}
+      </div>
     );
 };
 
