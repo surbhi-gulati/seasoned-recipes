@@ -148,7 +148,12 @@ const GroupPage = () => {
           <div className="col-md-4">
             <div className="card flex-md-row mb-4 box-shadow h-md-250">
               <div className="card-body d-flex flex-column align-items-start">
-                { currentUser != null && <button onClick = {clickJoinHandler} type="button" className="btn btn-success">{!hasJoined ? <>Join</> : <>Leave</>}</button>}
+                { currentUser != null && hasJoined &&
+                    <button onClick = {clickJoinHandler}
+                            className="btn btn-secondary float-end"> <>Leave</></button> }
+                { currentUser != null && !hasJoined &&
+                    <button onClick = {clickJoinHandler}
+                            className="btn btn-success float-end"> <>Join</></button> }
                 <h3 className="mb-0">Members</h3>
                 <div className="mb-1 text-muted">{groupMembers.length} Foodies!</div>
                 {groupMembers && groupMembers.length > 0 && <SmallerUserList users={groupMembers}></SmallerUserList> }
