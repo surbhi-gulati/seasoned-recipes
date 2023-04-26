@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import {getInternalRecipeIDByAPIID, getRecipeByAPIID} from "../services/recipe-services";
 import { createBookmark, getBookmarksByBothIds, getBookmarksByRecipeId, unbookmark } from "../services/bookmarks-services";
 import {getPostsByRecipeId} from "../services/post-services";
+import {getRecipeInfoByID} from "../services/recipe-api-service";
 
 const RecipePage = () => {
 
@@ -17,7 +18,7 @@ const RecipePage = () => {
 
   useEffect( () => {
     const getRecipeInfoHandler = async (recipe_id: number) => {
-      const response = await getRecipeByAPIID(recipe_id);
+      const response = await getRecipeInfoByID(recipe_id);
       const recipeInfo: any = {
         id: response.id,
         name: response.name,
