@@ -4,6 +4,7 @@ import { getRecipeInfoByID } from "../services/recipe-api-service";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { createBookmark, getBookmarksByBothIds, getBookmarksByRecipeId, unbookmark } from "../services/bookmarks-services";
+import { getInternalRecipeIDByAPIID } from "../services/recipe-services";
 
 const RecipePage = () => {
   const [recipeInfo, setRecipeInfo] = React.useState<any>({});
@@ -61,16 +62,17 @@ const RecipePage = () => {
   useEffect(() => {
     const bookmarkExists = async () => {
       if (recipeInfo) {
-        const bookmarksForThisRecipe = await getBookmarksByRecipeId(recipeInfo.id);
+        const internalRecipeId = await getInternalRecipeIDByAPIID(recipeInfo.id);
+        const bookmarksForThisRecipe = await getBookmarksByRecipeId(internalRecipeId);
         if (bookmarksForThisRecipe) {
           setNumberOfBookmarks(bookmarksForThisRecipe.length);
         }
-        const usersBookmarkForThisRecipe = await getBookmarksByBothIds(currentUser._id, recipeInfo.id)
+        const usersBookmarkForThisRecipe = await getBookmarksByBothIds(currentUser._id, internalRecipeId)
         setIsBookmarked(usersBookmarkForThisRecipe != null);
       }
     }
     bookmarkExists();
-  }, [recipeInfo]);
+  }, [currentUser._id, recipeInfo]);
 
   return (
     <div>
@@ -160,7 +162,6 @@ const getWhatPeopleSay = () => {
       <h5>What people are saying about this recipe:</h5> 
       <p> Extract posts that have this recipe_id. getPostsForRecipe </p>
       <p> From each post, extract text field. </p>
-
     </>
   );
 };

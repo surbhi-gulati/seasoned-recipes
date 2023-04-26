@@ -14,8 +14,9 @@ export const getRecipeByID = async (id: number) => {
   }
 }
 
-export const getRecipeObjIDByAPIID = async (id: number) => {
+export const getInternalRecipeIDByAPIID = async (id: number) => {
   const response = await api.get(`${RECIPES_URL}/${id}`)
+  return response;
 }
 
 export const createRecipe = async (recipe) => {
