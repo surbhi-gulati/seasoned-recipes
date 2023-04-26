@@ -84,7 +84,7 @@ const RegisterPage = () => {
                  onClick={(event) => setRegisterRole("admin")}/>
           <label className="form-check-label" htmlFor="inlineRadio1">Admin</label>
         </div>
-        <label>(Note: Admin members can create groups and moderate posts)</label>
+        <label>(Note: Admin members can edit groups and moderate posts)</label>
       </div>
       <div>
         <label>Username</label>
