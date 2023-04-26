@@ -156,7 +156,7 @@ const GroupPage = () => {
           </div>
           <div className="col-md-8">
             <div className="card flex-md-row mb-4 box-shadow h-md-250">
-              <div className="card-body d-flex flex-column align-items-start">
+              <div className="card-body align-items-start">
                 {groupPosts && <PostList posts={groupPosts}></PostList>}
               </div>
             </div>
