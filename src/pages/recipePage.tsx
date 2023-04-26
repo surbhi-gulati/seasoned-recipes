@@ -171,18 +171,18 @@ const getWhatPeopleSay = (internalRecipeId: string) => {
 // todo: make getPostsByRecipeId call in posts endpoint
 // to get reviewerId + postText fields,
 // then to get reviewer name make call to findUserById in users endpoint
-  return (
-    <>
-      <h5>What people are saying about this recipe:</h5> 
-      <div className="list-group mb-1">
-        {getSingleReview(internalRecipeId, "reviewer", "reviewerId", "postText")}
-      </div>
-    </>
-  );
+  const postsByRecipeId: any = ["abcd"];
+  // return (
+  //   <>
+  //     <h5>What people are saying about this recipe:</h5> 
+  //     <div className="list-group mb-1">
+  //       {postsByRecipeId.forEach((post) => {getSingleReview(post.reviewer, post.reviewerId, post.postText)})}
+  //     </div>
+  //   </>
+  // );
 };
 
-const getSingleReview = (internalRecipeId: string, reviewer: string, reviewerId: string, postText: string) => {
-  console.log("SINGLE REVIEW: " + internalRecipeId)
+const getSingleReview = (reviewer: string, reviewerId: string, postText: string) => {
   return (
     <Link to={`/profile/${reviewerId}`} style={{color: 'black', textDecoration: 'none' }}>
       <span className={"list-group-item"}>
