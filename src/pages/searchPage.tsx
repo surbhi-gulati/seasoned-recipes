@@ -11,13 +11,13 @@ const SearchPage = () => {
 
   let [search, setSearch] = React.useState<string>("");
 
-  let [recipeList, setRecipeList] = React.useState<any>([])
-
+  let [recipeList, setRecipeList] = React.useState<any>();
+  
   const handleSearchButton = async (searchQuery) => {
     console.log("handleSearchButton");
     const response = await searchRecipes(searchQuery);
     if(response) {
-      setRecipeList(response.results);
+      setRecipeList(response);
     } else {
       setRecipeList([]);
     }
@@ -52,7 +52,10 @@ const SearchPage = () => {
         
       </div>
       <hr className="hr"></hr>
-      <RecipeList recipesArray={recipeList}/>
+      { recipeList && recipeList.length > 0 &&
+      <RecipeList recipesArray={recipeList}/>}
+      { recipeList && recipeList.length === 0 &&
+      <h4>No Recipe Results</h4>}
     </div>
   );
 };
