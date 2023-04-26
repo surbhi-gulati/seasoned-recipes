@@ -88,6 +88,7 @@ const ProfilePage = () => {
           {profile ? <div className="container-fluid">
           <ProfileHeader authenticated={currentUser} isFollowing = {isFollowing} user={profile} />
           {profile && currentUser && profile._id === currentUser._id && <PersonalInfo></PersonalInfo>}
+                <hr className="hr"></hr>
           <Nav pills>
             <NavItem>
               <NavLink href="#groups" active={activeTab === 'groups'} onClick={() => toggleTab('groups')}>
@@ -121,6 +122,7 @@ const ProfilePage = () => {
             </TabPane>
             <TabPane tabId="following">
               {following && <FollowingPeople profile={profile} following={following} /> }
+
             </TabPane>
             <TabPane tabId="followers">
               {followers && <FollowersPeople profile={profile} followers={followers}/>}

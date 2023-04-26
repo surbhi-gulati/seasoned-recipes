@@ -34,7 +34,7 @@ const ProfileHeader = ({authenticated, isFollowing, user}) => {
 
     return (
         <div className="row">
-          <div className="col-3 row float-start">
+          <div className="col-6 row float-start">
             <img
                 className="rounded-circle col-4 float-start"
                 src={user.avatar}
@@ -43,7 +43,7 @@ const ProfileHeader = ({authenticated, isFollowing, user}) => {
             />
             <h1 className="col-8 display-4 text-success"> {user && user.username} </h1>
           </div>
-          <div className="col-4 float-end">
+          <div className="col-6">
             {!isSelf && authenticated && !isFollowingThisUser &&
                 <button type="button"
                         className="btn btn-sm btn-primary float-end"
