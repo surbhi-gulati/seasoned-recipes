@@ -8,12 +8,12 @@ import FollowingGroups from "../components/profile/groupSection/followingGroups"
 import FollowingPeople from "../components/profile/peopleSection/followingPeople";
 import UserType from "../modules/userType";
 import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
-import { getProfileById, getLoggedInProfile } from "../services/auth-services";
+import { getProfileById } from "../services/auth-services";
 import { getGroupsByUserId } from "../services/group-members-services";
 import { getFollowersByUserId, getFollowingByUserId } from "../services/follows-services";
 import FollowersPeople from "../components/profile/peopleSection/followersPeople";
 
-const ProfilePage = (user: UserType) => {
+const ProfilePage = () => {
 
     const {currentUser} = useSelector((state: any) => state.auth);
     const [profile, setProfile] = useState<UserType>();
