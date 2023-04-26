@@ -1,18 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import PostType, { PostResponseType } from "../../modules/postType";
 import RecipeCard from "../recipes/recipe-card";
 import {getRecipeByAPIID} from "../../services/recipe-services";
 import { getUpvotesByPostId, getUpvotesByBothIds, removeUpvote, createUpvote } from "../../services/upvotes-services";
 import RecipeType from "../../modules/recipeType";
 import UserCard from "../profile/peopleSection/userCard";
 import { deletePostThunk } from "../../services/post-thunks";
-import {getGroupById} from "../../services/group-services";
-
-type upvoteType = {
-  user: string;
-  post: string;
-}
 
 export const PostCard = ({post}) => {
   const dispatch = useDispatch<any>();

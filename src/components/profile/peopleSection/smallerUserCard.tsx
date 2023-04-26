@@ -8,7 +8,7 @@ const UserCard = (user: UserType) => {
         <div className="row">
           <div className="col-5">
             <img
-                className="rounded-circle" height={48} width={48}
+                className="rounded-circle float-end" style = {{maxHeight: 48}}
                 src={`${user.avatar}`}
                 alt={user.username}
                 key={user.username}
@@ -25,19 +25,3 @@ const UserCard = (user: UserType) => {
 
 export default UserCard;
 
-
-// <li className="list-group-item">
-//     <div className="row">
-//         <div className="col-2">
-//             <img className="rounded-circle" height={48} src={`/images/${who.avatarIcon}`}/>
-//         </div>
-//         <div className="col-8">
-//             <div className="fw-bold wd-bold-text small">{who.userName}<i
-//                 className="fa fa-check-circle"></i></div>
-//             <div className = "small">@{who.handle}</div>
-//         </div>
-//         <div className="col-2">
-//             <button className="btn btn-primary rounded-pill float-end">Follow</button>
-//         </div>
-//     </div>
-// </li>
