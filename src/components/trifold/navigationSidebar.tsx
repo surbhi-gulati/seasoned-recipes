@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {useSelector} from "react-redux";
 
 const NavigationSidebar = ({ active = "feed" }) => {
+  const {currentUser} = useSelector((state: any) => state.auth);
   return (
     <div className="list-group mb-1 d-flex flex-wrap">
+      <h4 className="bi bi-egg"><span className="ms-2">Seasoned Recipes</span></h4>
       <div className="d-flex flex-row flex-wrap justify-content-between">
         <Link
           to="/feed"
@@ -51,6 +54,7 @@ const NavigationSidebar = ({ active = "feed" }) => {
           <span className="ms-2">Profile</span>
         </Link>
       </div>
+      {!currentUser && <Link to="/login">Login</Link>}
       <style>
         {`
           @media (max-width: 576px) {

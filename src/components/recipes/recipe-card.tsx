@@ -72,7 +72,7 @@ export const RecipeCard = (props: RecipeType) => {
             <span className="card-text">{props.yields}</span>
             {props.total_time_minutes && <div className="card-text">{`Cook time: ${props.total_time_minutes} minutes`}</div>}
             <div className="card-text mb-1"><small className="text-muted">Tags: </small>{getTags(props.tags)}</div>
-            {showMakePostButton ? <div><Link to={`/newPost/${props.id}`}><button type="button" className="btn btn-success">Make a Post</button></Link></div> : <i/>}
+            {showMakePostButton && <div><Link to={`/newPost/${props.id}`}><button type="button" className="btn btn-success">Make a Post</button></Link></div>}
           </div>
           <div className="col-1 d-inline-flex  pt-2">
             <p className="">{numberOfBookmarks}&nbsp;</p>

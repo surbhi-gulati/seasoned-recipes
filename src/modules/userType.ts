@@ -1,7 +1,8 @@
 export default interface UserType {
   _id: string,
   username: string,
-  name: string,
+  firstName: string,
+  lastName: string,
   avatar: string,
   phone: string,
   email: string
