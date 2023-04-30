@@ -23,10 +23,6 @@ We have built a dynamic MERN application with the following repository structure
     * profile-: 
 * `/server` : directory to interface with MongoDB, which hosts our profile and content data enabling us to have authenticated users
 
-# Enhancements
-
-* tsoa: uses REST in order to communicate with Tasty API
-
 # Seasoned Recipes Node Server
 *  Link: 
    *  https://github.com/lucass0717/seasoned-recipes-node-server
@@ -38,3 +34,6 @@ We have built a dynamic MERN application with the following repository structure
    *  Bookmark recipes
    *  Follow other users and like their posts
 
+# Future Work
+* Deploy to netlify and render.js
+* Styling refresh
