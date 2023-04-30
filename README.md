@@ -28,13 +28,13 @@ We have built a dynamic MERN application with the following repository structure
 * tsoa: uses REST in order to communicate with Tasty API
 
 # Seasoned Recipes Node Server
-Link: 
-- https://github.com/lucass0717/seasoned-recipes-node-server
-Functionality:
-- Multiple simultaneous user sessions with express-session
-- Join foodie groups to see posts from other users
-- Create and delete posts with associated recipes and groups
-- Search for recipes from Buzzfeed's tasty api
-- Bookmark recipes
-- Follow other users and like their posts
+*  Link: 
+   *  https://github.com/lucass0717/seasoned-recipes-node-server
+*  Functionality:
+   *  Multiple simultaneous user sessions with express-session
+   *  Join foodie groups to see posts from other users
+   *  Create and delete posts with associated recipes and groups
+   *  Search for recipes from Buzzfeed's tasty api
+   *  Bookmark recipes
+   *  Follow other users and like their posts
 
